@@ -11,12 +11,14 @@
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
 
         <a-assets>
-            <video id="video" src="fraction-residual-gas-ani.mp4"></video>
+            <video id="video" src="fraction-residual-gas-ani.mp4" autoplay loop muted></video>
         </a-assets>
 
         <a-marker preset="hiro">
             <!-- Adjusted width and height for mobile -->
-            <a-entity material="shader: flat" geometry="primitive: plane; width: 1.5; height: 2.7" videohandler="sourceType: video; src: #video"></a-entity>
+            <a-entity material="shader: flat" geometry="primitive: plane; width: 1.5; height: 2.7" 
+                      videohandler="sourceType: video; src: #video" rotation="-90 0 0"></a-entity>
+            <!-- Set rotation to -90 degrees to play the video horizontally -->
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
