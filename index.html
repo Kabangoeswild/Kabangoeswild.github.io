@@ -8,11 +8,11 @@
 <body>
   <a-scene>
     <a-assets>
-      <a-asset-item id="house" src="assets/3d/house/scene.gltf"></a-asset-item>
+        <a-entity gltf-model="./assets/magnemite/scene.gltf" rotation="0 180 0" scale="0.15 0.15 0.15" animation-mixer/></a-asset-item>
     </a-assets>
 
     <a-marker preset="hiro">
-        <a-entity gltf-model="#house" scale="0.009 0.009 0.009" position="0 0 0" rotation="0 90 5"></a-entity>
+        <a-entity gltf-model="./assets/magnemite/scene.gltf" scale="0.009 0.009 0.009" position="0 0 0" rotation="0 90 5"></a-entity>
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
