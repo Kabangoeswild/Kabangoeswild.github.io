@@ -16,7 +16,7 @@
 
         <a-marker preset="hiro">
             <!-- Adjusted width and height for mobile -->
-            <a-entity id="videoContainer" material="shader: flat; visible: false" geometry="primitive: plane; width: 1.5; height: 2.7" 
+            <a-entity id="videoContainer" material="shader: flat; visible: false" geometry="primitive: plane; width: 1; height: 2" 
                       videohandler="sourceType: video; src: #video" rotation="-90 0 0"></a-entity>
             <!-- Set rotation to -90 degrees to play the video horizontally -->
             <!-- Removed play button for iPhones -->
@@ -26,16 +26,3 @@
 </body>
 </html>
 
-<script>
-    document.querySelector('a-marker').addEventListener('markerFound', function() {
-        // Create the video element when marker is found
-        var video = document.createElement('video');
-        video.id = 'video';
-        video.src = 'fraction-residual-gas-ani.mp4';
-        video.autoplay = true;
-        video.loop = true;
-        video.muted = true;
-        video.playsInline = true; // For iOS
-        video.style.display = 'none'; // Hide the video element
-        video.addEventListener('loadedmetadata', function() {
-            // Once video metadata is loaded, show the video en
