@@ -11,20 +11,15 @@
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
 
         <a-assets>
-            <video id="video" src="fraction-residual-gas-ani.mp4" autoplay loop muted playsinline></video>
-            <!-- added playsinline to ensure video plays in fullscreen on iOS -->
+            <!-- Video asset removed from here -->
         </a-assets>
 
         <a-marker preset="hiro">
             <!-- Adjusted width and height for mobile -->
-            <a-entity material="shader: flat" geometry="primitive: plane; width: 1.5; height: 2.7" 
+            <a-entity id="videoContainer" material="shader: flat; visible: false" geometry="primitive: plane; width: 1.5; height: 2.7" 
                       videohandler="sourceType: video; src: #video" rotation="-90 0 0"></a-entity>
             <!-- Set rotation to -90 degrees to play the video horizontally -->
-            <!-- Added a play button for iPhones -->
-            <a-entity position="0 0.1 0" scale="0.5 0.5 0.5" geometry="primitive: plane" material="color: #333333" 
-                      text="value: PLAY; color: white; align: center; width: 6;" 
-                      event-set__play="_event: mousedown; _target: #video; visible: false" 
-                      event-set__pause="_event: mousedown; _target: #video; visible: true"></a-entity>
+            <!-- Removed play button for iPhones -->
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
@@ -32,11 +27,15 @@
 </html>
 
 <script>
-    // JavaScript to play the video once the marker is detected (for Android)
     document.querySelector('a-marker').addEventListener('markerFound', function() {
-        var video = document.getElementById('video');
-        if(video.paused) {
-            video.play();
-        }
-    });
-</script>
+        // Create the video element when marker is found
+        var video = document.createElement('video');
+        video.id = 'video';
+        video.src = 'fraction-residual-gas-ani.mp4';
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true; // For iOS
+        video.style.display = 'none'; // Hide the video element
+        video.addEventListener('loadedmetadata', function() {
+            // Once video metadata is loaded, show the video en
