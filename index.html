@@ -10,15 +10,15 @@
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
         <a-assets>
-            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" muted autoplay loop playsinline></video>
+            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" muted autoplay loop playsinline controls></video> <!-- Added controls attribute -->
         </a-assets>
         <a-marker preset="hiro">
-            <a-video controls src="#video" width="4" height="2.25" rotation="0 0 0" material="shader: flat; transparent: true;"></a-video>
-            <a-plane position="0 1.8 -3" rotation="-90 0 0" width="1.5" height="1" color="#FF0000" opacity="0.8" id="playButton"></a-plane> <!-- Changed color to red -->
+            <a-video src="#video" width="4" height="2.25" rotation="0 90 0" material="shader: flat; transparent: true;"></a-video>
+            <a-plane position="0 1.8 -3" rotation="-90 0 0" width="1.5" height="1" color="#FF0000" opacity="0.8" id="playButton"></a-plane>
             <a-text value="▶️" align="center" position="0 1.8 -3.01" scale="2 2 1" color="white"></a-text>
         </a-marker>
         <a-entity camera></a-entity>
-        <a-plane visible="false" position="0 1.5 -4" rotation="0 0 0" width="4" height="2" material="color: red; opacity: 0.8;" id="errorPlane">
+        <a-plane visible="false" position="0 1.5 -4" rotation="-90 0 0" width="4" height="2" material="color: red; opacity: 0.8;" id="errorPlane">
             <a-text value="Video source not found" align="center" position="0 0 0.1" color="white"></a-text>
         </a-plane>
     </a-scene>
