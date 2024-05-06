@@ -11,14 +11,14 @@
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
         <a-assets>
             <!-- Preload the video and provide a fallback image -->
-            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" muted loop></video>
+            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" muted autoplay loop playsinline></video>
         </a-assets>
         <a-marker preset="hiro">
             <!-- Display video if available -->
             <a-video src="#video" width="4" height="2.25" rotation="0 90 0" material="shader: flat; transparent: true;"></a-video>
             <!-- Play button for user interaction -->
-            <a-plane position="0 1.5 -3" rotation="-90 0 0" width="1" height="1" color="#333" opacity="0.8" id="playButton"></a-plane>
-            <a-text value="▶️" align="center" position="0 1.5 -3.01" scale="2 2 1" color="white"></a-text>
+            <a-plane position="0 1.8 -3" rotation="-90 0 0" width="1.5" height="1" color="#333" opacity="0.8" id="playButton"></a-plane>
+            <a-text value="▶️" align="center" position="0 1.8 -3.01" scale="2 2 1" color="white"></a-text>
         </a-marker>
         <a-entity camera></a-entity>
         <!-- Error message if video source is not found -->
