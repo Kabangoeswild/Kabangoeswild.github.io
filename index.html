@@ -10,9 +10,9 @@
 <body style="margin: 0; overflow: hidden;">
     
        <a-scene embedded arjs='sourceType: webcam;'>
-        <video width="640" height="360" controls>
-            <source src="fraction-residual-gas-ani.mp4" type="video/mp4">
-        </video>
+      <a-assets>
+        <a-asset-item id="animated-asset" <video controls loop src="fraction-residual-gas-ani.mp4"></video> </a-asset-item>
+    </a-assets>
 		<a-marker-camera preset='hiro'></a-marker-camera>
         
     </a-scene>
