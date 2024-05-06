@@ -16,13 +16,10 @@
         <a-marker preset="hiro">
             <!-- Display video if available -->
             <a-video src="#video" width="4" height="2.25" rotation="-90 0 0" material="shader: flat; transparent: true;"></a-video>
-            <!-- Play button for user interaction -->
-            <a-plane position="0 0.5 0" width="1" height="0.5" material="color: #333; opacity: 0.8;"></a-plane>
-            <a-text value="▶️" align="center" position="0 0.5 0.01" scale="2 2 1" color="white"></a-text>
         </a-marker>
         <a-entity camera></a-entity>
         <!-- Error message if video source is not found -->
-        <a-plane visible="false" position="0 1.5 -4" rotation="0 90 0" width="4" height="2" material="color: red; opacity: 0.8;" id="errorPlane">
+        <a-plane visible="false" position="0 1.5 -4" rotation="-90 0 0" width="4" height="2" material="color: red; opacity: 0.8;" id="errorPlane">
             <a-text value="Video source not found" align="center" position="0 0 0.1" color="white"></a-text>
         </a-plane>
     </a-scene>
@@ -34,15 +31,6 @@
         video.onerror = function() {
             errorPlane.setAttribute('visible', 'true');
         };
-        
-        // Play button functionality
-        var playButton = document.querySelector('a-plane');
-        playButton.addEventListener('click', function() {
-            if (video.paused) {
-                video.play();
-                playButton.setAttribute('visible', 'false'); // Hide play button after click
-            }
-        });
     </script>
 </body>
 </html>
