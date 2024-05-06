@@ -11,13 +11,11 @@
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
         <a-assets>
             <!-- Preload the video and provide a fallback image -->
-            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto">
-                <img id="fallbackImage" src="fallback-image.jpg" alt="Fallback Image">
-            </video>
+            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" autoplay muted loop></video>
         </a-assets>
         <a-marker preset="hiro">
-            <!-- Display video if available, otherwise display fallback image -->
-            <a-video autoplay src="#video" width="4" height="2.25" rotation="0 -90 0" material="src: #video; shader: flat"></a-video>
+            <!-- Display video if available -->
+            <a-video src="#video" width="4" height="2.25" rotation="-90 0 0" material="shader: flat; transparent: true;"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
         <!-- Error message if video source is not found -->
@@ -35,4 +33,6 @@
         };
     </script>
 </body>
+</html>
+
 </html>
