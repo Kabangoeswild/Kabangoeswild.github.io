@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>AR.js Video auf Hiro Marker</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    
-       <a-scene embedded arjs='sourceType: webcam;'>
-       <img autoplay loop src="VelocityCylinderXZ-ezgif.com-video-to-gif-converter.gif" ></img>
-		<a-marker-camera preset='hiro'></a-marker-camera>
-        
+    <a-scene embedded arjs='sourceType: webcam;'>
+        <!-- Display GIF if available -->
+        <a-gif src="VelocityCylinderXZ-ezgif.com-video-to-gif-converter.gif" autoplay loop></a-gif>
+        <a-marker-camera preset='hiro'></a-marker-camera>
     </a-scene>
 </body>
 </html>
