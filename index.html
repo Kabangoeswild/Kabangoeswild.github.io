@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR.js Video auf Hiro Marker</title>
+    <title>AR.js GIF on Marker</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam;'>
-        <!-- Display GIF if available -->
-        <a-gif src="VelocityCylinderXZ-ezgif.com-video-to-gif-converter.gif" autoplay loop></a-gif>
-        <a-marker-camera preset='hiro'></a-marker-camera>
+        <!-- Basic marker -->
+        <a-marker type="pattern" url="https://raw.githack.com/AR-js-org/AR.js/master/data/images/hiro.patt">
+            <!-- Display GIF if available -->
+            <a-image src="VelocityCylinderXZ-ezgif.com-video-to-gif-converter.gif" width="2" height="2" position="0 0 -3"></a-image>
+        </a-marker>
+        <!-- Default camera -->
+        <a-entity camera></a-entity>
     </a-scene>
 </body>
 </html>
