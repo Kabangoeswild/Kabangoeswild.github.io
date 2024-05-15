@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <!-- we import arjs version without NFT but with marker + location based support -->
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  <body style="margin : 0px; overflow: hidden;">
+  <head>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body style="margin: 0px; overflow: hidden;">
     <a-scene embedded arjs>
       <a-marker preset="hiro">
-        <!-- we use cors proxy to avoid cross-origin problems -->
         <a-assets>
-          <video id="GAS" src="fraction-residual-gas-ani.mp4"></video>
-          </a-assets>
-        <a-entity
-          position="0 0 0"
-          scale="0.05 0.05 0.05"
-         <a-video src="GAS" muted autoplay loop playsinline crossorigin="anonymous"  width="1" height="0.552" position="0 0 0"></a-video>
-           window.addEventListener('targetFound', function () {
-    // Get video element by id
-    var videoElement = document.getElementById("GAS");
-    
-    // Play the video
-    videoElement.play();
-  });
-        ></a-entity>
+          <video id="GAS" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous"></video>
+        </a-assets>
+        <a-video 
+          src="#GAS" 
+          muted 
+          autoplay 
+          loop 
+          playsinline 
+          width="1" 
+          height="0.552" 
+          position="0 0 0">
+        </a-video>
+        <script>
+          document.querySelector('a-marker').addEventListener('markerFound', function() {
+            var videoElement = document.getElementById("GAS");
+            videoElement.play();
+          });
+        </script>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
