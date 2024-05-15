@@ -14,6 +14,13 @@
           position="0 0 0"
           scale="0.05 0.05 0.05"
          <a-video src="GAS" muted autoplay loop playsinline crossorigin="anonymous"  width="1" height="0.552" position="0 0 0"></a-video>
+           window.addEventListener('targetFound', function () {
+    // Get video element by id
+    var videoElement = document.getElementById("GAS");
+    
+    // Play the video
+    videoElement.play();
+  });
         ></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
