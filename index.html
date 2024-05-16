@@ -1,33 +1,34 @@
+
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>GeoAR.js demo</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  </head>
-  <body style="margin: 0px; overflow: hidden;">
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
-        <a-assets>
-          <video id="GAS" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous"></video>
-        </a-assets>
-        <a-video 
-          src="#GAS" 
-          muted 
-          autoplay 
-          loop 
-          playsinline 
-          width="1" 
-          height="0.552" 
-          position="0 0 0">
-        </a-video>
-        <script>
-          document.querySelector('a-marker').addEventListener('markerFound', function() {
-            var videoElement = document.getElementById("GAS");
-            videoElement.play();
-          });
-        </script>
-      </a-marker>
-      <a-entity camera></a-entity>
-    </a-scene>
-  </body>
-</html>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script>
+        THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
+    </script>
+</head>
+
+<body style='margin: 0; overflow: hidden;'>
+    <a-scene
+        vr-mode-ui="enabled: false"
+		embedded
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+
+            <a-marker preset="hiro">
+             <!-- <a-assets>
+                <img id="GAS" src="VelocityCylinderXZ-ezgif.com-video-to-gif-converter.gif" crossorigin="anonymous"></img>
+              </a-assets>
+            -->
+              
+              <img autoplay loop src="VelocityCylinderXZ-ezgif.com-video-to-gif-converter.gif" ></img>
+    
+            </a-marker>
+            <a-entity camera></a-entity>
+          </a-scene>
+        </body>
+      </html>
