@@ -8,7 +8,7 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
+    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true" background="color: #00000000">
         <a-assets>
             <!-- Preload the video and fallback image -->
             <video id="video" src="nobackground.webm" crossorigin="anonymous" preload="auto" loop muted></video>
@@ -16,7 +16,7 @@
         </a-assets>
         <a-marker preset="hiro">
             <!-- Display video if available, otherwise display fallback image -->
-            <a-video id="markerVideo" autoplay loop="true" src="#video" width="1" height="0.75" rotation="-90 0 0" visible="true"></a-video>
+            <a-video id="markerVideo" autoplay loop="true" src="#video" width="0.5" height="0.35" rotation="90 0 90" visible="true"></a-video>
             <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
         </a-marker>
         <a-entity camera></a-entity>
