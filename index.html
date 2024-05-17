@@ -11,13 +11,13 @@
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
         <a-assets>
             <!-- Preload the video and fallback image -->
-            <video id="animatedVideo" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" loop style="display: none;"></video>
+            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" loop></video>
             <img id="fallbackImage" src="fallback-image.jpg" alt="Fallback Image">
         </a-assets>
         <a-marker preset="hiro">
-            <!-- Display the video if available, otherwise display fallback image -->
-            <a-video id="markerVideo" src="#animatedVideo" width="1" height="0.75" rotation="90 0 90"></a-video>
-            <a-image id="markerImage" width="1" height="0.75" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
+            <!-- Display video if available, otherwise display fallback image -->
+            <a-video id="markerVideo" autoplay src="#video" width="0.5" height="0.35" rotation="90 0 90" material="shader: flat"></a-video>
+            <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
         </a-marker>
         <a-entity camera></a-entity>
         <!-- Error message if video source is not found -->
@@ -27,12 +27,11 @@
     </a-scene>
     <script>
         // JavaScript to handle the display of the video or fallback image
-        var video = document.getElementById('animatedVideo');
+        var video = document.getElementById('video');
         var markerVideo = document.getElementById('markerVideo');
         var markerImage = document.getElementById('markerImage');
         var errorPlane = document.getElementById('errorPlane');
-        var fallbackImage = document.getElementById('fallbackImage').src;
-
+        
         video.oncanplay = function() {
             markerVideo.setAttribute('visible', 'true');
             markerImage.setAttribute('visible', 'false');
@@ -41,7 +40,6 @@
         video.onerror = function() {
             markerVideo.setAttribute('visible', 'false');
             markerImage.setAttribute('visible', 'true');
-            markerImage.setAttribute('src', fallbackImage);
             errorPlane.setAttribute('visible', 'true');
         };
 
@@ -49,7 +47,6 @@
         if (video.readyState === 0 || video.error) {
             markerVideo.setAttribute('visible', 'false');
             markerImage.setAttribute('visible', 'true');
-            markerImage.setAttribute('src', fallbackImage);
             errorPlane.setAttribute('visible', 'true');
         }
     </script>
