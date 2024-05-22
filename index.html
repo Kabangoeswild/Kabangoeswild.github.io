@@ -8,15 +8,15 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
+    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true" background="transparent">
         <a-assets>
             <!-- Preload the video and fallback image -->
-            <video id="video" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" loop muted></video>
+            <video id="video" src="nobackground.webm" crossorigin="anonymous" preload="auto" loop muted></video>
             <img id="fallbackImage" src="fallback-image.jpg" alt="Fallback Image">
         </a-assets>
         <a-marker preset="hiro">
             <!-- Display video if available, otherwise display fallback image -->
-            <a-video id="markerVideo" autoplay loop="true" src="#video" width="1" height="0.75" rotation="-90 0 0" visible="true"></a-video>
+            <a-video id="markerVideo" autoplay loop="true" src="#video" width="0.5" height="0.35" rotation="90 0 90" visible="true" material="opacity: 0.8"></a-video>
             <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
         </a-marker>
         <a-entity camera></a-entity>
@@ -33,6 +33,7 @@
         var errorPlane = document.getElementById('errorPlane');
 
         video.oncanplay = function() {
+            video.play();
             markerVideo.setAttribute('visible', 'true');
             markerImage.setAttribute('visible', 'false');
             errorPlane.setAttribute('visible', 'false');
@@ -44,14 +45,12 @@
             errorPlane.setAttribute('visible', 'true');
         };
 
-        // Additional check to hide error plane once video starts playing
         video.onplay = function() {
             errorPlane.setAttribute('visible', 'false');
         };
 
-        // Ensure the video starts playing
         document.addEventListener("DOMContentLoaded", function() {
-            if (video.readyState >= 3) { // Check if video is ready
+            if (video.readyState >= 3) {
                 video.play();
                 markerVideo.setAttribute('visible', 'true');
                 markerImage.setAttribute('visible', 'false');
