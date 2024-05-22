@@ -8,16 +8,16 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true" background="transparent">
+    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
         <a-assets>
             <!-- Preload the video and fallback image -->
-            <video id="video" src="nobackground.webm" crossorigin="anonymous" preload="auto" loop muted></video>
+            <video id="animatedVideo" src="fraction-residual-gas-ani.mp4" crossorigin="anonymous" preload="auto" loop style="display: none;"></video>
             <img id="fallbackImage" src="fallback-image.jpg" alt="Fallback Image">
         </a-assets>
         <a-marker preset="hiro">
-            <!-- Display video if available, otherwise display fallback image -->
-            <a-video id="markerVideo" autoplay loop="true" src="#video" width="0.5" height="0.35" rotation="90 0 90" visible="true" material="opacity: 0.8"></a-video>
-            <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
+            <!-- Display the video if available, otherwise display fallback image -->
+            <a-video id="markerVideo" src="#animatedVideo" width="1" height="0.75" rotation="90 0 90" material="opacity: 0.8"></a-video>
+            <a-image id="markerImage" width="1" height="0.75" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
         </a-marker>
         <a-entity camera></a-entity>
         <!-- Error message if video source is not found -->
@@ -27,43 +27,31 @@
     </a-scene>
     <script>
         // JavaScript to handle the display of the video or fallback image
-        var video = document.getElementById('video');
+        var video = document.getElementById('animatedVideo');
         var markerVideo = document.getElementById('markerVideo');
         var markerImage = document.getElementById('markerImage');
         var errorPlane = document.getElementById('errorPlane');
+        var fallbackImage = document.getElementById('fallbackImage').src;
 
         video.oncanplay = function() {
-            video.play();
             markerVideo.setAttribute('visible', 'true');
             markerImage.setAttribute('visible', 'false');
-            errorPlane.setAttribute('visible', 'false');
         };
 
         video.onerror = function() {
             markerVideo.setAttribute('visible', 'false');
             markerImage.setAttribute('visible', 'true');
+            markerImage.setAttribute('src', fallbackImage);
             errorPlane.setAttribute('visible', 'true');
         };
 
-        video.onplay = function() {
-            errorPlane.setAttribute('visible', 'false');
-        };
-
-        document.addEventListener("DOMContentLoaded", function() {
-            if (video.readyState >= 3) {
-                video.play();
-                markerVideo.setAttribute('visible', 'true');
-                markerImage.setAttribute('visible', 'false');
-                errorPlane.setAttribute('visible', 'false');
-            } else {
-                video.addEventListener('canplay', function() {
-                    video.play();
-                    markerVideo.setAttribute('visible', 'true');
-                    markerImage.setAttribute('visible', 'false');
-                    errorPlane.setAttribute('visible', 'false');
-                });
-            }
-        });
+        // Fallback in case the video fails to load
+        if (video.readyState === 0 || video.error) {
+            markerVideo.setAttribute('visible', 'false');
+            markerImage.setAttribute('visible', 'true');
+            markerImage.setAttribute('src', fallbackImage);
+            errorPlane.setAttribute('visible', 'true');
+        }
     </script>
 </body>
 </html>
