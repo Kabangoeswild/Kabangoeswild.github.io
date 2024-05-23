@@ -17,9 +17,9 @@
         </a-assets>
         <a-marker preset="hiro">
             <!-- Display the first video -->
-            <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
+            <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" rotation="-90 0 0" position="0 0.75 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
             <!-- Display the second video, rotated 90 degrees -->
-            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" rotation="0 0 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" rotation="0 0 0" position="0 0.75 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
             <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
         </a-marker>
         <a-entity camera look-controls></a-entity>
