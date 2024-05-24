@@ -6,31 +6,9 @@
     <title>AR</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <style>
-        #cameraButtons {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 100;
-        }
-        button, select {
-            padding: 10px;
-            margin: 5px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-    </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <div id="cameraButtons">
-        <button id="frontCamera">Front Camera</button>
-        <select id="rearCameras">
-            <option value="" disabled selected>Select Rear Camera</option>
-        </select>
-    </div>
-    <a-scene embedded arjs='trackingMethod: best;'>
+    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
         <a-assets>
             <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
@@ -39,81 +17,24 @@
             <a-video id="markerVideo1" autoplay loop src="#video1" width="1" height="0.75" rotation="-90 0 0" material="transparent: true; opacity: 0.8"></a-video>
             <a-video id="markerVideo2" autoplay loop src="#video2" width="1" height="0.75" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
         </a-marker>
-        <a-entity camera></a-entity>
+        <a-entity camera position="0 0 0"></a-entity> <!-- Adjust the position to control zoom level -->
     </a-scene>
     <script>
-        var video1 = document.getElementById('video1');
-        var video2 = document.getElementById('video2');
-        var markerVideo1 = document.getElementById('markerVideo1');
-        var markerVideo2 = document.getElementById('markerVideo2');
-        var scene = document.querySelector('a-scene');
-        var cameraSource = 'environment'; // default to rear camera
-        var stream = null;
-
-        function updateCameraSource(deviceId) {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-            navigator.mediaDevices.getUserMedia({
-                video: {
-                    deviceId: deviceId ? { exact: deviceId } : undefined
-                }
-            }).then(function (newStream) {
-                stream = newStream;
-                var videoTracks = stream.getVideoTracks();
-                if (videoTracks.length > 0) {
-                    var settings = videoTracks[0].getSettings();
-                    var arjsConfig = {
-                        sourceType: 'video',
-                        sourceUrl: URL.createObjectURL(newStream)
-                    };
-                    scene.setAttribute('arjs', Object.keys(arjsConfig).map(function (key) {
-                        return key + ':' + arjsConfig[key];
-                    }).join(';'));
-                }
-            }).catch(function (error) {
-                console.error('Error accessing media devices.', error);
-            });
-        }
-
-        document.getElementById('frontCamera').addEventListener('click', function () {
-            updateCameraSource(null); // null deviceId for front camera
-        });
-
-        document.getElementById('rearCameras').addEventListener('change', function (event) {
-            updateCameraSource(event.target.value);
-        });
-
-        async function enumerateCameras() {
-            const devices = await navigator.mediaDevices.enumerateDevices();
-            const videoSelect = document.getElementById('rearCameras');
-
-            devices.forEach(device => {
-                if (device.kind === 'videoinput') {
-                    const option = document.createElement('option');
-                    option.value = device.deviceId;
-                    option.text = device.label || `Camera ${videoSelect.length + 1}`;
-                    videoSelect.appendChild(option);
-                }
-            });
-        }
-
-        enumerateCameras();
-
-        scene.addEventListener('markerFound', function () {
+        document.querySelector('a-scene').addEventListener('markerFound', function() {
             var camera = document.querySelector('[camera]');
-            var intervalId = setInterval(function () {
+            var markerVideo1 = document.getElementById('markerVideo1');
+            var markerVideo2 = document.getElementById('markerVideo2');
+            var intervalId = setInterval(function() {
                 var zRotation = THREE.Math.radToDeg(camera.object3D.rotation.z);
                 var showVideo2 = zRotation > 15 && zRotation < 165;
                 markerVideo1.setAttribute('visible', !showVideo2);
                 markerVideo2.setAttribute('visible', showVideo2);
             }, 100);
 
-            scene.addEventListener('markerLost', function () {
+            document.querySelector('a-scene').addEventListener('markerLost', function() {
                 clearInterval(intervalId);
             }, { once: true });
         });
     </script>
 </body>
 </html>
-
