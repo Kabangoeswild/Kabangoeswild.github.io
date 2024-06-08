@@ -31,8 +31,28 @@
                 markerVideo2.setAttribute('visible', showVideo2);
             }, 100);
 
+            // Toggle between cameras
+            var cameras = document.querySelectorAll('[camera]');
+            var currentCameraIndex = 0;
+
+            function toggleCamera() {
+                cameras.forEach(function(camera, index) {
+                    if (index === currentCameraIndex) {
+                        camera.setAttribute('active', 'true');
+                    } else {
+                        camera.removeAttribute('active');
+                    }
+                });
+                currentCameraIndex = (currentCameraIndex + 1) % cameras.length;
+            }
+
+            // Toggle camera on click
+            document.addEventListener('click', toggleCamera);
+
+            // Clear interval and remove event listener when marker is lost
             document.querySelector('a-scene').addEventListener('markerLost', function() {
                 clearInterval(intervalId);
+                document.removeEventListener('click', toggleCamera);
             }, { once: true });
         });
     </script>
