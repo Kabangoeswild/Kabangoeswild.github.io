@@ -14,8 +14,8 @@
             <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
         </a-assets>
         <a-marker preset="hiro">
-            <a-video id="markerVideo1" autoplay loop src="#video1" width="1" height="0.75" rotation="-90 0 0" material="transparent: true; opacity: 0.8"></a-video>
-            <a-video id="markerVideo2" autoplay loop src="#video2" width="1" height="0.75" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
+            <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
         </a-marker>
         <a-entity camera position="0 0 -10"></a-entity> <!-- Adjust the position to control zoom level -->
     </a-scene>
