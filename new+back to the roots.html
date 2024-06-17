@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0;">
+    <title>AR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;'>
+        <a-assets>
+            <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted></video>
+            <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted></video>
+        </a-assets>
+        <a-marker preset="hiro">
+            <a-video id="markerVideo1" autoplay loop src="#video1" width="1" height="0.75" rotation="-90 0 0" material="transparent: true; opacity: 0.8"></a-video>
+            <a-video id="markerVideo2" autoplay loop src="#video2" width="1" height="0.75" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
+        </a-marker>
+        <a-entity camera position="0 0 -10"></a-entity> <!-- Adjust the position to control zoom level -->
+    </a-scene>
+    <script>
+        document.querySelector('a-scene').addEventListener('markerFound', function() {
+            var camera = document.querySelector('[camera]');
+            var markerVideo1 = document.getElementById('markerVideo1');
+            var markerVideo2 = document.getElementById('markerVideo2');
+            var intervalId = setInterval(function() {
+                var zRotation = THREE.Math.radToDeg(camera.object3D.rotation.z);
+                var showVideo2 = zRotation > 15 && zRotation < 165;
+                markerVideo1.setAttribute('visible', !showVideo2);
+                markerVideo2.setAttribute('visible', showVideo2);
+            }, 100);
+
+            // Toggle between cameras
+            var cameras = document.querySelectorAll('[camera]');
+            var currentCameraIndex = 0;
+
+            function toggleCamera() {
+                cameras.forEach(function(camera, index) {
+                    if (index === currentCameraIndex) {
+                        camera.setAttribute('active', 'true');
+                    } else {
+                        camera.removeAttribute('active');
+                    }
+                });
+                currentCameraIndex = (currentCameraIndex + 1) % cameras.length;
+            }
+
+            // Toggle camera on click
+            document.addEventListener('click', toggleCamera);
+
+            // Clear interval and remove event listener when marker is lost
+            document.querySelector('a-scene').addEventListener('markerLost', function() {
+                clearInterval(intervalId);
+                document.removeEventListener('click', toggleCamera);
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
