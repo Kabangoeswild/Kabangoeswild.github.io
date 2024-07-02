@@ -74,28 +74,27 @@
 
         document.querySelector('a-scene').addEventListener('markerFound', function() {
             var camera = document.querySelector('a-entity[camera]');
+            var previousVideo = 'video1';
+
             setInterval(function() {
                 var cameraRotationY = THREE.Math.radToDeg(camera.object3D.rotation.y);
 
                 if (cameraRotationY > -45 && cameraRotationY < 45) {
-                    if (!markerVideo1.getAttribute('visible')) {
+                   if (previousVideo !== 'video1') {
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
                         video2.pause();
                         video1.play();
+                        previousVideo = 'video1';
                     }
-                } else if (cameraRotationY > 45 || cameraRotationY < -45) {
-                    if (!markerVideo2.getAttribute('visible')) {
+                } else if ((cameraRotationY > 45 && cameraRotationY < 135) || (cameraRotationY < -45 && cameraRotationY > -135)) {
+                    if (previousVideo !== 'video2') {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
                         video1.pause();
                         video2.play();
+                        previousVideo = 'video2';
                     }
-                } else {
-                    markerVideo1.setAttribute('visible', 'true');
-                    markerVideo2.setAttribute('visible', 'false');
-                    video2.pause();
-                    video1.play();
                 }
             }, 100);
         });
