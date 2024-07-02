@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR.js Camera Position2</title>
+    <title>AR.js Camera Position</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
         <a-entity camera></a-entity>
-        <a-text id="cameraPositionText" position="0 0 0" value="Camera Position: " color="black"></a-text>
+        <a-plane position="0 2 -4" width="4" height="1" color="white" opacity="0.5"></a-plane>
+        <a-text id="cameraPositionText" position="0 2 -4" value="Camera Position: " color="black" align="center"></a-text>
     </a-scene>
 
     <script>
-        document.querySelector('a-scene').addEventListener('markerFound', function() {
+        document.querySelector('a-scene').addEventListener('loaded', function() {
             var camera = document.querySelector('a-entity[camera]');
             var cameraPositionText = document.getElementById('cameraPositionText');
 
