@@ -10,20 +10,16 @@
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
         <a-assets>
-            <!-- Preload the videos and fallback image -->
             <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <img id="fallbackImage" src="fallback-image.jpg" alt="Fallback Image">
         </a-assets>
         <a-marker preset="hiro">
-            <!-- Display the first video -->
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
-            <!-- Display the second video, rotated 90 degrees -->
             <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 0 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
             <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
         </a-marker>
         <a-entity camera></a-entity>
-        <!-- Error message if video source is not found -->
         <a-plane visible="false" position="0 1.5 -4" rotation="0 0 0" width="4" height="2" material="color: red; opacity: 0.8;" id="errorPlane">
             <a-text value="Video source not found" align="center" position="0 0 0.1" color="white"></a-text>
         </a-plane>
@@ -37,7 +33,6 @@
         var markerImage = document.getElementById('markerImage');
         var errorPlane = document.getElementById('errorPlane');
 
-        // Handle video visibility based on video load status
         function handleVideoVisibility(video, markerVideo) {
             video.oncanplay = function() {
                 markerVideo.setAttribute('visible', 'true');
@@ -59,7 +54,6 @@
         handleVideoVisibility(video1, markerVideo1);
         handleVideoVisibility(video2, markerVideo2);
 
-        // Ensure the videos start playing
         document.addEventListener("DOMContentLoaded", function() {
             if (video1.readyState >= 3) {
                 video1.play();
@@ -78,14 +72,12 @@
             }
         });
 
-        // Switch video based on camera position
         document.querySelector('a-scene').addEventListener('markerFound', function() {
             var camera = document.querySelector('a-entity[camera]');
             setInterval(function() {
                 var cameraPosition = camera.object3D.position;
                 var markerPosition = document.querySelector('a-marker').object3D.position;
 
-                // Calculate distance between camera and marker
                 var distance = cameraPosition.distanceTo(markerPosition);
                 var angle = Math.abs(camera.object3D.rotation.y) % (2 * Math.PI);
 
