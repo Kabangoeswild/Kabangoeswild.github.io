@@ -12,17 +12,12 @@
         <a-assets>
             <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <img id="fallbackImage" src="fallback-image.jpg" alt="Fallback Image">
         </a-assets>
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
-            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
-            <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
-        <a-plane visible="false" position="0 1.5 -4" rotation="0 0 0" width="4" height="2" material="color: red; opacity: 0.8;" id="errorPlane">
-            <a-text value="Video source not found" align="center" position="0 0 0.1" color="white"></a-text>
-        </a-plane>
     </a-scene>
 
     <script>
@@ -30,29 +25,6 @@
         var video2 = document.getElementById('video2');
         var markerVideo1 = document.getElementById('markerVideo1');
         var markerVideo2 = document.getElementById('markerVideo2');
-        var markerImage = document.getElementById('markerImage');
-        var errorPlane = document.getElementById('errorPlane');
-
-        function handleVideoVisibility(video, markerVideo) {
-            video.oncanplay = function() {
-                markerVideo.setAttribute('visible', 'true');
-                markerImage.setAttribute('visible', 'false');
-                errorPlane.setAttribute('visible', 'false');
-            };
-
-            video.onerror = function() {
-                markerVideo.setAttribute('visible', 'false');
-                markerImage.setAttribute('visible', 'true');
-                errorPlane.setAttribute('visible', 'true');
-            };
-
-            video.onplay = function() {
-                errorPlane.setAttribute('visible', 'false');
-            };
-        }
-
-        handleVideoVisibility(video1, markerVideo1);
-        handleVideoVisibility(video2, markerVideo2);
 
         document.addEventListener("DOMContentLoaded", function() {
             if (video1.readyState >= 3) {
