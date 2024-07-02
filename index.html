@@ -15,7 +15,7 @@
         </a-assets>
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
-            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
@@ -54,7 +54,7 @@
                 if (cameraRotationY > -45 && cameraRotationY < 45) {
                    if (previousVideo !== 'video1') {
                         markerVideo1.setAttribute('visible', 'true');
-                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'true');
                         video2.pause();
                         video1.play();
                         previousVideo = 'video1';
@@ -62,7 +62,7 @@
                 } else if ((cameraRotationY > 45 && cameraRotationY < 135) || (cameraRotationY < -45 && cameraRotationY > -135)) {
                     if (previousVideo !== 'video2') {
                         markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'false');
                         video1.pause();
                         video2.play();
                         previousVideo = 'video2';
