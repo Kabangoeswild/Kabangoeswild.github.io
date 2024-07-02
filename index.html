@@ -3,48 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR.js Camera Position and Rotation</title>
+    <title>AR.js Video on Hiro Marker</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
-        <a-marker preset="hiro" id="hiroMarker">
-            <a-box position="0 0.5 0" material="opacity: 0;"></a-box>
+        <a-assets>
+            <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+            <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        </a-assets>
+        <a-marker preset="hiro">
+            <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
-        <a-plane position="0 2 -4" width="4" height="1" color="white" opacity="0.5"></a-plane>
-        <a-text id="cameraPositionText" position="0 2.2 -4" value="Camera Position: " color="black" align="center"></a-text>
-        <a-text id="cameraRotationText" position="0 1.8 -4" value="Camera Rotation: " color="black" align="center"></a-text>
     </a-scene>
 
     <script>
-        document.querySelector('a-scene').addEventListener('loaded', function() {
+        var video1 = document.getElementById('video1');
+        var video2 = document.getElementById('video2');
+        var markerVideo1 = document.getElementById('markerVideo1');
+        var markerVideo2 = document.getElementById('markerVideo2');
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (video1.readyState >= 3) {
+                video1.play();
+            } else {
+                video1.addEventListener('canplay', function() {
+                    video1.play();
+                });
+            }
+
+            if (video2.readyState >= 3) {
+                video2.play();
+            } else {
+                video2.addEventListener('canplay', function() {
+                    video2.play();
+                });
+            }
+        });
+
+        document.querySelector('a-scene').addEventListener('markerFound', function() {
             var camera = document.querySelector('a-entity[camera]');
-            var marker = document.querySelector('#hiroMarker');
-            var cameraPositionText = document.getElementById('cameraPositionText');
-            var cameraRotationText = document.getElementById('cameraRotationText');
+            var previousVideo = 'video1';
 
             setInterval(function() {
-                if (marker.object3D.visible) {
-                    var cameraPosition = new THREE.Vector3();
-                    var markerPosition = new THREE.Vector3();
-                    camera.object3D.getWorldPosition(cameraPosition);
-                    marker.object3D.getWorldPosition(markerPosition);
-                    var relativePosition = cameraPosition.sub(markerPosition);
+                var cameraRotationY = THREE.Math.radToDeg(camera.object3D.rotation.y);
 
-                    var cameraRotation = new THREE.Euler();
-                    var markerRotation = new THREE.Euler();
-                    camera.object3D.getWorldRotation(cameraRotation);
-                    marker.object3D.getWorldRotation(markerRotation);
-                    var relativeRotation = {
-                        x: THREE.Math.radToDeg(cameraRotation.x - markerRotation.x).toFixed(2),
-                        y: THREE.Math.radToDeg(cameraRotation.y - markerRotation.y).toFixed(2),
-                        z: THREE.Math.radToDeg(cameraRotation.z - markerRotation.z).toFixed(2)
-                    };
-
-                    cameraPositionText.setAttribute('value', `Camera Position: x=${relativePosition.x.toFixed(2)}, y=${relativePosition.y.toFixed(2)}, z=${relativePosition.z.toFixed(2)}`);
-                    cameraRotationText.setAttribute('value', `Camera Rotation: x=${relativeRotation.x}, y=${relativeRotation.y}, z=${relativeRotation.z}`);
+                if (cameraRotationY > -45 && cameraRotationY < 45) {
+                   if (previousVideo !== 'video1') {
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'true');
+                        video2.pause();
+                        video1.play();
+                        previousVideo = 'video1';
+                    }
+                } else if ((cameraRotationY > 45 && cameraRotationY < 135) || (cameraRotationY < -45 && cameraRotationY > -135)) {
+                    if (previousVideo !== 'video2') {
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'false');
+                        video1.pause();
+                        video2.play();
+                        previousVideo = 'video2';
+                    }
                 }
             }, 100);
         });
