@@ -16,7 +16,7 @@
         </a-assets>
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
-            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 0 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
             <a-image id="markerImage" src="#fallbackImage" width="0.5" height="0.35" rotation="90 0 90" visible="false" material="shader: flat"></a-image>
         </a-marker>
         <a-entity camera></a-entity>
@@ -75,10 +75,11 @@
         document.querySelector('a-scene').addEventListener('markerFound', function() {
             var camera = document.querySelector('a-entity[camera]');
             setInterval(function() {
-                var angle = Math.abs(camera.object3D.rotation.y) % (2 * Math.PI);
-                console.log("Current angle:", angle);
+                var cameraRotationY = THREE.Math.radToDeg(camera.object3D.rotation.y);
 
-                if (angle > Math.PI / 4 && angle < 3 * Math.PI / 4) {
+                console.log("Camera Y Rotation:", cameraRotationY);
+
+                if (cameraRotationY > 45 && cameraRotationY < 135) {
                     if (!markerVideo2.getAttribute('visible')) {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
