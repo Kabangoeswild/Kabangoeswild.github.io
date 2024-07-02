@@ -9,7 +9,12 @@
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
-        <a-marker preset="hiro"></a-marker>
+        <a-assets>
+            <a-asset-item id="hiro-marker" src="https://cdn.rawgit.com/artoolkit/artoolkit5/master/doc/patterns/HIRO.patt"></a-asset-item>
+        </a-assets>
+        <a-marker type="pattern" url="#hiro-marker" id="hiroMarker">
+            <a-box position="0 0.5 0" material="opacity: 0;"></a-box>
+        </a-marker>
         <a-entity camera></a-entity>
         <a-plane position="0 2 -4" width="4" height="1" color="white" opacity="0.5"></a-plane>
         <a-text id="cameraPositionText" position="0 2.2 -4" value="Camera Position: " color="black" align="center"></a-text>
@@ -19,25 +24,27 @@
     <script>
         document.querySelector('a-scene').addEventListener('loaded', function() {
             var camera = document.querySelector('a-entity[camera]');
-            var marker = document.querySelector('a-marker');
+            var marker = document.querySelector('#hiroMarker');
             var cameraPositionText = document.getElementById('cameraPositionText');
             var cameraRotationText = document.getElementById('cameraRotationText');
 
             setInterval(function() {
-                var cameraPosition = camera.object3D.position.clone();
-                var markerPosition = marker.object3D.position.clone();
-                var relativePosition = cameraPosition.sub(markerPosition);
+                if (marker.object3D.visible) {
+                    var cameraPosition = camera.object3D.getWorldPosition(new THREE.Vector3());
+                    var markerPosition = marker.object3D.getWorldPosition(new THREE.Vector3());
+                    var relativePosition = cameraPosition.sub(markerPosition);
 
-                var cameraRotation = camera.object3D.rotation;
-                var markerRotation = marker.object3D.rotation;
-                var relativeRotation = {
-                    x: THREE.Math.radToDeg(cameraRotation.x - markerRotation.x).toFixed(2),
-                    y: THREE.Math.radToDeg(cameraRotation.y - markerRotation.y).toFixed(2),
-                    z: THREE.Math.radToDeg(cameraRotation.z - markerRotation.z).toFixed(2)
-                };
+                    var cameraRotation = camera.object3D.getWorldRotation(new THREE.Euler());
+                    var markerRotation = marker.object3D.getWorldRotation(new THREE.Euler());
+                    var relativeRotation = {
+                        x: THREE.Math.radToDeg(cameraRotation.x - markerRotation.x).toFixed(2),
+                        y: THREE.Math.radToDeg(cameraRotation.y - markerRotation.y).toFixed(2),
+                        z: THREE.Math.radToDeg(cameraRotation.z - markerRotation.z).toFixed(2)
+                    };
 
-                cameraPositionText.setAttribute('value', `Camera Position: x=${relativePosition.x.toFixed(2)}, y=${relativePosition.y.toFixed(2)}, z=${relativePosition.z.toFixed(2)}`);
-                cameraRotationText.setAttribute('value', `Camera Rotation: x=${relativeRotation.x}, y=${relativeRotation.y}, z=${relativeRotation.z}`);
+                    cameraPositionText.setAttribute('value', `Camera Position: x=${relativePosition.x.toFixed(2)}, y=${relativePosition.y.toFixed(2)}, z=${relativePosition.z.toFixed(2)}`);
+                    cameraRotationText.setAttribute('value', `Camera Rotation: x=${relativeRotation.x}, y=${relativeRotation.y}, z=${relativeRotation.z}`);
+                }
             }, 100);
         });
     </script>
