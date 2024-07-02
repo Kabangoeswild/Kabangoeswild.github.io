@@ -78,15 +78,18 @@
                 var cameraPosition = camera.object3D.position;
                 var markerPosition = document.querySelector('a-marker').object3D.position;
 
-                var distance = cameraPosition.distanceTo(markerPosition);
                 var angle = Math.abs(camera.object3D.rotation.y) % (2 * Math.PI);
 
                 if (angle > Math.PI / 4 && angle < 3 * Math.PI / 4) {
-                    markerVideo1.setAttribute('visible', 'false');
-                    markerVideo2.setAttribute('visible', 'true');
+                    if (!markerVideo2.getAttribute('visible')) {
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'true');
+                    }
                 } else {
-                    markerVideo1.setAttribute('visible', 'true');
-                    markerVideo2.setAttribute('visible', 'false');
+                    if (!markerVideo1.getAttribute('visible')) {
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'false');
+                    }
                 }
             }, 100);
         });
