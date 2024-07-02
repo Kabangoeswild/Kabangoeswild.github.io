@@ -49,12 +49,17 @@
             var previousVideo = 'video1';
 
             setInterval(function() {
-                var cameraRotationY = THREE.Math.radToDeg(camera.object3D.rotation.y);
+                var cameraRotationY = THREE.Math.radToDeg(camera.object3D.rotation.y) % 360;
+
+                // Normalize rotation to -180 to 180
+                if (cameraRotationY > 180) {
+                    cameraRotationY -= 360;
+                }
 
                 if (cameraRotationY > -45 && cameraRotationY < 45) {
-                   if (previousVideo !== 'video1') {
+                    if (previousVideo !== 'video1') {
                         markerVideo1.setAttribute('visible', 'true');
-                        markerVideo2.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'false');
                         video2.pause();
                         video1.play();
                         previousVideo = 'video1';
@@ -62,7 +67,7 @@
                 } else if ((cameraRotationY > 45 && cameraRotationY < 135) || (cameraRotationY < -45 && cameraRotationY > -135)) {
                     if (previousVideo !== 'video2') {
                         markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'true');
                         video1.pause();
                         video2.play();
                         previousVideo = 'video2';
