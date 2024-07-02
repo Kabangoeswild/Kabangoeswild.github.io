@@ -77,19 +77,19 @@
             setInterval(function() {
                 var cameraRotationY = THREE.Math.radToDeg(camera.object3D.rotation.y);
 
-                console.log("Camera Y Rotation:", cameraRotationY);
-
                 if (cameraRotationY > 45 && cameraRotationY < 135) {
                     if (!markerVideo2.getAttribute('visible')) {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
-                        console.log("Switching to markerVideo2");
+                        video1.pause();
+                        video2.play();
                     }
                 } else {
                     if (!markerVideo1.getAttribute('visible')) {
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
-                        console.log("Switching to markerVideo1");
+                        video2.pause();
+                        video1.play();
                     }
                 }
             }, 100);
