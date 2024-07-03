@@ -54,7 +54,7 @@
                 if (cameraRotationY > -45 && cameraRotationY < 45) {
                    if (previousVideo !== 'video1') {
                         markerVideo1.setAttribute('visible', 'true');
-                        markerVideo2.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'false');
                         video2.pause();
                         video1.play();
                         previousVideo = 'video1';
@@ -62,7 +62,7 @@
                 } else if ((cameraRotationY > 45 && cameraRotationY < 135) || (cameraRotationY < -45 && cameraRotationY > -135)) {
                     if (previousVideo !== 'video2') {
                         markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'true');
                         video1.pause();
                         video2.play();
                         previousVideo = 'video2';
