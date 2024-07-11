@@ -32,15 +32,24 @@
             markerRotation = marker.object3D.rotation;
             distance = cameraPosition.distanceTo(markerPosition);
 
-          
+            // Konvertiere Rotation von Radiant zu Grad
+            let markerRotationDeg = {
+                x: THREE.Math.radToDeg(markerRotation.x),
+                y: THREE.Math.radToDeg(markerRotation.y),
+                z: THREE.Math.radToDeg(markerRotation.z)
+            };
+
+            // Log camera position and rotation
+            console.log(`Camera Position: x=${cameraPosition.x.toFixed(2)}, y=${cameraPosition.y.toFixed(2)}, z=${cameraPosition.z.toFixed(2)}`);
+            console.log(`Camera Rotation: x=${THREE.Math.radToDeg(cameraRotation.x).toFixed(2)}, y=${THREE.Math.radToDeg(cameraRotation.y).toFixed(2)}, z=${THREE.Math.radToDeg(cameraRotation.z).toFixed(2)}`);
             
             // Log marker position and rotation
             console.log(`Marker Position: x=${markerPosition.x.toFixed(2)}, y=${markerPosition.y.toFixed(2)}, z=${markerPosition.z.toFixed(2)}`);
-            console.log(`Marker Rotation: x=${markerRotation.x.toFixed(2)}, y=${markerRotation.y.toFixed(2)}, z=${markerRotation.z.toFixed(2)}`);
+            console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
 
             // Log distance
             console.log(`Distance: ${distance.toFixed(2)}`);
-        }, 1000);
+        }, 100);
     });
 
     marker.addEventListener('markerLost', () => {
