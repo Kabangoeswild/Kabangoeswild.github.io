@@ -29,6 +29,7 @@
             const markerVideo1 = document.getElementById('markerVideo1');
             const markerVideo2 = document.getElementById('markerVideo2');
             let previousVideo = 'video1';
+            let check;
 
             // Play videos when they are ready
             function playVideo(video) {
@@ -44,16 +45,19 @@
 
             // Monitor the marker and camera position
             marker.addEventListener('markerFound', () => {
-                let check = setInterval(() => {
+                check = setInterval(() => {
                     if (!camera || !camera.object3D || !marker || !marker.object3D) {
                         clearInterval(check);
                         return;
                     }
 
+                    let cameraPosition = camera.object3D.position;
                     let cameraRotation = camera.object3D.rotation;
+                    let markerPosition = marker.object3D.position;
                     let markerRotation = marker.object3D.rotation;
-                    
-                    // Convert rotation from radians to degrees
+                    let distance = cameraPosition.distanceTo(markerPosition);
+
+                    // Konvertiere Rotation von Radiant zu Grad
                     let markerRotationDeg = {
                         x: THREE.MathUtils.radToDeg(markerRotation.x),
                         y: THREE.MathUtils.radToDeg(markerRotation.y),
@@ -66,16 +70,21 @@
                         z: THREE.MathUtils.radToDeg(cameraRotation.z)
                     };
 
-                    // Log camera and marker position and rotation
-                    console.log(`Camera Position: x=${camera.object3D.position.x.toFixed(2)}, y=${camera.object3D.position.y.toFixed(2)}, z=${camera.object3D.position.z.toFixed(2)}`);
+                    // Log camera position and rotation
+                    console.log(`Camera Position: x=${cameraPosition.x.toFixed(2)}, y=${cameraPosition.y.toFixed(2)}, z=${cameraPosition.z.toFixed(2)}`);
                     console.log(`Camera Rotation: x=${cameraRotationDeg.x.toFixed(2)}, y=${cameraRotationDeg.y.toFixed(2)}, z=${cameraRotationDeg.z.toFixed(2)}`);
-                    console.log(`Marker Position: x=${marker.object3D.position.x.toFixed(2)}, y=${marker.object3D.position.y.toFixed(2)}, z=${marker.object3D.position.z.toFixed(2)}`);
-                    console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
                     
-                    // Switch videos based on camera rotation
-                    let markerRotationY = cameraRotationDeg.y;
+                    // Log marker position and rotation
+                    console.log(`Marker Position: x=${markerPosition.x.toFixed(2)}, y=${markerPosition.y.toFixed(2)}, z=${markerPosition.z.toFixed(2)}`);
+                    console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
 
-                    if (markerRotationY > -45 && markerRotationY < 45) {
+                    // Log distance
+                    console.log(`Distance: ${distance.toFixed(2)}`);
+
+                    // Switch videos based on camera rotation
+                    let cameraRotationY = cameraRotationDeg.y;
+
+                    if (cameraRotationY > -45 && cameraRotationY < 45) {
                         if (previousVideo !== 'video1') {
                             markerVideo1.setAttribute('visible', 'true');
                             markerVideo2.setAttribute('visible', 'false');
@@ -83,7 +92,7 @@
                             video1.play();
                             previousVideo = 'video1';
                         }
-                    } else if ((markerRotationY > 45 && markerRotationY < 135) || (markerRotationY < -45 && markerRotationY > -135)) {
+                    } else if ((cameraRotationY > 45 && cameraRotationY < 135) || (cameraRotationY < -45 && cameraRotationY > -135)) {
                         if (previousVideo !== 'video2') {
                             markerVideo1.setAttribute('visible', 'false');
                             markerVideo2.setAttribute('visible', 'true');
@@ -107,3 +116,4 @@
     </script>
 </body>
 </html>
+
