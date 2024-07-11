@@ -19,18 +19,20 @@
     let check;
 
     marker.addEventListener('markerFound', () => {
-    
+        let cameraPosition = camera.object3D.position;
+        let cameraRotation = camera.object3D.rotation;
         let markerPosition = marker.object3D.position;
         let markerRotation = marker.object3D.rotation;
         let distance = cameraPosition.distanceTo(markerPosition);
 
         check = setInterval(() => {
-        
+            cameraPosition = camera.object3D.position;
+            cameraRotation = camera.object3D.rotation;
             markerPosition = marker.object3D.position;
             markerRotation = marker.object3D.rotation;
             distance = cameraPosition.distanceTo(markerPosition);
 
-            
+          
             
             // Log marker position and rotation
             console.log(`Marker Position: x=${markerPosition.x.toFixed(2)}, y=${markerPosition.y.toFixed(2)}, z=${markerPosition.z.toFixed(2)}`);
