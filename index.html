@@ -103,14 +103,6 @@
                     }
                 }, 100);
 
-                // Clear interval when marker is lost
-                marker.addEventListener('markerLost', () => {
-                    clearInterval(check);
-                    markerVideo1.setAttribute('visible', 'false');
-                    markerVideo2.setAttribute('visible', 'false');
-                    video1.pause();
-                    video2.pause();
-                });
             });
         });
     </script>
