@@ -82,7 +82,7 @@
                     console.log(`Distance: ${distance.toFixed(2)}`);
 
                     // Switch videos based on camera rotation
-                    let cameraRotationY = cameraRotationDeg.y;
+                    let cameraRotationY = ${cameraPosition.y.toFixed(2)};
 
                     if (cameraRotationY > -45 && cameraRotationY < 45) {
                         if (previousVideo !== 'video1') {
