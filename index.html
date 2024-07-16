@@ -58,7 +58,7 @@
                     markerRotation = marker.object3D.rotation;
                     distance = cameraPosition.distanceTo(markerPosition);
 
-                }
+                })
 
                 let markerRotationDeg = {
                     x: THREE.MathUtils.radToDeg(markerRotation.x),
@@ -94,7 +94,7 @@
                         video1.pause();
                         video2.play();
                     }
-        },100));
+        },100);
     });
 
 
