@@ -81,9 +81,9 @@
                     console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
 
 
-                    let cameraRotationY = cameraRotationDeg.y.toFixed(2);
+                    let cameraRotationDegY = cameraRotationDeg.y.toFixed(2);
 
-                    if (cameraRotationY > -45 && cameraRotationY < 45) {
+                    if (cameraRotationDegY > -45 && cameraRotationDegY < 45) {
                         markerVideo1.setAttribute('visible','true');
                         markerVideo2.setAttribute('visible','false');
                         video2.pause();
