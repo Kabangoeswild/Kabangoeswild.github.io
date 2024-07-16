@@ -1,68 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>AR.js Video on Hiro Marker</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
-<body>
-  <a-scene embedded arjs='sourceType:webcam;trackingMethod:best;'>
-      <a-marker preset="hiro"></a-marker>
-      <a-entity camera></a-entity>
-  </a-scene>
-<script>
-  window.addEventListener('load', () => {
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
+        <a-assets>
+            <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+            <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        </a-assets>
+        <a-marker preset="hiro">
+            <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+ window.addEventListener('load',() => {
     const camera = document.querySelector('[camera]');
     const marker = document.querySelector('a-marker');
+    const video1 = document.getElementById('video1');
+    const video2 = document.getElementById('video2');
+    const markerVideo1 = document.getElementById('markerVideo1');
+    const markerVideo2 = document.getElementById('markerVideo2');
+    var previousVideo = 'video1';
     let check;
 
+    function playVideo(video) {
+        if (video.readyState >= 3){
+            video.play();
+        } else {
+            video.addEventListener('canplay';() => video.play(), {once: true});
+        }
+    }
+
+    playVideo(video1);
+    playVideo(video2);
+
     marker.addEventListener('markerFound', () => {
-        let cameraPosition = camera.object3D.position;
-        let cameraRotation = camera.object3D.rotation;
-        let markerPosition = marker.object3D.position;
-        let markerRotation = marker.object3D.rotation;
-        let distance = cameraPosition.distanceTo(markerPosition);
-
         check = setInterval(() => {
-            cameraPosition = camera.object3D.position;
-            cameraRotation = camera.object3D.rotation;
-            markerPosition = marker.object3D.position;
-            markerRotation = marker.object3D.rotation;
-            distance = cameraPosition.distanceTo(markerPosition);
+                if (!camera || !camera.object3D || !marker || !marker.object3D) {
+                    clearInterval(check);
+                    return;
+                }
 
-            // Konvertiere Rotation von Radiant zu Grad
-            let markerRotationDeg = {
-                x: THREE.MathUtils.radToDeg(markerRotation.x),
-                y: THREE.MathUtils.radToDeg(markerRotation.y),
-                z: THREE.MathUtils.radToDeg(markerRotation.z)
-            };
+                let cameraPostion = camera.object3D.position;
+                let cameraRotation = camera.object3D.rotation;
+                let markerPosition = marker.object3D.position;
+                let markerRotation = marker.object3D.rotation;
+                let distance = cameraPostion.distanceTo(markerPosition);
 
-            let cameraRotationDeg = {
-                x: THREE.MathUtils.radToDeg(cameraRotation.x),
-                y: THREE.MathUtils.radToDeg(cameraRotation.y),
-                z: THREE.MathUtils.radToDeg(cameraRotation.z)
-            };
+                let markerRotationDeg = {
+                    x: THREE.MathUtils.radToDeg(markerRotation.x),
+                    y: THREE.MathUtils.radToDeg(markerRotation.y),
+                    z: THREE.MathUtils.radToDeg(markerRotation.z),
+                };
 
-            // Log camera position and rotation
-            console.log(`Camera Position: x=${cameraPosition.x.toFixed(2)}, y=${cameraPosition.y.toFixed(2)}, z=${cameraPosition.z.toFixed(2)}`);
-            console.log(`Camera Rotation: x=${cameraRotationDeg.x.toFixed(2)}, y=${cameraRotationDeg.y.toFixed(2)}, z=${cameraRotationDeg.z.toFixed(2)}`);
-            
-            // Log marker position and rotation
-            console.log(`Marker Position: x=${markerPosition.x.toFixed(2)}, y=${markerPosition.y.toFixed(2)}, z=${markerPosition.z.toFixed(2)}`);
-            console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
+                let cameraRotationDeg = {
+                    x: THREE.MathUtils.radToDeg(cameraRotation.x),
+                    y: THREE.MathUtils.radToDeg(cameraRotation.y),
+                    z: THREE.MathUtils.radToDeg(cameraRotation.z),
+                };
 
-            // Log distance
-            console.log(`Distance: ${distance.toFixed(2)}`);
-        }, 1000);
+                // Log camera position and rotation
+                console.log(`Camera Position: x=${cameraPosition.x.toFixed(2)}, y=${cameraPosition.y.toFixed(2)}, z=${cameraPosition.z.toFixed(2)}`);
+                console.log(`Camera Rotation: x=${cameraRotationDeg.x.toFixed(2)}, y=${cameraRotationDeg.y.toFixed(2)}, z=${cameraRotationDeg.z.toFixed(2)}`);
+                    
+                    // Log marker position and rotation
+                console.log(`Marker Position: x=${markerPosition.x.toFixed(2)}, y=${markerPosition.y.toFixed(2)}, z=${markerPosition.z.toFixed(2)}`);
+                console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
+
+
+                let cameraRotationY = ${cameraRotationDeg.y.toFixed(2)};
+
+                if (cameraRotationY > -45 && cameraRotationY < 45) {
+                        markerVideo1.setAttribute('visible','true');
+                        markerVideo2.setAttribute('visible','false');
+                        video2.pause();
+                        video1.play();
+                    } else {
+                        markerVideo1.setAttribute('visible','false');
+                        markerVideo2.setAttribute('visible','true');
+                        video1.pause();
+                        video2.play();
+                    }
+        },100);
     });
 
-    marker.addEventListener('markerLost', () => {
-      clearInterval(check);
-    });
-  });
-</script>
 
+ });
+    </script>
 </body>
 </html>
