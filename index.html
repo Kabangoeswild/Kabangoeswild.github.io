@@ -36,24 +36,29 @@
             video.play();
         } else {
             video.addEventListener('canplay',() => video.play(), {once: 'true'});
-        }
+            }
     }
 
     playVideo(video1);
     playVideo(video2);
 
     marker.addEventListener('markerFound', () => {
-        check = setInterval(() => {
-                if (!camera || !camera.object3D || !marker || !marker.object3D) {
-                    clearInterval(check);
-                    return;
-                }
+    
 
                 let cameraPostion = camera.object3D.position;
                 let cameraRotation = camera.object3D.rotation;
                 let markerPosition = marker.object3D.position;
                 let markerRotation = marker.object3D.rotation;
                 let distance = cameraPostion.distanceTo(markerPosition);
+
+                check = setInterval(() => {
+                    cameraPosition = camera.object3D.position;
+                    cameraRotation = camera.object3D.rotation;
+                    markerPosition = marker.object3D.position;
+                    markerRotation = marker.object3D.rotation;
+                    distance = cameraPosition.distanceTo(markerPosition);
+
+                }
 
                 let markerRotationDeg = {
                     x: THREE.MathUtils.radToDeg(markerRotation.x),
@@ -69,16 +74,16 @@
 
                 // Log camera position and rotation
                 console.log(`Camera Position: x=${cameraPosition.x.toFixed(2)}, y=${cameraPosition.y.toFixed(2)}, z=${cameraPosition.z.toFixed(2)}`);
-                console.log(`Camera Rotation: x=${cameraRotationDeg.x.toFixed(2)}, y=${cameraRotationDeg.y.toFixed(2)}, z=${cameraRotationDeg.z.toFixed(2)}`);
+                    console.log(`Camera Rotation: x=${cameraRotationDeg.x.toFixed(2)}, y=${cameraRotationDeg.y.toFixed(2)}, z=${cameraRotationDeg.z.toFixed(2)}`);
                     
                     // Log marker position and rotation
-                console.log(`Marker Position: x=${markerPosition.x.toFixed(2)}, y=${markerPosition.y.toFixed(2)}, z=${markerPosition.z.toFixed(2)}`);
-                console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
+                    console.log(`Marker Position: x=${markerPosition.x.toFixed(2)}, y=${markerPosition.y.toFixed(2)}, z=${markerPosition.z.toFixed(2)}`);
+                    console.log(`Marker Rotation: x=${markerRotationDeg.x.toFixed(2)}, y=${markerRotationDeg.y.toFixed(2)}, z=${markerRotationDeg.z.toFixed(2)}`);
 
 
-                let cameraRotationY = cameraRotationDeg.y.toFixed(2);
+                    let cameraRotationY = cameraRotationDeg.y.toFixed(2);
 
-                if (cameraRotationY > -45 && cameraRotationY < 45) {
+                    if (cameraRotationY > -45 && cameraRotationY < 45) {
                         markerVideo1.setAttribute('visible','true');
                         markerVideo2.setAttribute('visible','false');
                         video2.pause();
@@ -89,7 +94,7 @@
                         video1.pause();
                         video2.play();
                     }
-        },100);
+        },100));
     });
 
 
