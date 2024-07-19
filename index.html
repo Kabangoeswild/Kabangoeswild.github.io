@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR.js Video on Hiro</title>
+    <title>AR.js Video on Hiro Marker</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
@@ -53,7 +53,7 @@
                     console.log(`Marker Rotation Y: ${markerRotationY.toFixed(2)}`);
                     console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}`);
 
-                    if (markerRotationX > -45 && markerRotationX < 45 && markerRotationY > -45 && markerRotationY < 45) {
+                    if (markerRotationX > -45 && markerRotationX < 135 && markerRotationY > -45 && markerRotationY < 45) {
                         console.log("Showing Video 1");
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
@@ -90,4 +90,3 @@
     </script>
 </body>
 </html>
-
