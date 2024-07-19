@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>BlubBlub</title>
+    <title>AR.js Video on Hiro Marker</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
@@ -12,7 +12,7 @@
         <a-assets>
             <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video3" src="resGas_cylinder_xz1.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+            <video id="video3" src="resGas_cylinder_xz1 (1).mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
         </a-assets>
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
@@ -46,13 +46,14 @@
 
             marker.addEventListener('markerFound', () => {
                 const intervalId = setInterval(() => {
-                    const markerRotationY = marker.object3D.rotation.y * THREE.MathUtils.RAD2DEG;
-                    const markerRotationX = marker.object3D.rotation.x * THREE.MathUtils.RAD2DEG;
+                    const markerRotation = marker.object3D.rotation;
+                    const markerRotationY = markerRotation.y * THREE.MathUtils.RAD2DEG;
+                    const markerRotationX = markerRotation.x * THREE.MathUtils.RAD2DEG;
 
                     console.log(`Marker Rotation Y: ${markerRotationY.toFixed(2)}`);
                     console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}`);
 
-                    if (markerRotationY > -45 && markerRotationY < 45) {
+                    if (markerRotationX > -45 && markerRotationX < 45) {
                         console.log("Showing Video 1");
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
@@ -60,7 +61,7 @@
                         video1.play();
                         video2.pause();
                         video3.pause();
-                    } else if (markerRotationX > -45 && markerRotationX < 45) {
+                    } else if (markerRotationX >= 45 || markerRotationX <= -45) {
                         console.log("Showing Video 3");
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
@@ -68,7 +69,7 @@
                         video1.pause();
                         video2.pause();
                         video3.play();
-                    } else {
+                    } else if (markerRotationY >= 45 || markerRotationY <= -45) {
                         console.log("Showing Video 2");
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
@@ -89,4 +90,3 @@
     </script>
 </body>
 </html>
-
