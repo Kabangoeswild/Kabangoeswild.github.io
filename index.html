@@ -64,24 +64,40 @@
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'false');
+                        video1.play();
+                        video2.play();
+                        video3.play();
+                        video4.play();
                        
                     } else if (markerRotationX <= 75 && markerRotationX > 45 && markerRotationY > -45 && markerRotationY < 45) {
                         console.log("Showing Video 3");
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'true');
+                        video1.play();
+                        video2.play();
+                        video3.play();
+                        video4.play();
                        
                     } else if (markerRotationX <= 45 && markerRotationY > -45 && markerRotationY < 45) {
                         console.log("Showing Video 4");
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'true');
+                        video1.play();
+                        video2.play();
+                        video3.play();
+                        video4.play();
                      
                     } else if (markerRotationY >= 45 || markerRotationY <= -45) {
                         console.log("Showing Video 2");
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
                         markerVideo3.setAttribute('visible', 'false');
+                        video1.play();
+                        video2.play();
+                        video3.play();
+                        video4.play();
                        
                     }
 
