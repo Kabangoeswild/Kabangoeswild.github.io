@@ -10,10 +10,11 @@
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
         <a-assets>
+            <video id="video4" src="resGas_cylinder_xz2.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video1" src="resgas-velocityvector-cylinder_ZZxcEuoY.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video2" src="swirl-center_URFn4HTn.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video3" src="resGas_cylinder_xz1neu.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video4" src="resGas_cylinder_xz2.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+           
         </a-assets>
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
@@ -64,6 +65,7 @@
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
                         video1.play();
                         video2.play();
                         video3.play();
@@ -74,6 +76,7 @@
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'true');
+                        markerVideo4.setAttribute('visible', 'false');
                         video1.play();
                         video2.play();
                         video3.play();
@@ -83,7 +86,8 @@
                         console.log("Showing Video 4");
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'true');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'true');
                         video1.play();
                         video2.play();
                         video3.play();
@@ -94,6 +98,7 @@
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
                         markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
                         video1.play();
                         video2.play();
                         video3.play();
