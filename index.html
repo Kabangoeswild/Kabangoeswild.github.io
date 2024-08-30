@@ -34,22 +34,19 @@
             const markerVideo3 = document.getElementById('markerVideo3');
             // const markerVideo4 = document.getElementById('markerVideo4');
 
-         //   function playVideo(video) {
-         //       if (video.readyState >= 3) {
-          //          video.play();
-            //    } else {
-              //      video.addEventListener('canplay', () => video.play(), { once: true });
-            //    }
-          //  }
+            function playVideo(video) {
+                if (video.readyState >= 3) {
+                    video.play();
+                } else {
+                    video.addEventListener('canplay', () => video.play(), { once: true });
+                }
+            }
 
             playVideo(video1);
             playVideo(video2);
             playVideo(video3);
           
-            video1.play();
-            video2.play();
-            video3.play();
-
+         
 
             marker.addEventListener('markerFound', () => {
                 const intervalId = setInterval(() => {
