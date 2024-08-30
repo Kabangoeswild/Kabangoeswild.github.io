@@ -42,9 +42,11 @@
                 }
             }
 
-            playVideo(video1);
-            playVideo(video2);
-            playVideo(video3);
+          function playVideos() {
+  [video1, video2, video3].forEach(playVideo);
+}
+
+playVideos();
           
 
 
