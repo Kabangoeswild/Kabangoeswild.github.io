@@ -42,10 +42,14 @@
                 }
             }
 
-            videos.forEach((video) => {
-            video.setAttribute('autoplay', true);
-            video.play();
-});
+            playVideo(video1);
+            playVideo(video2);
+            playVideo(video3);
+          
+            video1.play();
+            video2.play();
+            video3.play();
+
 
 
             marker.addEventListener('markerFound', () => {
