@@ -6,39 +6,12 @@
     <title>AR.js Video on Hiro Marker</title>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
-        <a-assets>
-            <video id="video1" src="xzForm.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-           
-        </a-assets>
-        <a-marker preset="hiro">
-            <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
-          
-        </a-marker>
-        <a-entity camera></a-entity>
-    </a-scene>
-
-    <script>
-        window.addEventListener('load', () => {
-            const marker = document.querySelector('a-marker');
-            const video1 = document.getElementById('video1');
-           
-            const markerVideo1 = document.getElementById('markerVideo1');
-            
-
-            function playVideo(video) {
-                if (video.readyState >= 3) {
-                    video.play();
-                } else {
-                    video.addEventListener('canplay', () => video.play(), { once: true });
-                }
-            }
-
-      playVideo(video1);
-
+   
+            <video id="video1" src="xzForm.mp4" crossorigin="anonymous" preload="auto" autoplay loop muted ></video>
+      
           
 
 
-
+</body>
         
 </html>
