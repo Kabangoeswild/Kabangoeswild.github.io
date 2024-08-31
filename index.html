@@ -16,8 +16,8 @@
         </a-assets>
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
-            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
-            <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="false"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0" material="transparent: true; opacity: 0.0" visible="false"></a-video>
+            <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.0" visible="false"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
@@ -28,11 +28,9 @@
             const video1 = document.getElementById('video1');
             const video2 = document.getElementById('video2');
             const video3 = document.getElementById('video3');
-            // const video4 = document.getElementById('video4');
             const markerVideo1 = document.getElementById('markerVideo1');
             const markerVideo2 = document.getElementById('markerVideo2');
             const markerVideo3 = document.getElementById('markerVideo3');
-            // const markerVideo4 = document.getElementById('markerVideo4');
 
             function playVideo(video) {
                 if (video.readyState >= 3) {
@@ -45,11 +43,33 @@
             playVideo(video1);
             playVideo(video2);
             playVideo(video3);
-          
-            video1.play();
-            video2.play();
-            video3.play();
 
+            function changeVisibility(targetVideo, ...otherVideos) {
+                let opacity = parseFloat(targetVideo.getAttribute('material').opacity);
+                let fadeIn = setInterval(() => {
+                    if (opacity < 0.8) {
+                        opacity += 0.05;
+                        targetVideo.setAttribute('material', 'opacity', opacity);
+                    } else {
+                        clearInterval(fadeIn);
+                    }
+                }, 50);
+
+                otherVideos.forEach(video => {
+                    let otherOpacity = parseFloat(video.getAttribute('material').opacity);
+                    let fadeOut = setInterval(() => {
+                        if (otherOpacity > 0) {
+                            otherOpacity -= 0.05;
+                            video.setAttribute('material', 'opacity', otherOpacity);
+                        } else {
+                            video.setAttribute('visible', 'false');
+                            clearInterval(fadeOut);
+                        }
+                    }, 50);
+                });
+
+                targetVideo.setAttribute('visible', 'true');
+            }
 
             marker.addEventListener('markerFound', () => {
                 const intervalId = setInterval(() => {
@@ -57,37 +77,13 @@
                     const markerRotationY = markerRotation.y * THREE.MathUtils.RAD2DEG;
                     const markerRotationX = markerRotation.x * THREE.MathUtils.RAD2DEG;
 
-                    console.log(`Marker Rotation Y: ${markerRotationY.toFixed(2)}`);
-                    console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}`);
-
                     if (markerRotationX > 60 && markerRotationY > -45 && markerRotationY < 45) {
-                        console.log("Showing Video 1");
-                        markerVideo1.setAttribute('visible', 'true');
-                        markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'false');
-                        
+                        changeVisibility(markerVideo1, markerVideo2, markerVideo3);
                     } else if (markerRotationX <= 60 && markerRotationY > -45 && markerRotationY < 45) {
-                        console.log("Showing Video 2");
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'true');
-                        markerVideo3.setAttribute('visible', 'false');
-                      
-                 // } else if (markerRotationX <= 45 && markerRotationY > -45 && markerRotationY < 45) {
-                      //  console.log("Showing Video 4");
-                      //  markerVideo1.setAttribute('visible', 'false');
-                      //  markerVideo2.setAttribute('visible', 'false');
-                      //  markerVideo3.setAttribute('visible', 'true');
-                     
+                        changeVisibility(markerVideo2, markerVideo1, markerVideo3);
                     } else if (markerRotationY >= 45 || markerRotationY <= -45) {
-                        console.log("Showing Video 3");
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'true');
-                      
+                        changeVisibility(markerVideo3, markerVideo1, markerVideo2);
                     }
-
-                    console.log(`Updated Visibility - Video 1: ${markerVideo1.getAttribute('visible')}, Video 2: ${markerVideo2.getAttribute('visible')}, Video 3: ${markerVideo3.getAttribute('visible')}`);
-                    console.log(video1.currentTime, video2.currentTime, video3.currentTime);
                 }, 100);
 
                 marker.addEventListener('markerLost', () => {
