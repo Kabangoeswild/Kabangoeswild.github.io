@@ -57,12 +57,12 @@
                     console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
 
                     // Logic for video visibility based on marker rotation
-                    if (markerRotationX > 70 && markerRotationY > -45 && markerRotationY < 45) {
+                    if (markerRotationX > 60 && markerRotationY > -45 && markerRotationY < 45) {
                         console.log("Showing Video 1");
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 70 && markerRotationX > 35 && markerRotationY > -45 && markerRotationY < 45) {
+                    } else if (markerRotationX <= 60 && markerRotationX > 35 && markerRotationY > -45 && markerRotationY < 45) {
                         console.log("Showing Video 2 and fade out Video 3");
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'true');
