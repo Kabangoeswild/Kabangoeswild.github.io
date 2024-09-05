@@ -50,11 +50,44 @@
         const markerRotationY = markerRotation.y * THREE.MathUtils.RAD2DEG;
         const markerRotationX = markerRotation.x * THREE.MathUtils.RAD2DEG;
 
-        // Ensure rotation is correctly in degrees
-        console.log(`markerRotationX: ${markerRotationX}, markerRotationY: ${markerRotationY}`);
+        console.log(`Marker Rotation Y: ${markerRotationY.toFixed(2)}`);
+        console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}`);
+
+        if (markerRotationX > 70 && markerRotationY > -45 && markerRotationY < 45) {
+                        console.log("Showing Video 1");
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
+                        
+                    } else if (markerRotationX <= 70 && markerRotationY > -45 && markerRotationY < 45) {
+                        console.log("Showing Video 2");
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'true');
+                        markerVideo3.setAttribute('visible', 'false');
+
+                    } else if (markerRotationX <= 30 && markerRotationY > -45 && markerRotationY < 45) {
+                        console.log("Showing Video 2");
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'true');
+                        markerVideo3.setAttribute('visible', 'false');    
+                      
+                 // } else if (markerRotationX <= 45 && markerRotationY > -45 && markerRotationY < 45) {
+                      //  console.log("Showing Video 4");
+                      //  markerVideo1.setAttribute('visible', 'false');
+                      //  markerVideo2.setAttribute('visible', 'false');
+                      //  markerVideo3.setAttribute('visible', 'true');
+                     
+                    } else if (markerRotationY >= 45 || markerRotationY <= -45) {
+                        console.log("Showing Video 3");
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'true');
+                      
+                    }
+
 
         // Adjust opacity for each video based on the rotation
-        let opacity1 = (markerRotationX <= 20 ? 0 : 0.8 - Math.abs(markerRotationX - 90) / 90);
+        let opacity1 = 0.8 - Math.abs(markerRotationX - 90) / 90;
         let opacity2 = 0.8 - Math.abs(markerRotationX - 30) / 60;
         let opacity3 = 0.8 - Math.abs(markerRotationY - 45) / 45;
 
