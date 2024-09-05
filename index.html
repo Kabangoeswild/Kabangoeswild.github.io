@@ -16,8 +16,8 @@
         </a-assets>
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0" rotation="-90 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
-            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0" material="transparent: true; opacity: 0.0" visible="true"></a-video>
-            <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.0" visible="true"></a-video>
+            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
+            <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="0 90 0" material="transparent: true; opacity: 0.8" visible="true"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
@@ -89,12 +89,12 @@
         // Adjust opacity for each video based on the rotation
         let opacity1 = 0.8 - Math.abs(markerRotationX - 90) / 90;
         let opacity2 = 0.8 - Math.abs(markerRotationX - 30) / 60;
-        let opacity3 = 0.8 - Math.abs(markerRotationY - 45) / 45;
+        
 
         // Clamp the opacity values to be between 0 and 0.8
         opacity1 = Math.max(0, Math.min(opacity1, 0.8));
         opacity2 = Math.max(0, Math.min(opacity2, 0.8));
-        opacity3 = Math.max(0, Math.min(opacity3, 0.8));
+        
 
         // Apply the opacity values to the videos
         markerVideo1.setAttribute('material', 'opacity', opacity1);
