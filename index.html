@@ -23,7 +23,7 @@
             <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="0 90 0"
                 material="transparent: true; opacity: 0.8;" visible="true"></a-video>
             <a-video id="markerVideo4" autoplay loop="true" src="#video4" width="1" height="0.75" position="0 0 0" rotation="-60 0 0"
-                material="transparent: true; opacity: 0.8;" visible="true"></a-video>
+                material="transparent: true; opacity: 0.8; depthTest: false; blending: normal;" visible="true"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
@@ -70,7 +70,6 @@
                         markerVideo4.setAttribute('visible', 'false');
                     } else if (markerRotationX <= 70 && markerRotationX > 60 && markerRotationY > -45 && markerRotationY < 45) {
                         let opacity1 = 0.8 * (markerRotationX - 60) / 10;
-                        let opacity4 = 0.8 * (70 - markerRotationX) / 10;
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo4.setAttribute('visible', 'true');
                         markerVideo1.setAttribute('material', 'opacity', opacity1);
@@ -92,11 +91,10 @@
                         markerVideo2.setAttribute('material', 'opacity', 0);
                     }
 
-                    // Logic for Video 4 (maintain transparency when opacity = 0)
+                    // Logic for Video 4
                     if (markerRotationX <= 70 && markerRotationX > 60 && markerRotationY > -45 && markerRotationY < 45) {
                         let opacity4 = 0.8 * (markerRotationX - 60) / 10;
                         markerVideo4.setAttribute('material', 'opacity', opacity4);
-                        markerVideo4.setAttribute('material', 'transparent', 'true'); // Maintain transparency when opacity = 0
                         markerVideo4.setAttribute('visible', 'true');
                         markerVideo1.setAttribute('visible', 'true');
                     } else if (markerRotationX <= 60 && markerRotationY > -45 && markerRotationY < 45) {
@@ -104,7 +102,6 @@
                         markerVideo4.setAttribute('visible', 'true');
                     } else {
                         markerVideo4.setAttribute('material', 'opacity', 0);
-                        markerVideo4.setAttribute('material', 'transparent', 'true'); // Allow visibility of underlying videos
                     }
 
                     // Logic for Video 3 (based on Y-axis rotation)
