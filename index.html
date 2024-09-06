@@ -31,10 +31,27 @@
     <script>
         window.addEventListener('load', () => {
             const marker = document.querySelector('a-marker');
+            const video1 = document.getElementById('video1');
+            const video2 = document.getElementById('video2');
+            const video3 = document.getElementById('video3');
+            const video4 = document.getElementById('video4');
             const markerVideo1 = document.getElementById('markerVideo1');
             const markerVideo2 = document.getElementById('markerVideo2');
             const markerVideo3 = document.getElementById('markerVideo3');
             const markerVideo4 = document.getElementById('markerVideo4');
+
+            function playVideo(video) {
+                if (video.readyState >= 3) {
+                    video.play();
+                } else {
+                    video.addEventListener('canplay', () => video.play(), { once: true });
+                }
+            }
+
+            playVideo(video1);
+            playVideo(video2);
+            playVideo(video3);
+            playVideo(video4);
 
             marker.addEventListener('markerFound', () => {
                 const intervalId = setInterval(() => {
@@ -44,35 +61,52 @@
 
                     console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
 
-                    // Logic for video opacity based on marker rotation (X axis)
+                    // Logic for Video 1
                     if (markerRotationX > 70 && markerRotationY > -45 && markerRotationY < 45) {
                         markerVideo1.setAttribute('material', 'opacity', 0.8);
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
                     } else if (markerRotationX <= 70 && markerRotationX > 60 && markerRotationY > -45 && markerRotationY < 45) {
                         let opacity1 = 0.8 * (markerRotationX - 60) / 10;
+                        let opacity4 = 0.8 * (70 - markerRotationX) / 10;
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo4.setAttribute('visible', 'true');
                         markerVideo1.setAttribute('material', 'opacity', opacity1);
+                        markerVideo4.setAttribute('material', 'opacity', opacity4);
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
                     } else {
                         markerVideo1.setAttribute('material', 'opacity', 0);
                     }
 
-                    // Same logic for Video 2 (rotation range 30 degrees)
+                    // Logic for Video 2
                     if (markerRotationX > 40 && markerRotationX <= 60 && markerRotationY > -45 && markerRotationY < 45) {
                         let opacity2 = 0.8 * (markerRotationX - 40) / 20;
                         markerVideo2.setAttribute('material', 'opacity', opacity2);
-                    } else if (markerRotationX <= 40 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo2.setAttribute('visible', 'true');
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
+                    } else {
                         markerVideo2.setAttribute('material', 'opacity', 0);
                     }
 
-                    // Same logic for Video 4 (rotation range 60 degrees)
+                    // Logic for Video 4
                     if (markerRotationX <= 70 && markerRotationX > 60 && markerRotationY > -45 && markerRotationY < 45) {
                         let opacity4 = 0.8 * (markerRotationX - 60) / 10;
                         markerVideo4.setAttribute('material', 'opacity', opacity4);
+                        markerVideo4.setAttribute('visible', 'true');
+                        markerVideo1.setAttribute('visible', 'true');
                     } else if (markerRotationX <= 60 && markerRotationY > -45 && markerRotationY < 45) {
                         markerVideo4.setAttribute('material', 'opacity', 0.8);
+                        markerVideo4.setAttribute('visible', 'true');
+                    } else {
+                        markerVideo4.setAttribute('material', 'opacity', 0);
                     }
 
-                    // Logic for Video 3 based on marker Y-axis rotation
+                    // Logic for Video 3 (based on Y-axis rotation)
                     if (markerRotationY >= 45 || markerRotationY <= -45) {
-                        console.log("Showing Video 3");
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'true');
@@ -93,6 +127,5 @@
     </script>
 </body>
 </html>
-
 
 
