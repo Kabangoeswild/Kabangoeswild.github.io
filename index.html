@@ -141,18 +141,21 @@
     // Video 3 logic (opacity fades between 0.4 and 0.8 as the distance approaches 2.5 meters)
     if (distance > 2.5 && distance <= 3) {
         opacity3 = 0.8 - ((distance - 2.5) * 0.4); // Opacity is 0.8 at distance 2.5, lower as distance increases
-    } else if (distance <= 2.5) {
+    } else if (distance = 2.5) {
         opacity3 = 0.8; // Opacity is 0.8 if distance is less than or equal to 2.5
+    } else if (distance < 2.5){
+        opacity3 = 0.8 -(2.5 - distance);
     }
 
     // Video 5 logic (opacity fades between 0.4 and 0.8 as the distance approaches 2 meters)
     if (distance < 2.5) {
-        opacity5 = 0.4 + (Math.min(2.5 - distance, 0.5) * 0.8); // Max opacity 0.8 at distance <= 2, fades down till 2.5
+        opacity5 = 0.2 + (Math.min(2.5 - distance, 0.5) * 0.8); // Max opacity 0.8 at distance <= 2, fades down till 2.5
+        
     }
 
     // Video 6 logic (opacity fades between 0.4 and 0.8 as the distance exceeds 3 meters)
     if (distance > 3) {
-        opacity6 = 0.4 + ((distance - 3) * 0.8); // Max opacity 0.8 for distance > 3
+        opacity6 = 0.2 + ((distance - 3) * 0.8); // Max opacity 0.8 for distance > 3
     }
 
     // Limit opacity to the range 0.2 - 0.8
