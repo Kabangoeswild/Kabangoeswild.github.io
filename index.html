@@ -133,21 +133,21 @@
                         markerVideo4.setAttribute('visible', 'false');
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
-                    } else if (markerRotationY >= 45 || markerRotationY <= -45 && 2 < distance < 3) {
+                    } else if (distance <= 3 && distance >= 2 && (markerRotationY >= 45 || markerRotationY <= -45)) {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'true');
                         markerVideo4.setAttribute('visible', 'false');
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
-                    } else if (markerRotationY >= 45 || markerRotationY <= -45 && distance < 2) {
+                    } else if (distance < 2 && (markerRotationY >= 45 || markerRotationY <= -45)) {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'false');
                         markerVideo4.setAttribute('visible', 'false');
                         markerVideo5.setAttribute('visible', 'true');
                         markerVideo6.setAttribute('visible', 'false');
-                    } else if (markerRotationY >= 45 || markerRotationY <= -45 && distance > 3) {
+                    } else if (distance > 3 && (markerRotationY >= 45 || markerRotationY <= -45)) {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'false');
