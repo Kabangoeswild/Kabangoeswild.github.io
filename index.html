@@ -58,7 +58,13 @@
                     const markerRotation = marker.object3D.rotation;
                     const markerRotationX = markerRotation.x * THREE.MathUtils.RAD2DEG;
                     const markerRotationY = markerRotation.y * THREE.MathUtils.RAD2DEG;
+                    
+                    const markerPosition = marker.object3D.position;
+                    const cameraPosition = camera.object3D.position;
 
+                    const distance = markerPosition.distanceTo(cameraPosition);
+                    console.log(`Distance to Marker: ${distance.toFixed(2)} meters`);
+                    
                     console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
 
                     // Logic for Video 1
