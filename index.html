@@ -145,6 +145,16 @@
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
         
+                    } else if (markerRotationY < 40 || markerRotationY > -40) {
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
+                        markerVideo5.setAttribute('visible', 'false');
+                        markerVideo6.setAttribute('visible', 'false');
+                        markerVideo7.setAttribute('visible', 'true');
+                        markerVideo7.setAttribute('material', 'opacity', 0.8);
+                    
                     }else if (markerRotationY >= 40 || markerRotationY <= -40) {
                         let opacity3 = 0.2;
                         let opacity5 = 0.2;
@@ -186,17 +196,6 @@
 
                         console.log(`Opacity - Video 3: ${opacity3}, Video 5: ${opacity5}, Video 6: ${opacity6}`);
                     }
-                    else if (markerRotationY < 40 || markerRotationY > -40) {
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo4.setAttribute('visible', 'false');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'true');
-                        markerVideo7.setAttribute('material', 'opacity', 0.8);
-                    
-                    
 
                 }, 100);
 
@@ -208,3 +207,4 @@
     </script>
 </body>
 </html>
+
