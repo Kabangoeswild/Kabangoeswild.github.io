@@ -16,7 +16,7 @@
             <video id="video4" src="xz-rot-x-60-deg_LP2UAxuj.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video5" src="yz-x-035_bQDTO1Mq.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video6" src="yz-x0,35_ttixT4aA.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video7" src=".mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+            <video id="video7" src="xz-rot-z-30-deg_VQ1Otf3Z.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
         </a-assets>
 
         <a-marker preset="hiro">
@@ -142,7 +142,7 @@
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
         
-                    } else if (markerRotationY <= 40 || markerRotationY >= -40) {
+                    } else if (markerRotationY < 40 || markerRotationY > -40) {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'false');
@@ -152,7 +152,7 @@
                         markerVideo7.setAttribute('visible', 'true');
                         markerVideo7.setAttribute('material', 'opacity', 0.8);
                     
-                    }else if (markerRotationY > 40 || markerRotationY < -40) {
+                    }else if (markerRotationY >= 40 || markerRotationY <= -40) {
                         let opacity3 = 0.2;
                         let opacity5 = 0.2;
                         let opacity6 = 0.2;
@@ -175,8 +175,6 @@
                         } 
                     
                         
-                        
-
                         // Limit opacity to the range 0.2 - 0.8
                         opacity3 = Math.min(Math.max(opacity3, 0.2), 0.8);
                         opacity5 = Math.min(Math.max(opacity5, 0.2), 0.8);
@@ -206,6 +204,7 @@
     </script>
 </body>
 </html>
+
 
 
 
