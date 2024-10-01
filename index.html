@@ -20,17 +20,17 @@
 
         <a-marker preset="hiro">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0.0" rotation="-90 0 0"
-                material="transparent: true; depthTest: false; blending: normal;" visible="true"></a-video>
+                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0"
-                material="transparent: true; depthTest: false; blending: normal;" visible="true"></a-video>
+                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="0 90 0"
                 material="transparent: true; opacity: 0.8;" visible="true"></a-video>
             <a-video id="markerVideo4" autoplay loop="true" src="#video4" width="1" height="0.75" position="0 0 0" rotation="-60 0 0"
-                material="transparent: true; depthTest: false; blending: normal;" visible="true"></a-video>
+                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo5" autoplay loop="true" src="#video5" width="1" height="0.75" position="-0.5 0 0" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8; depthTest: false; blending: normal;" visible="true"></a-video>
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo6" autoplay loop="true" src="#video6" width="1" height="0.75" position="0.5 0 0" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8; depthTest: false; blending: normal;" visible="true"></a-video>
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
         </a-marker>
 
         <a-entity camera></a-entity>
@@ -76,39 +76,105 @@
                     const markerRotationX = markerRotation.x * THREE.MathUtils.RAD2DEG;
                     const markerRotationY = markerRotation.y * THREE.MathUtils.RAD2DEG;
 
+                    // Calculate distance between the camera and the marker
                     const markerPosition = marker.object3D.position;
                     const cameraPosition = camera.object3D.position;
+
                     const distance = markerPosition.distanceTo(cameraPosition);
                     console.log(`Distance to Marker: ${distance.toFixed(2)} meters`);
+
+                    // Your existing logic for controlling video opacity and visibility
                     console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
 
-                    // Logic for Video 3 (opacity fades between 0.4 and 0.8 as distance approaches 2.5 meters)
-                    let opacity3 = 0.8;
-                    if (distance > 2.5 && distance <= 3) {
-                        opacity3 = 0.8 - (distance - 2.5);
-                    } else if (distance > 3) {
-                        opacity3 = 0.4; // Minimum opacity for Video 3 at distances > 3 meters
-                    }
-                    markerVideo3.setAttribute('material', 'opacity', opacity3);
-                    markerVideo3.setAttribute('visible', 'true');
+                    // Logic for Video 1
+                    if (markerRotationX > 80 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo1.setAttribute('material', 'opacity', 0.8);
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
+                        markerVideo5.setAttribute('visible', 'false');
+                        markerVideo6.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 80 && markerRotationX > 70 && markerRotationY > -45 && markerRotationY < 45) {
+                        let opacity1 = 0.8 * (markerRotationX - 70) / 10;
+                        let opacity4 = 0.8 * (80 - markerRotationX) /10;
+                        markerVideo1.setAttribute('visible', 'true');
+                        markerVideo4.setAttribute('visible', 'true');
+                        markerVideo1.setAttribute('material', 'opacity', opacity1);
+                        markerVideo4.setAttribute('material', 'opacity', opacity4);
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo5.setAttribute('visible', 'false');
+                        markerVideo6.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 70 && markerRotationX > 50 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo4.setAttribute('material', 'opacity', 0.8);
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'true');
+                        markerVideo5.setAttribute('visible', 'false');
+                        markerVideo6.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 50 && markerRotationX > 40 && markerRotationY > -45 && markerRotationY < 45) {
+                        let opacity4 = 0.8 * (markerRotationX - 40) / 10;
+                        let opacity2 = 0.8 * (50 - markerRotationX) /10;
+                        markerVideo2.setAttribute('material', 'opacity', opacity2);
+                        markerVideo4.setAttribute('material', 'opacity', opacity4);
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'true');
+                                                markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'true');
+                        markerVideo5.setAttribute('visible', 'false');
+                        markerVideo6.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 40 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo2.setAttribute('material', 'opacity', 0.8);
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'true');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
+                        markerVideo5.setAttribute('visible', 'false');
+                        markerVideo6.setAttribute('visible', 'false');
+                    } else if (markerRotationY >= 45 || markerRotationY <= -45) {
+                        let opacity3 = 0.2;
+                        let opacity5 = 0.2;
+                        let opacity6 = 0.2;
 
-                    // Logic for Video 5 (fades in as distance is < 2.5 meters)
-                    let opacity5 = 0.2;
-                    if (distance <= 2.5) {
-                        opacity5 = 0.2 + (Math.min(2.5 - distance, 0.5) * 1.2); // Max opacity at distance <= 2 meters
-                    }
-                    markerVideo5.setAttribute('material', 'opacity', opacity5);
-                    markerVideo5.setAttribute('visible', 'true');
+                        // Video 3 logic (opacity fades between 0.4 and 0.8 as the distance approaches 2.5 meters)
+                        if (markerRotationY >= 45 && distance >= 2.5 && distance <= 3) {
+                            opacity3 = 0.8 - ((distance - 2.5) * 0.4); // Opacity is 0.8 at distance 2.5, lower as distance increases
+                        } else if (markerRotationY >= 45 && distance < 2.5) {
+                            opacity3 = 0.8; // Opacity is 0.8 if distance is less than or equal to 2.5
+                            opacity5 = 0.2 + (Math.min(2.5 - distance, 0.5) * 0.8);
+                        } else if (markerRotationY >= 45 && distance >3){
+                            opacity6 = 0.2 + ((distance - 3) * 0.8);
+                        } else if (markerRotationY <= -45 && distance >= 2.5 && distance <= 3){
+                            opacity3 = 0.8 - ((distance - 2.5) * 0.4);
+                        } else if (markerRotationY <= -45 && distance < 2.5){
+                            opacity3 = 0.8; // Opacity is 0.8 if distance is less than or equal to 2.5
+                            opacity6 = 0.2 + ((distance - 3) * 0.8);
+                        } else if (markerRotationY <= -45 && distnace >3){
+                            opacity5 = 0.2 + (Math.min(2.5 - distance, 0.5) * 0.8);
+                        }
 
-                    // Logic for Video 6 (fades in as distance is > 3 meters)
-                    let opacity6 = 0.2;
-                    if (distance > 3) {
-                        opacity6 = 0.2 + ((distance - 3) * 0.6); // Max opacity 0.8 for distances > 3 meters
-                    }
-                    markerVideo6.setAttribute('material', 'opacity', opacity6);
-                    markerVideo6.setAttribute('visible', 'true');
+                        
 
-                    console.log(`Opacity - Video 3: ${opacity3}, Video 5: ${opacity5}, Video 6: ${opacity6}`);
+                        // Limit opacity to the range 0.2 - 0.8
+                        opacity3 = Math.min(Math.max(opacity3, 0.2), 0.8);
+                        opacity5 = Math.min(Math.max(opacity5, 0.2), 0.8);
+                        opacity6 = Math.min(Math.max(opacity6, 0.2), 0.8);
+
+                        // Set visibility and opacity for the videos
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'true');
+                        markerVideo3.setAttribute('material', 'opacity', opacity3);
+                        markerVideo4.setAttribute('visible', 'false');
+                        markerVideo5.setAttribute('visible', 'true');
+                        markerVideo5.setAttribute('material', 'opacity', 1 - opacity5); // Inverse opacity for Video 5
+                        markerVideo6.setAttribute('visible', 'true');
+                        markerVideo6.setAttribute('material', 'opacity', 1 - opacity6); // Inverse opacity for Video 6
+
+                        console.log(`Opacity - Video 3: ${opacity3}, Video 5: ${opacity5}, Video 6: ${opacity6}`);
+                    }
 
                 }, 100);
 
@@ -120,4 +186,6 @@
     </script>
 </body>
 </html>
+
+
 
