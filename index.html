@@ -16,6 +16,7 @@
             <video id="video4" src="xz-rot-x-60-deg_LP2UAxuj.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video5" src="yz-x-035_bQDTO1Mq.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
             <video id="video6" src="yz-x0,35_ttixT4aA.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+            <video id="video7" src="xz-rot-z-30-deg_VQ1Otf3Z.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
         </a-assets>
 
         <a-marker preset="hiro">
@@ -30,6 +31,8 @@
             <a-video id="markerVideo5" autoplay loop="true" src="#video5" width="1" height="0.75" position="-0.5 0 0" rotation="0 90 0"
                 material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo6" autoplay loop="true" src="#video6" width="1" height="0.75" position="0.5 0 0" rotation="0 90 0"
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
+            <a-video id="markerVideo7" autoplay loop="true" src="#video7" width="1" height="0.75" position="0 0 0" rotation="-90 30 0"
                 material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
         </a-marker>
 
@@ -47,6 +50,7 @@
             const video4 = document.getElementById('video4');
             const video5 = document.getElementById('video5');
             const video6 = document.getElementById('video6');
+            const video7 = document.getElementById('video7');
 
             const markerVideo1 = document.getElementById('markerVideo1');
             const markerVideo2 = document.getElementById('markerVideo2');
@@ -54,6 +58,7 @@
             const markerVideo4 = document.getElementById('markerVideo4');
             const markerVideo5 = document.getElementById('markerVideo5');
             const markerVideo6 = document.getElementById('markerVideo6');
+            const markerVideo7 = document.getElementById('markerVideo7');
 
             function playVideo(video) {
                 if (video.readyState >= 3) {
@@ -69,6 +74,7 @@
             playVideo(video4);
             playVideo(video5);
             playVideo(video6);
+            playVideo(video7);
 
             marker.addEventListener('markerFound', () => {
                 const intervalId = setInterval(() => {
@@ -87,7 +93,7 @@
                     console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
 
                     // Logic for Video 1
-                    if (markerRotationX > 80 && markerRotationY > -45 && markerRotationY < 45) {
+                    if (markerRotationX > 80 && markerRotationY > -20 && markerRotationY < 20) {
                         markerVideo1.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
@@ -95,7 +101,8 @@
                         markerVideo4.setAttribute('visible', 'false');
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 80 && markerRotationX > 70 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo7.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 80 && markerRotationX > 70 && markerRotationY > -20 && markerRotationY < 20) {
                         let opacity1 = 0.8 * (markerRotationX - 70) / 10;
                         let opacity4 = 0.8 * (80 - markerRotationX) /10;
                         markerVideo1.setAttribute('visible', 'true');
@@ -106,7 +113,8 @@
                         markerVideo3.setAttribute('visible', 'false');
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 70 && markerRotationX > 50 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo7.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 70 && markerRotationX > 50 && markerRotationY > -20 && markerRotationY < 20) {
                         markerVideo4.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
@@ -114,7 +122,8 @@
                         markerVideo4.setAttribute('visible', 'true');
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 50 && markerRotationX > 40 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo7.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 50 && markerRotationX > 40 && markerRotationY > -20 && markerRotationY < 20) {
                         let opacity4 = 0.8 * (markerRotationX - 40) / 10;
                         let opacity2 = 0.8 * (50 - markerRotationX) /10;
                         markerVideo2.setAttribute('material', 'opacity', opacity2);
@@ -125,7 +134,8 @@
                         markerVideo4.setAttribute('visible', 'true');
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 40 && markerRotationY > -45 && markerRotationY < 45) {
+                        markerVideo7.setAttribute('visible', 'false');
+                    } else if (markerRotationX <= 40 && markerRotationY > -20 && markerRotationY < 20) {
                         markerVideo2.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
@@ -133,6 +143,7 @@
                         markerVideo4.setAttribute('visible', 'false');
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
+                        markerVideo7.setAttribute('visible', 'false');
                     } else if (markerRotationX <= 40 && markerRotationY > -20 && markerRotationY < 20) {
                         markerVideo2.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'false');
@@ -143,7 +154,19 @@
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
                     
-                    } else if (markerRotationY >= 45 || markerRotationY <= -45) {
+                    }else if (markerRotationY < 40 || markerRotationY > -40) {
+                        markerVideo1.setAttribute('visible', 'false');
+                        markerVideo2.setAttribute('visible', 'false');
+                        markerVideo3.setAttribute('visible', 'false');
+                        markerVideo4.setAttribute('visible', 'false');
+                        markerVideo5.setAttribute('visible', 'false');
+                        markerVideo6.setAttribute('visible', 'false');
+                        markerVideo7.setAttribute('visible', 'true');
+                        markerVideo7.setAttribute('material', 'opacity', 0.8);
+                    
+                    
+
+                } else if (markerRotationY >= 40 || markerRotationY <= -40) {
     let opacity3 = 0.2;
     let opacity5 = 0.2;
     let opacity6 = 0.2;
@@ -180,6 +203,7 @@
     markerVideo5.setAttribute('material', 'opacity', opacity5);
     markerVideo6.setAttribute('visible', 'true');
     markerVideo6.setAttribute('material', 'opacity', opacity6);
+    markerVideo7.setAttribute('visible', 'false')
 
     console.log(`Opacity - Video 3: ${opacity3}, Video 5: ${opacity5}, Video 6: ${opacity6}`);
 }
