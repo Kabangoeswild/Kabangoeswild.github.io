@@ -19,7 +19,7 @@
             <video id="video7" src="xz-rot-z-30-deg_VQ1Otf3Z.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
         </a-assets>
 
-        <a-marker preset="hiro">
+        <a-nft type="nft" src="output" smooth="true" smoothCount="10" smoothTolerance=".01"smoothThreshold="5">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0.0" rotation="-90 0 0"
                 material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0"
@@ -34,7 +34,7 @@
                 material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo7" autoplay loop="true" src="#video7" width="1" height="0.75" position="0 0 0" rotation="0 30 0"
                 material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
-        </a-marker>
+        </a-nft>
 
         <a-entity camera></a-entity>
     </a-scene>
