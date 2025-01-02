@@ -18,7 +18,7 @@
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity mindar-image-target="targetIndex: 0">
+      <a-entity id="example-target" mindar-image-target="targetIndex: 0">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0.0" rotation="-90 0 0"
                 material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0"
@@ -38,7 +38,7 @@
 	  
     <script>
         window.addEventListener('load', () => {
-            const marker = document.querySelector('a-marker');
+            const exampleTarget = document.querySelector('#example-target');
             const camera = document.querySelector('[camera]'); // Get the camera entity
 
             const video1 = document.getElementById('video1');
@@ -73,24 +73,24 @@
             playVideo(video6);
             playVideo(video7);
 
-            marker.addEventListener('markerFound', () => {
+            exampleTarget.addEventListener('targetFound', () => {
                 const intervalId = setInterval(() => {
-                    const markerRotation = marker.object3D.rotation;
-                    const markerRotationX = markerRotation.x * THREE.MathUtils.RAD2DEG;
-                    const markerRotationY = markerRotation.y * THREE.MathUtils.RAD2DEG;
+                    const targetRotation = target.object3D.rotation;
+                    const targetRotationX = targetRotation.x * THREE.MathUtils.RAD2DEG;
+                    const targetRotationY = targetRotation.y * THREE.MathUtils.RAD2DEG;
 
                     // Calculate distance between the camera and the marker
-                    const markerPosition = marker.object3D.position;
+                    const targetPosition = marker.object3D.position;
                     const cameraPosition = camera.object3D.position;
 
                     const distance = markerPosition.distanceTo(cameraPosition);
                     console.log(`Distance to Marker: ${distance.toFixed(2)} meters`);
 
                     // Your existing logic for controlling video opacity and visibility
-                    console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
+                    console.log(`Marker Rotation X: ${targetRotationX.toFixed(2)}, Y: ${targetRotationY.toFixed(2)}`);
 
                     // Logic for Videos in first plane (1,4,2)
-                    if (markerRotationX > 80 && markerRotationY > -20 && markerRotationY < 20) {
+                    if (targetRotationX > 80 && targetRotationY > -20 && targetRotationY < 20) {
                         markerVideo1.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo2.setAttribute('visible', 'false');
@@ -99,9 +99,9 @@
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 80 && markerRotationX > 70 && markerRotationY > -20 && markerRotationY < 20) {
-                        let opacity1 = 0.8 * (markerRotationX - 70) / 10;
-                        let opacity4 = 0.8 * (80 - markerRotationX) /10;
+                    } else if (targetRotationX <= 80 && targetRotationX > 70 && targetRotationY > -20 && targetRotationY < 20) {
+                        let opacity1 = 0.8 * (targetRotationX - 70) / 10;
+                        let opacity4 = 0.8 * (80 - targetRotationX) /10;
                         markerVideo1.setAttribute('visible', 'true');
                         markerVideo4.setAttribute('visible', 'true');
                         markerVideo1.setAttribute('material', 'opacity', opacity1);
@@ -111,7 +111,7 @@
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 70 && markerRotationX > 50 && markerRotationY > -20 && markerRotationY < 20) {
+                    } else if (targetRotationX <= 70 && targetRotationX > 50 && targetRotationY > -20 && targetRotationY < 20) {
                         markerVideo4.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
@@ -120,9 +120,9 @@
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 50 && markerRotationX > 40 && markerRotationY > -20 && markerRotationY < 20) {
-                        let opacity4 = 0.8 * (markerRotationX - 40) / 10;
-                        let opacity2 = 0.8 * (50 - markerRotationX) /10;
+                    } else if (targetRotationX <= 50 && targetRotationX > 40 && targetRotationY > -20 && targetRotationY < 20) {
+                        let opacity4 = 0.8 * (targetRotationX - 40) / 10;
+                        let opacity2 = 0.8 * (50 - targetRotationX) /10;
                         markerVideo2.setAttribute('material', 'opacity', opacity2);
                         markerVideo4.setAttribute('material', 'opacity', opacity4);
                         markerVideo1.setAttribute('visible', 'false');
@@ -132,7 +132,7 @@
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 40 && markerRotationY > -20 && markerRotationY < 20) {
+                    } else if (targetRotationX <= 40 && targetRotationY > -20 && targetRotationY < 20) {
                         markerVideo2.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
@@ -141,7 +141,7 @@
                         markerVideo5.setAttribute('visible', 'false');
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 40 && markerRotationY > -20 && markerRotationY < 20) {
+                    } else if (targetRotationX <= 40 && targetRotationY > -20 && targetRotationY < 20) {
                         markerVideo2.setAttribute('material', 'opacity', 0.8);
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'true');
@@ -151,7 +151,7 @@
                         markerVideo6.setAttribute('visible', 'false');
                         markerVideo7.setAttribute('visible', 'false');
                     
-                    } else if (markerRotationY < 40 && markerRotationY >=20 || markerRotationY > -40 && markerRotationY <=-20) {
+                    } else if (targetRotationY < 40 && targetRotationY >=20 || targetRotationY > -40 && targetRotationY <=-20) {
                         markerVideo1.setAttribute('visible', 'false');
                         markerVideo2.setAttribute('visible', 'false');
                         markerVideo3.setAttribute('visible', 'false');
@@ -161,7 +161,7 @@
                         markerVideo7.setAttribute('visible', 'true');
                         markerVideo7.setAttribute('material', 'opacity', 0.8);
                     
-                     } else if (markerRotationY >= 40) {
+                     } else if (targetRotationY >= 40) {
                     let opacity3 = 0.2;
                     let opacity5 = 0.2;
                     let opacity6 = 0.2;
@@ -204,7 +204,7 @@
 
     console.log(`Opacity - Video 3: ${opacity3}, Video 5: ${opacity5}, Video 6: ${opacity6}`);
 
-} else if (markerRotationY <= -40){
+} else if (targetRotationY <= -40){
                     let opacity3 = 0.2;
                     let opacity5 = 0.2;
                     let opacity6 = 0.2;
@@ -248,7 +248,7 @@
 
                 }, 100);
 
-                marker.addEventListener('markerLost', () => {
+                target.addEventListener('targetLost', () => {
                     clearInterval(intervalId);
                 }, { once: true });
             });
