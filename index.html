@@ -1,193 +1,141 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Alwa & Kranz - Ihr zuverlässiges Umzugsunternehmen in Stuttgart. Spezialisiert auf Privatumzüge, Firmenumzüge und Einlagerungen. Jetzt Kontakt aufnehmen!">
-    <meta name="keywords" content="Umzugsunternehmen Stuttgart, Alwa & Kranz, Privatumzüge, Firmenumzüge, Einlagerung, Umzug Stuttgart">
-    <meta name="author" content="Alwa & Kranz">
-    <title>Alwa & Kranz - Umzugsunternehmen Stuttgart</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1b1b1b;
-            color: #eaeaea;
-        }
-        header {
-            background-color: #121212;
-            color: #f4b400;
-            padding: 20px 0;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 40px;
-            margin: 0;
-        }
-        header p {
-            font-size: 18px;
-            margin: 10px 0 0;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #232323;
-            padding: 10px 0;
-        }
-        nav a {
-            color: #f4b400;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 18px;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .hero {
-            background-image: url('https://via.placeholder.com/1920x600'); /* Beispielbild */
-            background-size: cover;
-            background-position: center;
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .hero h2 {
-            color: #eaeaea;
-            font-size: 36px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .container {
-            padding: 20px;
-            text-align: center;
-        }
-        .services {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .service {
-            background-color: #2a2a2a;
-            margin: 15px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            width: 300px;
-            text-align: left;
-        }
-        .service h3 {
-            margin-top: 0;
-            color: #f4b400;
-        }
-        footer {
-            background-color: #121212;
-            color: #eaeaea;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 20px;
-        }
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #2a2a2a;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        .contact-form label {
-            display: block;
-            margin-bottom: 5px;
-            color: #eaeaea;
-            text-align: left;
-        }
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #444;
-            border-radius: 5px;
-            background-color: #121212;
-            color: #eaeaea;
-        }
-        .contact-form button {
-            background-color: #f4b400;
-            color: #121212;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .contact-form button:hover {
-            background-color: #d49400;
-        }
-    </style>
-</head>
-<body>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <video id="video1" src="xz-notencoded_DSQzQjVL.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        <video id="video2" src="xz-rot-x-30-deg_Dqejoe8d.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        <video id="video3" src="yz-x_rukE9moh.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        <video id="video4" src="xz-rot-x-60-deg_LP2UAxuj.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        <video id="video5" src="yz-x-035_bQDTO1Mq.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        <video id="video6" src="yz-x0,35_ttixT4aA.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+        <video id="video7" src="xz-rot-z-30-deg_VQ1Otf3Z.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
+      </a-assets>
 
-<header>
-    <h1>Alwa & Kranz</h1>
-    <p>Ihr Umzugsunternehmen in Stuttgart - zuverlässig, schnell und sicher</p>
-</header>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-<nav>
-    <a href="#services">Leistungen</a>
-    <a href="#about">Über uns</a>
-    <a href="#contact">Kontakt</a>
-</nav>
+      <a-entity id="example-target" mindar-image-target="targetIndex: 0">
+        <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="1" height="0.75" position="0 0 0.0" rotation="-90 0 0"
+          material="transparent: true; depthTest: false; blending: normal;" visible="true"></a-video>
+        <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="1" height="0.75" position="0 0 0" rotation="-30 0 0"
+          material="transparent: true; depthTest: false; blending: normal;" visible="true"></a-video>
+        <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="1" height="0.75" position="0 0 0" rotation="0 90 0"
+          material="transparent: true; opacity: 0.8;" visible="true"></a-video>
+        <a-video id="markerVideo4" autoplay loop="true" src="#video4" width="1" height="0.75" position="0 0 0" rotation="-60 0 0"
+          material="transparent: true; depthTest: false; blending: normal;" visible="true"></a-video>
+        <a-video id="markerVideo5" autoplay loop="true" src="#video5" width="1" height="0.75" position="-0.5 0 0" rotation="0 90 0"
+          material="transparent: true; opacity: 0.8; depthTest: false; blending: normal;" visible="true"></a-video>
+        <a-video id="markerVideo6" autoplay loop="true" src="#video6" width="1" height="0.75" position="0.5 0 0" rotation="0 90 0"
+          material="transparent: true; opacity: 0.8; depthTest: false; blending: normal;" visible="true"></a-video>
+        <a-video id="markerVideo7" autoplay loop="true" src="#video7" width="1" height="0.75" position="0 0 0" rotation="0 30 0"
+          material="transparent: true; opacity: 0.8; depthTest: false; blending: normal;" visible="true"></a-video>
+      </a-entity>
+    </a-scene>
+    
+    <script>
+      window.addEventListener('load', () => {
+        const exampleTarget = document.querySelector('#example-target');
+        const camera = document.querySelector('[camera]'); // Get the camera entity
 
-<div class="hero">
-    <h2>Wir bewegen Stuttgart - Ihr Umzug in besten Händen</h2>
-</div>
+        const video1 = document.getElementById('video1');
+        const video2 = document.getElementById('video2');
+        const video3 = document.getElementById('video3');
+        const video4 = document.getElementById('video4');
+        const video5 = document.getElementById('video5');
+        const video6 = document.getElementById('video6');
+        const video7 = document.getElementById('video7');
 
-<div class="container" id="services">
-    <h2>Unsere Leistungen</h2>
-    <div class="services">
-        <div class="service">
-            <h3>Privatumzüge</h3>
-            <p>Wir sorgen für einen stressfreien Umzug in Ihr neues Zuhause. Pünktlich und professionell.</p>
-        </div>
-        <div class="service">
-            <h3>Firmenumzüge</h3>
-            <p>Effiziente Umzüge für Unternehmen. Minimale Ausfallzeiten, maximale Sorgfalt.</p>
-        </div>
-        <div class="service">
-            <h3>Einlagerungen</h3>
-            <p>Ihre Möbel sicher und geschützt. Kurz- oder langfristige Lagerlösungen verfügbar.</p>
-        </div>
-    </div>
-</div>
+        const markerVideo1 = document.getElementById('markerVideo1');
+        const markerVideo2 = document.getElementById('markerVideo2');
+        const markerVideo3 = document.getElementById('markerVideo3');
+        const markerVideo4 = document.getElementById('markerVideo4');
+        const markerVideo5 = document.getElementById('markerVideo5');
+        const markerVideo6 = document.getElementById('markerVideo6');
+        const markerVideo7 = document.getElementById('markerVideo7');
 
-<div class="container" id="about">
-    <h2>Über uns</h2>
-    <p>Alwa & Kranz ist seit über 10 Jahren Ihr vertrauenswürdiger Partner für Umzüge in und um Stuttgart. Mit einem erfahrenen Team und moderner Ausrüstung gestalten wir jeden Umzug reibungslos und effizient.</p>
-</div>
+        function playVideo(video) {
+          if (video.readyState >= 3) {
+            video.play();
+          } else {
+            video.addEventListener('canplay', () => video.play(), { once: true });
+          }
+        }
 
-<div class="container" id="contact">
-    <h2>Kontaktieren Sie uns</h2>
-    <form class="contact-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+        playVideo(video1);
+        playVideo(video2);
+        playVideo(video3);
+        playVideo(video4);
+        playVideo(video5);
+        playVideo(video6);
+        playVideo(video7);
 
-        <label for="email">E-Mail:</label>
-        <input type="email" id="email" name="email" placeholder="Ihre E-Mail-Adresse" required>
+        exampleTarget.addEventListener('targetFound', () => {
+          const intervalId = setInterval(() => {
+            // Get world position of the target
+            const targetWorldPosition = new THREE.Vector3();
+            exampleTarget.object3D.getWorldPosition(targetWorldPosition);
 
-        <label for="message">Nachricht:</label>
-        <textarea id="message" name="message" rows="5" placeholder="Ihre Nachricht" required></textarea>
+            console.log(`The X-coordinate of targetWorldPosition is: ${targetWorldPosition.x}`);
+            console.log(`The Y-coordinate of targetWorldPosition is: ${targetWorldPosition.y}`);
+            console.log(`The Z-coordinate of targetWorldPosition is: ${targetWorldPosition.z}`);
+            
+            // Get world position of the camera
+            const cameraWorldPosition = new THREE.Vector3();
+            camera.object3D.getWorldPosition(cameraWorldPosition);
 
-        <button type="submit">Nachricht senden</button>
-    </form>
-</div>
+            // Calculate the distance between the camera and the marker
+            const distance = targetWorldPosition.distanceTo(cameraWorldPosition);
+            console.log(`Distance to Marker: ${distance.toFixed(2)} meters`);
 
-<footer>
-    <p>&copy; 2025 Alwa & Kranz. Alle Rechte vorbehalten. | Stuttgart, Deutschland</p>
-</footer>
+            // Adjust the visibility based on the target's world position
+            // Use world position (x, y, z) to control video visibility
+            if (targetWorldPosition.x > 2) {
+              markerVideo1.setAttribute('material', 'opacity', 0.8);
+              markerVideo1.setAttribute('visible', 'true');
+              markerVideo2.setAttribute('visible', 'false');
+              markerVideo3.setAttribute('visible', 'false');
+              markerVideo4.setAttribute('visible', 'false');
+              markerVideo5.setAttribute('visible', 'false');
+              markerVideo6.setAttribute('visible', 'false');
+              markerVideo7.setAttribute('visible', 'false');
+            } else if (targetWorldPosition.x <= 2 && targetWorldPosition.x > 1) {
+              let opacity1 = 0.8 * (targetWorldPosition.x - 1);
+              markerVideo1.setAttribute('material', 'opacity', opacity1);
+              markerVideo1.setAttribute('visible', 'true');
+              markerVideo2.setAttribute('visible', 'false');
+              markerVideo3.setAttribute('visible', 'false');
+              markerVideo4.setAttribute('visible', 'false');
+              markerVideo5.setAttribute('visible', 'false');
+              markerVideo6.setAttribute('visible', 'false');
+              markerVideo7.setAttribute('visible', 'false');
+            }
 
-</body>
+            // More conditions based on world position (targetWorldPosition)
+            // Add similar logic for other videos depending on x, y, z positions of the target
+            if (targetWorldPosition.y > 2) {
+              markerVideo2.setAttribute('visible', 'true');
+              markerVideo1.setAttribute('visible', 'false');
+            }
+
+          }, 100);
+        });
+
+        exampleTarget.addEventListener('targetLost', () => {
+          clearInterval(intervalId);
+          // Reset visibility of videos when target is lost
+          markerVideo1.setAttribute('visible', 'false');
+          markerVideo2.setAttribute('visible', 'false');
+          markerVideo3.setAttribute('visible', 'false');
+          markerVideo4.setAttribute('visible', 'false');
+          markerVideo5.setAttribute('visible', 'false');
+          markerVideo6.setAttribute('visible', 'false');
+          markerVideo7.setAttribute('visible', 'false');
+        });
+      });
+    </script>
+  </body>
 </html>
