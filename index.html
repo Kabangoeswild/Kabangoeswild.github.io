@@ -74,13 +74,8 @@
         playVideo(video7);
 
         exampleTarget.addEventListener('targetFound', () => {
-      let lastLogTime = Date.now(); // Track the last time the logs were printed
-
-      const intervalId = setInterval(() => {
-        const now = Date.now();
-        if (now - lastLogTime >= 1000) { // Check if 1 second has passed
-          lastLogTime = now;
-
+            const intervalId = setInterval(() => {
+   
             // Get world position of the target
             const targetWorldPosition = new THREE.Vector3();
             exampleTarget.object3D.getWorldPosition(targetWorldPosition);
@@ -127,7 +122,7 @@
               markerVideo1.setAttribute('visible', 'false');
             }
 
-          }, 100);
+          }, 1000);
         });
 
         exampleTarget.addEventListener('targetLost', () => {
