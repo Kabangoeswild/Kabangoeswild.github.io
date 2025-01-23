@@ -82,7 +82,7 @@
 
             console.log(`The X-coordinate of targetWorldPosition is: ${targetWorldPosition.x}`);
             console.log(`The Y-coordinate of targetWorldPosition is: ${targetWorldPosition.y}`);
-            console.log(`The Z-coordinate of targetWorldPosition is: ${targetWorldPosition.z}`);
+            console.log(`The Z-coordinate of targetWorldPosition is: ${targetWorldPosition.z % 360} `);
             
             // Get world position of the camera
             const cameraWorldPosition = new THREE.Vector3();
