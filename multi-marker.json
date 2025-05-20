@@ -8,7 +8,7 @@
     {
       "parameters": {
         "type": "pattern",
-        "preset": "kanji"
+        "patternUrl": "patt.kanji", 
       },
       "poseMatrix": [
         1, 0, 0, 0,
