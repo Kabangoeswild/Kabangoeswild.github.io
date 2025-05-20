@@ -1,98 +1,106 @@
+
+<!DOCTYPE html>
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
-    <style>
-      #downloadBtn {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        padding: 10px 20px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        z-index: 100;
-        cursor: pointer;
-      }
-    </style>
+    <meta charset="utf-8">
+    <title>AR.js Multi-Marker Logger</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
   </head>
   <body style="margin: 0; overflow: hidden">
-    <button id="downloadBtn">Download Multi-Marker JSON</button>
-
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      <a-marker id="hiro-marker" preset="hiro">
-        <a-box color="red" depth="0.1" height="0.1" width="0.1" position="0 0.05 0"></a-box>
-      </a-marker>
-
-      <a-marker id="kanji-marker" preset="kanji">
-        <a-box color="blue" depth="0.1" height="0.1" width="0.1" position="0 0.05 0"></a-box>
-      </a-marker>
-
+    <a-scene embedded arjs>
+      <a-marker preset="hiro" id="marker-hiro"></a-marker>
+      <a-marker preset="kanji" id="marker-kanji"></a-marker>
       <a-entity camera></a-entity>
     </a-scene>
 
-    <script>
-      const hiro = document.querySelector("#hiro-marker");
-      const kanji = document.querySelector("#kanji-marker");
+    <button id="downloadBtn" style="position: fixed; top: 10px; left: 10px; z-index: 999;">Download MultiMarker Datei</button>
 
-      function getRelativeMatrix(from, to) {
-        const fromMatrix = new THREE.Matrix4().copy(from.matrixWorld).invert();
-        const toMatrix = new THREE.Matrix4().copy(to.matrixWorld);
-        const relativeMatrix = new THREE.Matrix4().multiplyMatrices(fromMatrix, toMatrix);
-        return Array.from(relativeMatrix.elements);
+    <script>
+      const markers = {
+        hiro: document.querySelector('#marker-hiro'),
+        kanji: document.querySelector('#marker-kanji')
+      };
+
+      let baseMatrix = null;
+      const subMarkers = [];
+
+      function getPoseMatrix(obj3D) {
+        const mat = new THREE.Matrix4();
+        obj3D.updateMatrixWorld(true);
+        mat.copy(obj3D.matrixWorld);
+        return mat.toArray();
       }
 
-      function generateMultiMarkerFile() {
-        if (!hiro.object3D.visible || !kanji.object3D.visible) {
-          alert("Beide Marker müssen sichtbar sein!");
-          return;
-        }
+      function inverseMatrix(matArray) {
+        const mat = new THREE.Matrix4();
+        mat.fromArray(matArray);
+        return new THREE.Matrix4().getInverse(mat);
+      }
 
-        const hiroPose = {
-          parameters: {
-            type: "pattern",
-            patternUrl: "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-hiro.patt"
-          },
-          poseMatrix: [
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-          ]
-        };
+      function multiplyMatrices(a, b) {
+        const ma = new THREE.Matrix4().fromArray(a);
+        const mb = new THREE.Matrix4().fromArray(b);
+        return ma.multiply(mb).toArray();
+      }
 
-        const kanjiMatrix = getRelativeMatrix(hiro.object3D, kanji.object3D);
-
-        const kanjiPose = {
-          parameters: {
-            type: "pattern",
-            patternUrl: "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-kanji.patt"
-          },
-          poseMatrix: kanjiMatrix
-        };
-
-        const fileContent = {
-          meta: {
-            createdBy: "Custom Multi-Marker Tool",
-            createdAt: new Date().toISOString()
-          },
-          trackingBackend: "artoolkit",
-          subMarkersControls: [hiroPose, kanjiPose]
-        };
-
-        const blob = new Blob([JSON.stringify(fileContent, null, 2)], { type: "application/json" });
+      function downloadJSON(obj, filename) {
+        const blob = new Blob([JSON.stringify(obj, null, 2)], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = url;
-        a.download = "multiMarkerFile.json";
+        a.download = filename;
         a.click();
         URL.revokeObjectURL(url);
       }
 
-      document.getElementById("downloadBtn").addEventListener("click", generateMultiMarkerFile);
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        if (!baseMatrix) {
+          alert('Warte auf Sichtbarkeit von Hiro Marker als Referenz.');
+          return;
+        }
+
+        const multiMarkerData = {
+          meta: {
+            createdBy: 'AR.js Logger',
+            createdAt: new Date().toISOString()
+          },
+          trackingBackend: 'artoolkit',
+          subMarkersControls: subMarkers
+        };
+
+        downloadJSON(multiMarkerData, 'multi-marker.json');
+      });
+
+      setInterval(() => {
+        const visible = Object.entries(markers).filter(([name, marker]) => marker.object3D.visible);
+
+        if (visible.length === 0) return;
+
+        for (const [name, marker] of visible) {
+          const worldMatrix = getPoseMatrix(marker.object3D);
+
+          if (name === 'hiro' && !baseMatrix) {
+            baseMatrix = worldMatrix;
+            console.log('Basis-Marker gesetzt: Hiro');
+          }
+
+          if (baseMatrix && !subMarkers.find(m => m.parameters.preset === name)) {
+            const invBase = inverseMatrix(baseMatrix);
+            const relativeMatrix = multiplyMatrices(invBase.toArray(), worldMatrix);
+
+            subMarkers.push({
+              parameters: {
+                type: 'pattern',
+                preset: name
+              },
+              poseMatrix: relativeMatrix
+            });
+
+            console.log(`Marker ${name} hinzugefügt.`);
+          }
+        }
+      }, 1000);
     </script>
   </body>
 </html>
