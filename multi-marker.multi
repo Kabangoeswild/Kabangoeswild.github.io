@@ -1,21 +1,6 @@
-{
-  "meta": {
-    "createdBy": "AR.js Logger",
-    "createdAt": "2025-05-20T09:48:16.920Z"
-  },
-  "trackingBackend": "artoolkit",
-  "subMarkersControls": [
-    {
-      "parameters": {
-        "type": "pattern",
-        "patternUrl": "patt.kanji", 
-      },
-      "poseMatrix": [
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1
-      ]
-    }
-  ]
-}
+# Multi marker definition file
+
+marker id=0
+pattern: patt.kanji
+translation: 0 0 0
+rotation: 0 0 0
