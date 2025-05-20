@@ -8,30 +8,6 @@
     {
       "parameters": {
         "type": "pattern",
-        "preset": "hiro"
-      },
-      "poseMatrix": [
-        1.0000000000000002,
-        0,
-        0,
-        0,
-        0,
-        1,
-        2.7755575615628914e-17,
-        0,
-        0,
-        0,
-        1,
-        0,
-        4.440892098500626e-16,
-        0,
-        4.440892098500626e-16,
-        1
-      ]
-    },
-    {
-      "parameters": {
-        "type": "pattern",
         "preset": "kanji"
       },
       "poseMatrix": [
