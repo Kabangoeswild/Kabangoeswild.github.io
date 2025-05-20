@@ -1,127 +1,55 @@
 {
   "meta": {
-    "createdBy": "Area Learning - AR.js 1.7.2",
-    "createdAt": "2025-05-19T13:04:46.322Z"
+    "createdBy": "AR.js Logger",
+    "createdAt": "2025-05-20T09:48:16.920Z"
   },
   "trackingBackend": "artoolkit",
   "subMarkersControls": [
     {
       "parameters": {
         "type": "pattern",
-        "patternUrl": "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-hiro.patt"
+        "preset": "hiro"
       },
       "poseMatrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
+        1.0000000000000002,
         0,
         0,
         0,
         0,
         1,
+        2.7755575615628914e-17,
         0,
         0,
         0,
+        1,
         0,
+        4.440892098500626e-16,
+        0,
+        4.440892098500626e-16,
         1
       ]
     },
     {
       "parameters": {
         "type": "pattern",
-        "patternUrl": "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-letterA.patt"
+        "preset": "kanji"
       },
       "poseMatrix": [
-        0.9197669041591912,
-        -0.24791729441575514,
-        -0.30424668532852894,
+        0.9981760352601751,
+        -0.06031413934590721,
+        -0.002615701136986264,
         0,
-        0.37511340475655663,
-        0.3273610770863312,
-        0.8672511608496322,
+        0.06029042868775328,
+        0.9981459258194914,
+        -0.008354175527523183,
         0,
-        -0.11540806787124257,
-        -0.9117958224469624,
-        0.39409293214064806,
+        0.003114726266390342,
+        0.008181235782777269,
+        0.9999616832041831,
         0,
-        -4.582478887231037,
-        -12.652926563275974,
-        -11.906842150467174,
-        1
-      ]
-    },
-    {
-      "parameters": {
-        "type": "pattern",
-        "patternUrl": "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-letterB.patt"
-      },
-      "poseMatrix": [
-        0.9946718583078843,
-        0.015837621537106175,
-        -0.10187008718482722,
-        0,
-        -0.001501944315695018,
-        0.9902506250506194,
-        0.13928794768028338,
-        0,
-        0.10308295832920454,
-        -0.1383927603486372,
-        0.9849980376301938,
-        0,
-        -3.2837222205633,
-        -12.939577227922948,
-        -10.6654925483963,
-        1
-      ]
-    },
-    {
-      "parameters": {
-        "type": "pattern",
-        "patternUrl": "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-letterC.patt"
-      },
-      "poseMatrix": [
-        0.9821037495098186,
-        -0.09040287777748476,
-        -0.16522683720320955,
-        0,
-        0.1882884032656632,
-        0.4503986908877387,
-        0.8727476732257169,
-        0,
-        -0.004480950955683959,
-        -0.8882388874396487,
-        0.45935997267756196,
-        0,
-        -1.706882530823365,
-        -12.938806541738847,
-        -9.573447884764775,
-        1
-      ]
-    },
-    {
-      "parameters": {
-        "type": "pattern",
-        "patternUrl": "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-letterF.patt"
-      },
-      "poseMatrix": [
-        0.9959615741392559,
-        0.01135231983488091,
-        -0.0890596246587614,
-        0,
-        -0.004906691330323537,
-        0.9973735973359842,
-        0.07226200336673567,
-        0,
-        0.08964606788092339,
-        -0.07153319829104102,
-        0.9934014220357503,
-        0,
-        0.8282276416820307,
-        -13.005240765279739,
-        -9.889522158933788,
+        1.4124961808069831,
+        0.14899362078692135,
+        -1.2494929485342667,
         1
       ]
     }
