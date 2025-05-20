@@ -3,7 +3,6 @@
     "createdBy": "AR.js Logger",
     "createdAt": "2025-05-20T09:48:16.920Z"
   },
-  {
   "trackingBackend": "artoolkit",
   "subMarkersControls": [
     {
@@ -12,10 +11,10 @@
         "preset": "kanji"
       },
       "poseMatrix": [
-        1,0,0,0,
-        0,1,0,0,
-        0,0,1,0,
-        0,0,0,1
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
       ]
     }
   ]
