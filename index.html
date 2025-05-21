@@ -1,85 +1,113 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>AR Video mit Einzelmarkern</title>
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.1/aframe/build/aframe-ar.min.js"></script>
-    <style>
-      video {
-        display: none;
-        position: fixed;
-        bottom: 10px;
-        left: 10px;
-        width: 300px;
-        border: 2px solid #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      }
-    </style>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AR.js Multi-Marker with Video</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/three.js/build/ar-threex.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
+  <style>body { margin: 0; overflow: hidden; }</style>
+</head>
+<body>
+<script>
+  let scene, camera, renderer;
+  let arToolkitSource, arToolkitContext;
+  let markerRoot, smoothedRoot;
 
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs>
-      <!-- Marker Hiro -->
-      <a-marker id="hiro-marker" type="pattern" preset="hiro">
-        <a-box position="0 0.5 0" material="color: red;"></a-box>
-      </a-marker>
+  // Init
+  init();
+  animate();
 
-      <!-- Marker Kanji -->
-      <a-marker id="kanji-marker" type="pattern" preset="kanji">
-        <a-sphere position="0 0.5 0" material="color: blue;"></a-sphere>
-      </a-marker>
+  async function init() {
+    // Scene setup
+    scene = new THREE.Scene();
+    camera = new THREE.Camera();
+    scene.add(camera);
 
-      <a-entity camera></a-entity>
-    </a-scene>
+    // Renderer
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-    <!-- Videos im DOM -->
-    <video id="video-hiro" src="video1.mp4" muted autoplay loop playsinline></video>
-    <video id="video-kanji" src="video2.mp4" muted autoplay loop playsinline></video>
+    // Source
+    arToolkitSource = new THREEx.ArToolkitSource({ sourceType: 'webcam' });
+    arToolkitSource.init(() => onResize());
+    window.addEventListener('resize', () => onResize());
 
-    <script>
-      window.addEventListener('load', () => {
-        const markers = {
-          hiro: document.querySelector('#hiro-marker'),
-          kanji: document.querySelector('#kanji-marker')
-        };
+    // Context
+    arToolkitContext = new THREEx.ArToolkitContext({
+      cameraParametersUrl: 'https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/data/data/camera_para.dat',
+      detectionMode: 'mono'
+    });
 
-        const videos = {
-          hiro: document.getElementById('video-hiro'),
-          kanji: document.getElementById('video-kanji')
-        };
+    await new Promise(resolve => arToolkitContext.init(() => {
+      camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+      resolve();
+    }));
 
-        // Videos vorbereiten
-        Object.values(videos).forEach(video => {
-          if (video.readyState >= 3) video.play();
-          else video.addEventListener('canplay', () => video.play(), { once: true });
-          video.style.display = 'none';
-        });
+    // Update loop
+    onRenderFcts.push(() => {
+      if (arToolkitSource.ready) arToolkitContext.update(arToolkitSource.domElement);
+    });
 
-        function update() {
-          Object.entries(markers).forEach(([name, marker]) => {
-            const video = videos[name];
-            if (!video) return;
+    // Load Multi-Marker JSON
+    const multiMarkerFile = await fetch('multi-marker.json').then(res => res.json());
+    markerRoot = new THREE.Group();
+    scene.add(markerRoot);
 
-            if (marker.object3D.visible) {
-              video.style.display = 'block';
+    const multiMarkerControls = THREEx.ArMultiMarkerControls.fromJSON(
+      arToolkitContext, scene, markerRoot, multiMarkerFile
+    );
 
-              const pos = new THREE.Vector3();
-              marker.object3D.getWorldPosition(pos);
-              console.log(`Marker "${name}" sichtbar:`, pos);
+    // Compute center
+    smoothedRoot = new THREE.Group();
+    scene.add(smoothedRoot);
 
-              const rot = marker.object3D.rotation;
-              console.log(`Rotation ${name}: x=${THREE.MathUtils.radToDeg(rot.x).toFixed(1)}°, y=${THREE.MathUtils.radToDeg(rot.y).toFixed(1)}°`);
-            } else {
-              video.style.display = 'none';
-            }
-          });
-        }
+    let averageMatrix = THREEx.ArMultiMarkerControls.computeCenter(multiMarkerFile);
+    averageMatrix.decompose(smoothedRoot.position, smoothedRoot.quaternion, smoothedRoot.scale);
 
-        setInterval(update, 100);
-      });
-    </script>
-  </body>
+    // VIDEO OBJECT
+    const video = document.createElement('video');
+    video.src = 'yz x -0.35.mp4';
+    video.crossOrigin = 'anonymous';
+    video.loop = true;
+    video.muted = true;
+    video.play();
+
+    const texture = new THREE.VideoTexture(video);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+
+    const geometry = new THREE.PlaneGeometry(1.5, 1);
+    const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.rotation.x = -Math.PI / 2; // Rotate so it's flat
+    smoothedRoot.add(mesh);
+
+    // Update smoothed transform
+    onRenderFcts.push(() => {
+      multiMarkerControls.updateSmoothedControls(smoothedRoot);
+    });
+  }
+
+  // Resize
+  function onResize() {
+    arToolkitSource.onResizeElement();
+    arToolkitSource.copyElementSizeTo(renderer.domElement);
+    if (arToolkitContext.arController) {
+      arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+    }
+  }
+
+  // Animation
+  let onRenderFcts = [];
+  function animate(now) {
+    requestAnimationFrame(animate);
+    onRenderFcts.forEach(f => f());
+    renderer.render(scene, camera);
+  }
+</script>
+</body>
 </html>
+
 
