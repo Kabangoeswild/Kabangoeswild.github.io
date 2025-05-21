@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>AR.js Video on Hiro Marker</title>
     <script src="aframe.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="ar.js.02.07.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
@@ -19,7 +19,7 @@
             <video id="video7" src="xz-rot-z-30-deg_VQ1Otf3Z.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
         </a-assets>
 
-        <a-marker preset="hiro">
+        <a-marker type="area">
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0"
                 material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="3" height="0.75" position="0 -1 -1.5" rotation="-30 0 0"
@@ -38,7 +38,8 @@
 
         <a-entity camera></a-entity>
     </a-scene>
-
+        <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+        <script src="https://button.glitch.me/button.js"></script>
     <script>
         window.addEventListener('load', () => {
             const marker = document.querySelector('a-marker');
