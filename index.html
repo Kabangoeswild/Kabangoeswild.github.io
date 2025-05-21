@@ -86,8 +86,8 @@
             marker.addEventListener('markerFound', () => {
                 const intervalId = setInterval(() => {
                     const markerRotation = marker.object3D.rotation;
-                    const markerRotationX = markerRotation.x * THREE.MathUtils.RAD2DEG;
-                    const markerRotationY = markerRotation.y * THREE.MathUtils.RAD2DEG;
+                    const markerRotationX = markerRotation.x * AFRAME.MathUtils.RAD2DEG;
+                    const markerRotationY = markerRotation.y * AFRAME.MathUtils.RAD2DEG;
 
                     // Calculate distance between the camera and the marker
                     const markerPosition = marker.object3D.position;
