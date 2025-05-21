@@ -57,7 +57,12 @@ if( hasHash === true ){
   var urlOptions = {
     backURL : null,
     trackingBackend: 'artookit',
-    markerControlsParameters : [],
+    markerControlsParameters : [
+      type: 'pattern',
+      patternUrl: 'patt.kanji',
+      size: 1,
+      name: 'kanji'
+    ],
   }
   alert('no urlOption - should not happen')
 }
