@@ -5764,7 +5764,7 @@ ARjs.Profile.prototype.defaultMarker = function (trackingBackend) {
 	if( trackingBackend === 'artoolkit' ){
 		this.contextParameters.detectionMode = 'mono'
 		this.defaultMarkerParameters.type = 'pattern'
-		this.defaultMarkerParameters.patternUrl = 'patt.kanji'
+		this.defaultMarkerParameters.patternUrl = 'pattern-dlr_logo2.patt'
 	}else if( trackingBackend === 'aruco' ){
 		this.contextParameters.detectionMode = 'mono'
 		this.defaultMarkerParameters.type = 'barcode'
@@ -8054,7 +8054,7 @@ ARjs.MarkersAreaUtils.createDefaultMultiMarkerFile = function(trackingBackend) {
 
     if (trackingBackend === 'artoolkit') {
         file.subMarkersControls[0].parameters.type = 'pattern';
-        file.subMarkersControls[0].parameters.patternUrl = 'patt.kanji';
+        file.subMarkersControls[0].parameters.patternUrl = 'pattern-dlr_logo2.patt';
 
         // Log details about the artoolkit marker
         console.log("Using artoolkit pattern marker at URL:", file.subMarkersControls[0].parameters.patternUrl);
@@ -8091,15 +8091,15 @@ ARjs.MarkersAreaUtils.createDefaultMarkersControlsParameters = function(tracking
 
 
 	if( trackingBackend === 'artoolkit' ){
-		// pattern hiro/kanji/a/b/c/f
+		// pattern dlr/kanji/a/b/c/f
 		var markersControlsParameters = [
 			{
 				type : 'pattern',
-				patternUrl : absoluteBaseURL + 'examples/marker-training/examples/pattern-files/pattern-hiro.patt',
+				patternUrl : 'pattern-dlr_logo2.patt',
 			},
 			{
 				type : 'pattern',
-				patternUrl : absoluteBaseURL + 'examples/marker-training/examples/pattern-files/pattern-kanji.patt',
+				patternUrl : absoluteBaseURL + 'examples/marker-training/examples/pattern-files/pattern-hiro.patt',
 			},
 			{
 				type : 'pattern',
@@ -8364,13 +8364,13 @@ AFRAME.registerComponent('arjs-anchor', {
 			// honor this.data.preset
 			var markerParameters = Object.assign({}, arProfile.defaultMarkerParameters)
 
-			if( _this.data.preset === 'hiro' ){
+			if( _this.data.preset === 'dlr' ){
+				markerParameters.type = 'pattern'
+				markerParameters.patternUrl = 'pattern-dlr_logo2.patt'
+				markerParameters.markersAreaEnabled = false
+			}else if( _this.data.preset === 'dlr' ){
 				markerParameters.type = 'pattern'
 				markerParameters.patternUrl = THREEx.ArToolkitContext.baseURL+'examples/marker-training/examples/pattern-files/pattern-hiro.patt'
-				markerParameters.markersAreaEnabled = false
-			}else if( _this.data.preset === 'kanji' ){
-				markerParameters.type = 'pattern'
-				markerParameters.patternUrl = THREEx.ArToolkitContext.baseURL+'examples/marker-training/examples/pattern-files/pattern-kanji.patt'
 				markerParameters.markersAreaEnabled = false
 			}else if( _this.data.preset === 'area' ){
 				markerParameters.type = 'barcode'
