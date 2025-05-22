@@ -5777,16 +5777,7 @@ ARjs.Profile.prototype.defaultMarker = function (trackingBackend) {
 
 	return this
 }
-console.log('[AR.js] Default marker used:', subMarkersControls[0].parameters)
 
-    return {
-        meta: {
-            createdBy: 'AR.js - MarkersAreaFormat',
-            createdAt: new Date().toJSON(),
-        },
-        subMarkersControls: subMarkersControls
-    }
-}
 //////////////////////////////////////////////////////////////////////////////
 //		Source
 //////////////////////////////////////////////////////////////////////////////
@@ -8032,42 +8023,55 @@ ARjs.MarkersAreaUtils.storeDefaultMultiMarkerFile = function(trackingBackend){
  * @param {String} trackingBackend - the tracking backend to use
  * @return {Object} - json object of the multi-marker file
  */
-ARjs.MarkersAreaUtils.createDefaultMultiMarkerFile = function(trackingBackend){
-	console.assert(trackingBackend)
-	if( trackingBackend === undefined )	debugger
-	
-	// create absoluteBaseURL
-	var link = document.createElement('a')
-	link.href = ARjs.Context.baseURL
-	var absoluteBaseURL = link.href
+ARjs.MarkersAreaUtils.createDefaultMultiMarkerFile = function(trackingBackend) {
+    console.assert(trackingBackend);
+    if (trackingBackend === undefined) debugger;
 
-	// create the base file
-	var file = {
-		meta : {
-			createdBy : 'AR.js ' + ARjs.Context.REVISION + ' - Default Marker',
-			createdAt : new Date().toJSON(),
-		},
-		trackingBackend : trackingBackend,
-		subMarkersControls : [
-			// empty for now... being filled 
-		]
-	}
-	// add a subMarkersControls
-	file.subMarkersControls[0] = {
-		parameters: {},
-		poseMatrix: new THREE.Matrix4().makeTranslation(0,0, 0).toArray(),
-	}
-	if( trackingBackend === 'artoolkit' ){
-		file.subMarkersControls[0].parameters.type = 'pattern'
-		file.subMarkersControls[0].parameters.patternUrl = absoluteBaseURL + 'examples/marker-training/examples/pattern-files/pattern-hiro.patt'
-	}else if( trackingBackend === 'aruco' ){
-		file.subMarkersControls[0].parameters.type = 'barcode'
-		file.subMarkersControls[0].parameters.barcodeValue = 1001
-	}else console.assert(false)
-	
-	// json.strinfy the value and store it in localStorage
-	return file
-}
+    // Log when the default marker creation starts
+    console.log("Creating default multi-marker file with backend:", trackingBackend);
+
+    // Create absoluteBaseURL
+    var link = document.createElement('a');
+    link.href = ARjs.Context.baseURL;
+    var absoluteBaseURL = link.href;
+
+    // Create the base file
+    var file = {
+        meta: {
+            createdBy: 'AR.js ' + ARjs.Context.REVISION + ' - Default Marker',
+            createdAt: new Date().toJSON(),
+        },
+        trackingBackend: trackingBackend,
+        subMarkersControls: []
+        // Empty for now... being filled later
+    };
+
+    // Add a subMarkersControl
+    file.subMarkersControls.push({
+        parameters: {},
+        poseMatrix: new THREE.Matrix4().makeTranslation(0, 0, 0).toArray()
+    });
+
+    if (trackingBackend === 'artoolkit') {
+        file.subMarkersControls[0].parameters.type = 'pattern';
+        file.subMarkersControls[0].parameters.patternUrl = 'patt.kanji';
+
+        // Log details about the artoolkit marker
+        console.log("Using artoolkit pattern marker at URL:", file.subMarkersControls[0].parameters.patternUrl);
+    } else if (trackingBackend === 'aruco') {
+        file.subMarkersControls[0].parameters.type = 'barcode';
+        file.subMarkersControls[0].parameters.barcodeValue = 1001;
+
+        // Log details about the aruco barcode marker
+        console.log("Using aruco barcode marker with value:", file.subMarkersControls[0].parameters.barcodeValue);
+    } else {
+        console.assert(false); // This line ensures that an invalid trackingBackend triggers an assertion error
+    }
+
+    // JSON.stringify the value and store it in localStorage
+    return file;
+};
+
 
 //////////////////////////////////////////////////////////////////////////////
 //		createDefaultMarkersControlsParameters
