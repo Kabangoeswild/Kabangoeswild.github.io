@@ -5777,6 +5777,16 @@ ARjs.Profile.prototype.defaultMarker = function (trackingBackend) {
 
 	return this
 }
+console.log('[AR.js] Default marker used:', subMarkersControls[0].parameters)
+
+    return {
+        meta: {
+            createdBy: 'AR.js - MarkersAreaFormat',
+            createdAt: new Date().toJSON(),
+        },
+        subMarkersControls: subMarkersControls
+    }
+}
 //////////////////////////////////////////////////////////////////////////////
 //		Source
 //////////////////////////////////////////////////////////////////////////////
