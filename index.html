@@ -16,6 +16,15 @@
             border-radius: 5px;
             z-index: 10;
         }
+        #group2-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
         button {
             margin-right: 10px;
         }
@@ -25,14 +34,14 @@
     <div id="controls">
         <button onclick="prevVideo1()">Previous Video 1</button>
         <button onclick="nextVideo1()">Next Video 1</button>
-        <button onclick="prevVideo2()">Previous Video 2</button>
-        <button onclick="nextVideo2()">Next Video 2</button>
-        <button onclick="prevGroup()">Previous Group</button>
-        <button onclick="nextGroup()">Next Group</button>
+    </div>
+    <div id="group2-controls">
+        <button onclick="prevGroup2()">Previous Group 2</button>
+        <button onclick="nextGroup2()">Next Group 2</button>
     </div>
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
         <a-assets>
-            <img id="video1" src="CPTsection.jpg" ></img>
+            <img id="video1" src="CPTsection.jpg"></img>
             <img id="video2" src="ShieldWeld.jpg"></img>
             <img id="video3" src="Section1.jpg"></img>
             <img id="video4" src="Section2.jpg"></img>
@@ -63,59 +72,50 @@
 
     <script>
         let currentVideo1Index = 0;
-        let currentVideo2Index = 1;
-        let currentGroupIndex = 2;
+        let currentGroup2Index = 2;
 
-        const videos1 = ['#video1'];
-        const videos2 = ['#video2'];
-
-        const groups = [
-            '#video3',
-            '#video4',
-            '#video5',
-            '#video6',
-            '#video7'
+        const videos1 = [document.querySelector('#markerVideo1'), document.querySelector('#markerVideo2')];
+        const group2Videos = [
+            document.querySelector('#markerVideo3'),
+            document.querySelector('#markerVideo4'),
+            document.querySelector('#markerVideo5'),
+            document.querySelector('#markerVideo6'),
+            document.querySelector('#markerVideo7')
         ];
 
-        function showVideo(videoId) {
-            document.querySelectorAll('[id^="markerVideo"]').forEach(element => element.setAttribute('visible', false));
-            document.querySelector(`#${videoId}`).setAttribute('visible', true);
+        function hideAllImages() {
+            videos1.forEach(img => img.setAttribute('visible', false));
+            group2Videos.forEach(img => img.setAttribute('visible', false));
+        }
+
+        function showVideo(index, images) {
+            hideAllImages();
+            images[index].setAttribute('visible', true);
         }
 
         function prevVideo1() {
             currentVideo1Index = (currentVideo1Index - 1 + videos1.length) % videos1.length;
-            showVideo(videos1[currentVideo1Index]);
+            showVideo(currentVideo1Index, videos1);
         }
 
         function nextVideo1() {
             currentVideo1Index = (currentVideo1Index + 1) % videos1.length;
-            showVideo(videos1[currentVideo1Index]);
+            showVideo(currentVideo1Index, videos1);
         }
 
-        function prevVideo2() {
-            currentVideo2Index = (currentVideo2Index - 1 + videos2.length) % videos2.length;
-            showVideo(videos2[currentVideo2Index]);
+        function prevGroup2() {
+            currentGroup2Index = (currentGroup2Index - 1 + group2Videos.length) % group2Videos.length;
+            showVideo(currentGroup2Index, group2Videos);
         }
 
-        function nextVideo2() {
-            currentVideo2Index = (currentVideo2Index + 1) % videos2.length;
-            showVideo(videos2[currentVideo2Index]);
-        }
-
-        function prevGroup() {
-            currentGroupIndex = (currentGroupIndex - 1 + groups.length) % groups.length;
-            showVideo(groups[currentGroupIndex]);
-        }
-
-        function nextGroup() {
-            currentGroupIndex = (currentGroupIndex + 1) % groups.length;
-            showVideo(groups[currentGroupIndex]);
+        function nextGroup2() {
+            currentGroup2Index = (currentGroup2Index + 1) % group2Videos.length;
+            showVideo(currentGroup2Index, group2Videos);
         }
 
         // Initially show the first image
-        showVideo(videos1[currentVideo1Index]);
-        showVideo(videos2[currentVideo2Index]);
-        showVideo(groups[currentGroupIndex]);
+        showVideo(currentVideo1Index, videos1);
+        showVideo(currentGroup2Index, group2Videos);
     </script>
 </body>
 </html>
