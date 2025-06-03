@@ -6,8 +6,30 @@
     <title>AR.js Video on Hiro Marker</title>
     <script src="aframe.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <style>
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+        button {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
+    <div id="controls">
+        <button onclick="prevVideo1()">Previous Video 1</button>
+        <button onclick="nextVideo1()">Next Video 1</button>
+        <button onclick="prevVideo2()">Previous Video 2</button>
+        <button onclick="nextVideo2()">Next Video 2</button>
+        <button onclick="prevGroup()">Previous Group</button>
+        <button onclick="nextGroup()">Next Group</button>
+    </div>
     <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
         <a-assets>
             <img id="video1" src="CPTsection.jpg" ></img>
@@ -21,24 +43,79 @@
 
         <a-marker preset="hiro">
             <a-image id="markerVideo1" src="#video1" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0"
-                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-image>
+                material="transparent: true;  depthTest: false; blending: normal;"></a-image>
             <a-image id="markerVideo2" autoplay loop="true" src="#video2" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0"
-                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-image>
+                material="transparent: true;  depthTest: false; blending: normal;"></a-image>
             <a-image id="markerVideo3" autoplay loop="true" src="#video3" width="3" height="0.75" position="1 -1 -1.5" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8;" visible="true"></a-image>
+                material="transparent: true; opacity: 0.8;"></a-image>
             <a-image id="markerVideo4" autoplay loop="true" src="#video4" width="3" height="0.75" position="0.5 -1 -1.5" rotation="0 90 0"
-                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-image>
+                material="transparent: true;  depthTest: false; blending: normal;"></a-image>
             <a-image id="markerVideo5" autoplay loop="true" src="#video5" width="3" height="0.75" position="0 -1 -1.5" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-image>
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;"></a-image>
             <a-image id="markerVideo6" autoplay loop="true" src="#video6" width="3" height="0.75" position="-0.5 -1 -1.5" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-image>
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;"></a-image>
             <a-image id="markerVideo7" autoplay loop="true" src="#video7" width="3" height="0.75" position="-1 -1 -1.5" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-image>
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;"></a-image>
         </a-marker>
 
         <a-entity camera></a-entity>
     </a-scene>
 
- 
+    <script>
+        let currentVideo1Index = 0;
+        let currentVideo2Index = 1;
+        let currentGroupIndex = 2;
+
+        const videos1 = ['#video1'];
+        const videos2 = ['#video2'];
+
+        const groups = [
+            '#video3',
+            '#video4',
+            '#video5',
+            '#video6',
+            '#video7'
+        ];
+
+        function showVideo(videoId) {
+            document.querySelectorAll('[id^="markerVideo"]').forEach(element => element.setAttribute('visible', false));
+            document.querySelector(`#${videoId}`).setAttribute('visible', true);
+        }
+
+        function prevVideo1() {
+            currentVideo1Index = (currentVideo1Index - 1 + videos1.length) % videos1.length;
+            showVideo(videos1[currentVideo1Index]);
+        }
+
+        function nextVideo1() {
+            currentVideo1Index = (currentVideo1Index + 1) % videos1.length;
+            showVideo(videos1[currentVideo1Index]);
+        }
+
+        function prevVideo2() {
+            currentVideo2Index = (currentVideo2Index - 1 + videos2.length) % videos2.length;
+            showVideo(videos2[currentVideo2Index]);
+        }
+
+        function nextVideo2() {
+            currentVideo2Index = (currentVideo2Index + 1) % videos2.length;
+            showVideo(videos2[currentVideo2Index]);
+        }
+
+        function prevGroup() {
+            currentGroupIndex = (currentGroupIndex - 1 + groups.length) % groups.length;
+            showVideo(groups[currentGroupIndex]);
+        }
+
+        function nextGroup() {
+            currentGroupIndex = (currentGroupIndex + 1) % groups.length;
+            showVideo(groups[currentGroupIndex]);
+        }
+
+        // Initially show the first image
+        showVideo(videos1[currentVideo1Index]);
+        showVideo(videos2[currentVideo2Index]);
+        showVideo(groups[currentGroupIndex]);
+    </script>
 </body>
 </html>
