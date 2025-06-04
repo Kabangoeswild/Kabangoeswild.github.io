@@ -4,14 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AR.js Images with Arrows</title>
-  <script src="aframe.js"></script>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ar.js@3.4.2/aframe/build/aframe-ar.js"></script>
   <style>
     body {
       margin: 0;
       overflow: hidden;
     }
-
     .arrow-controls {
       position: fixed;
       z-index: 10;
@@ -22,18 +21,15 @@
       cursor: pointer;
       user-select: none;
     }
-
     .up-down {
       top: 20px;
       right: 20px;
     }
-
     .left-right {
       bottom: 20px;
       left: 20px;
       flex-direction: row;
     }
-
     .arrow {
       padding: 10px;
       background: rgba(255, 255, 255, 0.7);
@@ -53,14 +49,14 @@
       <img id="image7" src="Section5New.png" crossorigin="anonymous" />
     </a-assets>
 
-    <a-marker type : 'pattern', patternUrl : 'pattern-dlr_logo2jpg.patt',hangeMatrixMode: 'modelViewMatrix',>
-      <a-image id="markerImage1" src="#image1" width="3" height="0.75" position="0 -1 -1.5" 	 rotation="-90 0 0   visible="true"></a-image>
-      <a-image id="markerImage2" src="#image2" width="3" height="0.75" position="0 -1 -1.5"    rotation="-90 0 0"  visible="false"></a-image>
-      <a-image id="markerImage3" src="#image3" width="5" height="5"    position="1 -1 -1.5"    rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage4" src="#image4" width="5" height="5"    position="0.5 -1 -1.5"  rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage5" src="#image5" width="5" height="5"    position="0 -1 -1.5"    rotation="0 90 0""  visible="false"></a-image>
-      <a-image id="markerImage6" src="#image6" width="5" height="5"    position="-0.5 -1 -1.5" rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage7" src="#image7" width="5" height="5"    position="-1 -1 -1.5"   rotation="0 90 0"   visible="false"></a-image>
+    <a-marker type="pattern" patternUrl="pattern-dlr_logo2jpg.patt" changeMatrixMode="modelViewMatrix">
+      <a-image id="markerImage1" src="#image1" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0" visible="true"></a-image>
+      <a-image id="markerImage2" src="#image2" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0" visible="false"></a-image>
+      <a-image id="markerImage3" src="#image3" width="5" height="5" position="1 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage4" src="#image4" width="5" height="5" position="0.5 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage5" src="#image5" width="5" height="5" position="0 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage6" src="#image6" width="5" height="5" position="-0.5 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage7" src="#image7" width="5" height="5" position="-1 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
     </a-marker>
 
     <a-entity camera></a-entity>
