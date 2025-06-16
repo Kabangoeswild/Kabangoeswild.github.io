@@ -1,100 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR.js Images with Arrows</title>
-<script src="aframe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>AR.js Video on Hiro Marker</title>
+    <script src="aframe.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-    }
-    .arrow-controls {
-      position: fixed;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 32px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .up-down {
-      top: 20px;
-      right: 20px;
-    }
-    .left-right {
-      bottom: 20px;
-      left: 20px;
-      flex-direction: row;
-    }
-    .arrow {
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 8px;
-    }
-  </style>
+    <style>
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+        #group2-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+        button {
+            margin-right: 10px;
+        }
+    </style>
 </head>
-<body>
-  <a-scene embedded arjs="sourceType: webcam; trackingMethod: best;" renderer="alpha: true">
-    <a-assets>
-      <img id="image1" src="CPTsection.jpg" crossorigin="anonymous" />
-      <img id="image2" src="ShieldWeld.jpg" crossorigin="anonymous" />
-      <img id="image3" src="Section1New.png" crossorigin="anonymous" />
-      <img id="image4" src="Section2New.png" crossorigin="anonymous" />
-      <img id="image5" src="Section3New.png" crossorigin="anonymous" />
-      <img id="image6" src="Section4New.png" crossorigin="anonymous" />
-      <img id="image7" src="Section5New.png" crossorigin="anonymous" />
-    </a-assets>
+<body style="margin: 0; overflow: hidden;">
+    <div id="controls">
+        <button onclick="prevVideo1()">Previous Video 1</button>
+        <button onclick="nextVideo1()">Next Video 1</button>
+    </div>
+    <div id="group2-controls">
+        <button onclick="prevGroup2()">Previous Group 2</button>
+        <button onclick="nextGroup2()">Next Group 2</button>
+    </div>
+    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
+        <a-assets>
+            <img id="video1" src="CPTsection.jpg"></img>
+            <img id="video2" src="ShieldWeld.jpg"></img>
+            <img id="video3" src="Section1New.png"></img>
+            <img id="video4" src="Section2New.jpg"></img>
+            <img id="video5" src="Section3New.jpg"></img>
+            <img id="video6" src="Section4New.jpg"></img>
+            <img id="video7" src="Section5New.jpg"></img>
+        </a-assets>
 
-    <a-marker type="pattern" patternUrl="pattern-dlr_logo2jpg.patt" changeMatrixMode="modelViewMatrix">
-      <a-image id="markerImage1" src="#image1" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0" visible="true"></a-image>
-      <a-image id="markerImage2" src="#image2" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0" visible="false"></a-image>
-      <a-image id="markerImage3" src="#image3" width="5" height="5" position="1 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage4" src="#image4" width="5" height="5" position="0.5 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage5" src="#image5" width="5" height="5" position="0 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage6" src="#image6" width="5" height="5" position="-0.5 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage7" src="#image7" width="5" height="5" position="-1 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
-    </a-marker>
+        <a-marker type : 'pattern', patternUrl : 'pattern-dlr_logo2jpg.patt',hangeMatrixMode: 'modelViewMatrix',>
+            <a-image id="markerVideo1" src="#video1" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0"
+                material="transparent: true;  depthTest: false; blending: normal;"></a-image>
+            <a-image id="markerVideo2" autoplay loop="true" src="#video2" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0"
+                material="transparent: true;  depthTest: false; blending: normal;"></a-image>
+            <a-image id="markerVideo3" autoplay loop="true" src="#video3" width="3" height="0.75" position="1 -1 -1.5" rotation="0 90 0"
+                material="transparent: true; opacity: 0.8;"></a-image>
+            <a-image id="markerVideo4" autoplay loop="true" src="#video4" width="3" height="0.75" position="0.5 -1 -1.5" rotation="0 90 0"
+                material="transparent: true;  depthTest: false; blending: normal;"></a-image>
+            <a-image id="markerVideo5" autoplay loop="true" src="#video5" width="3" height="0.75" position="0 -1 -1.5" rotation="0 90 0"
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;"></a-image>
+            <a-image id="markerVideo6" autoplay loop="true" src="#video6" width="3" height="0.75" position="-0.5 -1 -1.5" rotation="0 90 0"
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;"></a-image>
+            <a-image id="markerVideo7" autoplay loop="true" src="#video7" width="3" height="0.75" position="-1 -1 -1.5" rotation="0 90 0"
+                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;"></a-image>
+        </a-marker>
 
-    <a-entity camera></a-entity>
-  </a-scene>
+        <a-entity camera></a-entity>
+    </a-scene>
 
-  <!-- Arrow Controls for Image 1 & 2 (Top Right ↑ ↓) -->
-  <div class="arrow-controls up-down">
-    <div class="arrow" onclick="showImage(1)">↑</div>
-    <div class="arrow" onclick="showImage(2)">↓</div>
-  </div>
+    <script>
+        let currentVideo1Index = 0;
+        let currentGroup2Index = 2;
 
-  <!-- Arrow Controls for Images 3–7 (Bottom Left ← →) -->
-  <div class="arrow-controls left-right">
-    <div class="arrow" onclick="prevImage()">←</div>
-    <div class="arrow" onclick="nextImage()">→</div>
-  </div>
+        const videos1 = [document.querySelector('#markerVideo1'), document.querySelector('#markerVideo2')];
+        const group2Videos = [
+            document.querySelector('#markerVideo3'),
+            document.querySelector('#markerVideo4'),
+            document.querySelector('#markerVideo5'),
+            document.querySelector('#markerVideo6'),
+            document.querySelector('#markerVideo7')
+        ];
 
-  <script>
-    let currentIndex = 3; // Start with image 3 for left-right controls
+        function hideAllImages() {
+            videos1.forEach(img => img.setAttribute('visible', false));
+            group2Videos.forEach(img => img.setAttribute('visible', false));
+        }
 
-    function showImage(index) {
-      for (let i = 1; i <= 7; i++) {
-        const image = document.getElementById(`markerImage${i}`);
-        image.setAttribute('visible', i === index);
-      }
-    }
+        function showVideo(index, images) {
+            hideAllImages();
+            images[index].setAttribute('visible', true);
+        }
 
-    function nextImage() {
-      currentIndex++;
-      if (currentIndex > 7) currentIndex = 3;
-      showImage(currentIndex);
-    }
+        function prevVideo1() {
+            currentVideo1Index = (currentVideo1Index - 1 + videos1.length) % videos1.length;
+            showVideo(currentVideo1Index, videos1);
+        }
 
-    function prevImage() {
-      currentIndex--;
-      if (currentIndex < 3) currentIndex = 7;
-      showImage(currentIndex);
-    }
-  </script>
+        function nextVideo1() {
+            currentVideo1Index = (currentVideo1Index + 1) % videos1.length;
+            showVideo(currentVideo1Index, videos1);
+        }
+
+        function prevGroup2() {
+            currentGroup2Index = (currentGroup2Index - 1 + group2Videos.length) % group2Videos.length;
+            showVideo(currentGroup2Index, group2Videos);
+        }
+
+        function nextGroup2() {
+            currentGroup2Index = (currentGroup2Index + 1) % group2Videos.length;
+            showVideo(currentGroup2Index, group2Videos);
+        }
+
+        // Initially show the first image
+        showVideo(currentVideo1Index, videos1);
+        showVideo(currentGroup2Index, group2Videos);
+    </script>
 </body>
 </html>
