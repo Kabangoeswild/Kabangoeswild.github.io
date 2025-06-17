@@ -1,6 +1,31 @@
-# Multi marker definition file
-
-marker id=0
-pattern: patt.kanji
-translation: 0 0 0
-rotation: 0 0 0
+{
+  "meta": {
+    "version": "0.1"
+  },
+  "markers": [
+    {
+      "patternUrl": "pattern-DLR.patt",
+      "width": 0.033,
+      "pose": {
+        "position": [-0.033, 0, 0],
+        "rotation": [0, 90, 0]
+      }
+    },
+    {
+      "patternUrl": "pattern-dlr_logo2jpg.patt",
+      "width": 0.033,
+      "pose": {
+        "position": [0, 0, 0],
+        "rotation": [0, 0, 0]
+      }
+    },
+    {
+      "patternUrl": "pattern-FK.patt",
+      "width": 0.033,
+      "pose": {
+        "position": [0.033, 0, 0],
+        "rotation": [0, -90, 0]
+      }
+    }
+  ]
+}
