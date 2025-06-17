@@ -103,8 +103,8 @@ window.addEventListener('load', () => {
           const distance = dlrPos.distanceTo(camPos);
 
           const rot = dlrMarker.object3D.rotation;
-          const rotX = THREE.MathUtils.radToDeg(rot.x);
-          const rotY = THREE.MathUtils.radToDeg(rot.y);
+          const rotX = (rot.x) * (180 / Math.PI);
+          const rotY = (rot.y) * (180 / Math.PI);
 
           // Log distance & rotation
           console.log(`DLR: Distance = ${distance.toFixed(2)}m | RotX: ${rotX.toFixed(2)}, RotY: ${rotY.toFixed(2)}`);
