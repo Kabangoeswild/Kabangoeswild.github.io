@@ -20,6 +20,13 @@
         </a-assets>
 
            <a-marker type="area" src="multi-marker.json">
+               <a-cylinder radius="0.01" height="0.2" color="red" position="0.1 0 0" rotation="0 0 90"></a-cylinder>
+
+<!-- Y-axis: Green -->
+<a-cylinder radius="0.01" height="0.2" color="green" position="0 0.1 0" rotation="90 0 0"></a-cylinder>
+
+<!-- Z-axis: Blue -->
+<a-cylinder radius="0.01" height="0.2" color="blue" position="0 0 0.1"></a-cylinder>
             <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="3" height="0.75" position="0 0 -3" rotation="-90 0 0"
                 material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
             <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="3" height="0.75" position="0 0 -3" rotation="-30 0 0"
