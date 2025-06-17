@@ -84,20 +84,27 @@
             playVideo(video7);
 
             marker.addEventListener('markerFound', () => {
-                const intervalId = setInterval(() => {
-                    const markerRotation = marker.object3D.rotation;
-                    const markerRotationX = markerRotation.x * (180 / Math.PI);
-                    const markerRotationY = markerRotation.y * (180 / Math.PI);
+               const intervalId = setInterval(() => {
+    const markerRotation = marker.object3D.rotation;
+    const markerRotationX = markerRotation.x * (180 / Math.PI);
+    const markerRotationY = markerRotation.y * (180 / Math.PI);
 
-                    // Calculate distance between the camera and the marker
-                    const markerPosition = marker.object3D.position;
-                    const cameraPosition = camera.object3D.position;
+    const markerPosition = marker.object3D.position;
+    const cameraPosition = camera.object3D.position;
+    const distance = markerPosition.distanceTo(cameraPosition);
 
-                    const distance = markerPosition.distanceTo(cameraPosition);
-                    console.log(`Distance to Marker: ${distance.toFixed(2)} meters`);
+    console.log(`Distance to Marker: ${distance.toFixed(2)} meters`);
+    console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
 
-                    // Your existing logic for controlling video opacity and visibility
-                    console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
+    // 🔍 Log which sub-patterns are visible
+    const arSystem = document.querySelector('a-scene').systems["arjs-system"];
+    const subMarkers = arSystem._arMultiMarker.controls.subMarkers;
+    subMarkers.forEach((subMarker, index) => {
+        if (subMarker.visible) {
+            console.log(`Pattern ${index} is visible`);
+        }
+    });
+                   
 
                     // Logic for Videos in first plane (1,4,2)
                     if (markerRotationX > 80 && markerRotationY > -20 && markerRotationY < 20) {
