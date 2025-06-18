@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR.js Video on Hiro Marker</title>
-    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-    <script src="ar.js.02.07.js"></script>
-      <script>
-      // link to the learner url - 
-      ARjs.AnchorDebugUI.MarkersAreaLearnerURL = "learner.html"
-      // UNCOMMENT TO SEE THE LOCALSTORAGE FILE DATA
-       console.log(localStorage.getItem('ARjsMultiMarkerFile'))
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>AR.js Video on Hiro Marker</title>
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+  <script src="ar.js.02.07.js"></script>
+  <script>
+    ARjs.AnchorDebugUI.MarkersAreaLearnerURL = "learner.html";
+    console.log(localStorage.getItem('ARjsMultiMarkerFile'));
+  </script>
   <style>
     body {
       margin: 0;
       overflow: hidden;
     }
+
     #rotationControl {
       position: absolute;
       top: 20px;
@@ -28,8 +27,6 @@
       position: absolute;
       z-index: 10;
       display: flex;
-      flex-direction: column;
-      gap: 20px;
       font-size: 48px;
       cursor: pointer;
       user-select: none;
@@ -38,18 +35,35 @@
     .up-down {
       top: 20%;
       right: 20px;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .left-right {
       bottom: 20px;
       left: 20px;
       flex-direction: row;
+      gap: 20px;
     }
 
     .arrow {
       padding: 20px;
       background: rgba(255, 255, 255, 0.7);
       border-radius: 12px;
+    }
+
+    #imageLabel {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      z-index: 10;
+      font-family: sans-serif;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -77,31 +91,34 @@
 
     <a-entity camera></a-entity>
   </a-scene>
-      <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-        <script src="https://button.glitch.me/button.js"></script>
 
-  <input type="range" id="rotationControl" min="-180" max="180" step="1" value="0"/>
+  <div id="imageLabel">Image 1</div>
+  <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+  <script src="https://button.glitch.me/button.js"></script>
 
-  <!-- Arrow Controls for Image 1 & 2 (Top Right ↑ ↓) -->
+  <input type="range" id="rotationControl" min="-180" max="180" step="1" value="0" />
+
+  <!-- Arrow Controls for Image 1 & 2 -->
   <div class="arrow-controls up-down">
     <div class="arrow" onclick="showImage(1)">↑</div>
     <div class="arrow" onclick="showImage(2)">↓</div>
   </div>
 
-  <!-- Arrow Controls for Images 3–7 (Bottom Left ← →) -->
+  <!-- Arrow Controls for Images 3–7 -->
   <div class="arrow-controls left-right">
     <div class="arrow" onclick="prevImage()">←</div>
     <div class="arrow" onclick="nextImage()">→</div>
   </div>
 
   <script>
-    let currentIndex = 3; // Start with image 3 for left-right controls
+    let currentIndex = 3;
 
     function showImage(index) {
       for (let i = 1; i <= 7; i++) {
         const image = document.getElementById(`markerImage${i}`);
         image.setAttribute('visible', i === index);
       }
+      document.getElementById('imageLabel').innerText = `Image ${index}`;
     }
 
     function nextImage() {
@@ -116,13 +133,13 @@
       showImage(currentIndex);
     }
 
-    // Add event listener to the rotation control slider
     const rotationControl = document.getElementById('rotationControl');
     rotationControl.addEventListener('input', (event) => {
       const rotationAngle = event.target.value;
-      const activeImage = document.querySelector('.a-image[visible=true]');
-      if (activeImage) {
-        activeImage.setAttribute('rotation', `${rotationAngle} 0 0`);
+      const visibleImage = Array.from(document.querySelectorAll('a-image')).find(img => img.getAttribute('visible'));
+      if (visibleImage) {
+        const existingRot = visibleImage.getAttribute('rotation');
+        visibleImage.setAttribute('rotation', `${rotationAngle} ${existingRot.y} ${existingRot.z}`);
       }
     });
   </script>
