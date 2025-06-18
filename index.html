@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title>AR.js Images with Arrows and Rotation Control</title>
+  <title>Mobile AR Image Viewer</title>
   <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <style>
@@ -61,50 +61,57 @@
     </a-assets>
 
     <a-marker type="pattern" url="pattern-dlr_logo2jpg.patt" changeMatrixMode="modelViewMatrix">
-      <a-image id="markerImage1" src="#image1" width="5" height="3" position="1 -1 -1.5" rotation="-90 0 -90" opacity="0.8" visible="true"></a-image>
-      <a-image id="markerImage2" src="#image2" width="5" height="3" position="1 -1 -1.5" rotation="-90 0 -90" opacity="0.8" visible="false"></a-image>
-      <a-image id="markerImage3" src="#image3" width="5" height="5" position="1.8 -3 0" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage4" src="#image4" width="5" height="5" position="1.6 -3 0" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage5" src="#image5" width="5" height="5" position="1.4 -3 0" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage6" src="#image6" width="5" height="5" position="1.2 -3 0" rotation="0 90 0" visible="false"></a-image>
-      <a-image id="markerImage7" src="#image7" width="5" height="5" position="1 -3 0" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="mainImage"
+               src="#image1"
+               width="2"
+               height="1.5"
+               position="0 -1 0"
+               rotation="0 0 0"
+               opacity="0.95"
+               visible="true"></a-image>
     </a-marker>
 
     <a-entity camera></a-entity>
   </a-scene>
 
-  <!-- Rotation Slider -->
-  <input type="range" id="rotationControl" min="-180" max="180" step="1" value="0"/>
+  <!-- Rotation Control Slider -->
+  <input type="range" id="rotationControl" min="-180" max="180" step="1" value="0" />
 
-  <!-- Arrow Controls for Image 1 & 2 (Top Right ↑ ↓) -->
+  <!-- Arrow Controls (Top Right ↑ ↓ for Image 1 and 2) -->
   <div class="arrow-controls up-down">
     <div class="arrow" onclick="showImage(1)">↑</div>
     <div class="arrow" onclick="showImage(2)">↓</div>
   </div>
 
-  <!-- Arrow Controls for Images 3–7 (Bottom Left ← →) -->
+  <!-- Arrow Controls (Bottom Left ← → for Images 3–7) -->
   <div class="arrow-controls left-right">
     <div class="arrow" onclick="prevImage()">←</div>
     <div class="arrow" onclick="nextImage()">→</div>
   </div>
 
   <script>
-    let currentIndex = 3; // Start with image 3 for left-right controls
-    let currentRotation = 0; // Track current rotation angle
+    let currentIndex = 3;
+    let currentRotation = 0;
+
+    const imageMap = {
+      1: "#image1",
+      2: "#image2",
+      3: "#image3",
+      4: "#image4",
+      5: "#image5",
+      6: "#image6",
+      7: "#image7"
+    };
 
     function showImage(index) {
-      for (let i = 1; i <= 7; i++) {
-        const image = document.getElementById(`markerImage${i}`);
-        const isVisible = (i === index);
-        image.setAttribute('visible', isVisible);
-        if (isVisible) {
-          image.setAttribute('rotation', {
-            x: currentRotation,
-            y: 0,
-            z: 0
-          });
-        }
-      }
+      currentIndex = index;
+      const mainImage = document.getElementById('mainImage');
+      mainImage.setAttribute('src', imageMap[index]);
+      mainImage.setAttribute('rotation', {
+        x: currentRotation,
+        y: 0,
+        z: 0
+      });
     }
 
     function nextImage() {
@@ -119,18 +126,15 @@
       showImage(currentIndex);
     }
 
-    // Handle rotation control
     const rotationControl = document.getElementById('rotationControl');
     rotationControl.addEventListener('input', (event) => {
       currentRotation = parseFloat(event.target.value);
-      const activeImage = document.querySelector('.a-image[visible="true"]');
-      if (activeImage) {
-        activeImage.setAttribute('rotation', {
-          x: currentRotation,
-          y: 0,
-          z: 0
-        });
-      }
+      const mainImage = document.getElementById('mainImage');
+      mainImage.setAttribute('rotation', {
+        x: currentRotation,
+        y: 0,
+        z: 0
+      });
     });
   </script>
 </body>
