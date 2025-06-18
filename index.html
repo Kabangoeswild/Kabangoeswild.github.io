@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title>AR.js Images with Arrows</title>
-   <script src="aframe.js"></script>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>AR.js Images with Arrows and Rotation Control</title>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <style>
     body {
@@ -12,11 +12,11 @@
       overflow: hidden;
     }
     #rotationControl {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 10;
-        }
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+    }
 
     .arrow-controls {
       position: absolute;
@@ -59,19 +59,21 @@
       <img id="image7" src="Section5New.png" crossorigin="anonymous" />
     </a-assets>
 
-    <a-marker type : 'pattern', patternUrl : 'pattern-dlr_logo2jpg.patt',hangeMatrixMode: 'modelViewMatrix',>
-      <a-image id="markerImage1" src="#image1" width="5" height="3" position="1 -1 -1.5" 	 rotation="-90 0 -90  opacity=0.8 visible="true"></a-image>
-      <a-image id="markerImage2" src="#image2" width="5" height="3" position="1 -1 -1.5"    rotation="-90 0 -90" opacity=0.8 visible="false"></a-image>
-      <a-image id="markerImage3" src="#image3" width="5" height="5"    position="1.8 -3 0"    rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage4" src="#image4" width="5" height="5"    position="1.6 -3 0"  rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage5" src="#image5" width="5" height="5"    position="1.4 -3 0"    rotation="0 90 0""  visible="false"></a-image>
-      <a-image id="markerImage6" src="#image6" width="5" height="5"    position="1.2 -3 0" rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage7" src="#image7" width="5" height="5"    position="1 -3 0"   rotation="0 90 0"   visible="false"></a-image>
+    <a-marker type="pattern" url="pattern-dlr_logo2jpg.patt" changeMatrixMode="modelViewMatrix">
+      <a-image id="markerImage1" src="#image1" width="5" height="3" position="1 -1 -1.5" rotation="-90 0 -90" opacity="0.8" visible="true"></a-image>
+      <a-image id="markerImage2" src="#image2" width="5" height="3" position="1 -1 -1.5" rotation="-90 0 -90" opacity="0.8" visible="false"></a-image>
+      <a-image id="markerImage3" src="#image3" width="5" height="5" position="1.8 -3 0" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage4" src="#image4" width="5" height="5" position="1.6 -3 0" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage5" src="#image5" width="5" height="5" position="1.4 -3 0" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage6" src="#image6" width="5" height="5" position="1.2 -3 0" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage7" src="#image7" width="5" height="5" position="1 -3 0" rotation="0 90 0" visible="false"></a-image>
     </a-marker>
 
     <a-entity camera></a-entity>
   </a-scene>
-<input type="range" id="rotationControl" min="-180" max="180" step="1" value="0"/>
+
+  <input type="range" id="rotationControl" min="-180" max="180" step="1" value="0"/>
+
   <!-- Arrow Controls for Image 1 & 2 (Top Right ↑ ↓) -->
   <div class="arrow-controls up-down">
     <div class="arrow" onclick="showImage(1)">↑</div>
@@ -105,6 +107,16 @@
       if (currentIndex < 3) currentIndex = 7;
       showImage(currentIndex);
     }
+
+    // Add event listener to the rotation control slider
+    const rotationControl = document.getElementById('rotationControl');
+    rotationControl.addEventListener('input', (event) => {
+      const rotationAngle = event.target.value;
+      const activeImage = document.querySelector('.a-image[visible=true]');
+      if (activeImage) {
+        activeImage.setAttribute('rotation', `${rotationAngle} 0 0`);
+      }
+    });
   </script>
 </body>
 </html>
