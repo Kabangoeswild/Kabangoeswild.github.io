@@ -11,6 +11,12 @@
       margin: 0;
       overflow: hidden;
     }
+    #rotationControl {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
 
     .arrow-controls {
       position: absolute;
@@ -65,7 +71,7 @@
 
     <a-entity camera></a-entity>
   </a-scene>
-
+<input type="range" id="rotationControl" min="-180" max="180" step="1" value="0"/>
   <!-- Arrow Controls for Image 1 & 2 (Top Right ↑ ↓) -->
   <div class="arrow-controls up-down">
     <div class="arrow" onclick="showImage(1)">↑</div>
