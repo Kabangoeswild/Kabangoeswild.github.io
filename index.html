@@ -11,6 +11,7 @@
       margin: 0;
       overflow: hidden;
     }
+
     #rotationControl {
       position: absolute;
       top: 20px;
@@ -72,6 +73,7 @@
     <a-entity camera></a-entity>
   </a-scene>
 
+  <!-- Rotation Slider -->
   <input type="range" id="rotationControl" min="-180" max="180" step="1" value="0"/>
 
   <!-- Arrow Controls for Image 1 & 2 (Top Right ↑ ↓) -->
@@ -88,11 +90,20 @@
 
   <script>
     let currentIndex = 3; // Start with image 3 for left-right controls
+    let currentRotation = 0; // Track current rotation angle
 
     function showImage(index) {
       for (let i = 1; i <= 7; i++) {
         const image = document.getElementById(`markerImage${i}`);
-        image.setAttribute('visible', i === index);
+        const isVisible = (i === index);
+        image.setAttribute('visible', isVisible);
+        if (isVisible) {
+          image.setAttribute('rotation', {
+            x: currentRotation,
+            y: 0,
+            z: 0
+          });
+        }
       }
     }
 
@@ -108,13 +119,17 @@
       showImage(currentIndex);
     }
 
-    // Add event listener to the rotation control slider
+    // Handle rotation control
     const rotationControl = document.getElementById('rotationControl');
     rotationControl.addEventListener('input', (event) => {
-      const rotationAngle = event.target.value;
-      const activeImage = document.querySelector('.a-image[visible=true]');
+      currentRotation = parseFloat(event.target.value);
+      const activeImage = document.querySelector('.a-image[visible="true"]');
       if (activeImage) {
-        activeImage.setAttribute('rotation', `${rotationAngle} 0 0`);
+        activeImage.setAttribute('rotation', {
+          x: currentRotation,
+          y: 0,
+          z: 0
+        });
       }
     });
   </script>
