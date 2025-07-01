@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title>Show off</title>
-   <script src="aframe.js"></script>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>AR Marker Image Switcher</title>
+  <script src="aframe.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <style>
     body {
@@ -16,7 +16,6 @@
       position: absolute;
       z-index: 10;
       display: flex;
-      flex-direction: column;
       gap: 20px;
       font-size: 48px;
       cursor: pointer;
@@ -26,6 +25,7 @@
     .up-down {
       top: 20%;
       right: 20px;
+      flex-direction: column;
     }
 
     .left-right {
@@ -53,51 +53,63 @@
       <img id="image7" src="Section5New.png" crossorigin="anonymous" />
     </a-assets>
 
-    <a-marker type : 'pattern', patternUrl : 'pattern-dlr_logo2jpg.patt',changeMatrixMode: 'modelViewMatrix',>
-      <a-image id="markerImage1" src="#image1" width="5" height="3" position="0 -1 -1.5" 	 rotation="-90 0 90"   visible="true"></a-image>
-      <a-image id="markerImage2" src="#image2" width="5" height="3" position="0 -1 -1.5"    rotation="-90 0 90"  visible="false"></a-image>
-      <a-image id="markerImage3" src="#image3" width="5" height="5"    position="1.8 -1 -1.5"    rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage4" src="#image4" width="5" height="5"    position="1.6 -1 -1.5"  rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage5" src="#image5" width="5" height="5"    position="1.4 -1 -1.5"    rotation="0 90 0"  visible="false"></a-image>
-      <a-image id="markerImage6" src="#image6" width="5" height="5"    position="1.2 -1 -1.5" rotation="0 90 0"   visible="false"></a-image>
-      <a-image id="markerImage7" src="#image7" width="5" height="5"    position="1 -1 -1.5"   rotation="0 90 0"   visible="false"></a-image>
+    <a-marker type="pattern" patternUrl="pattern-dlr_logo2jpg.patt" changeMatrixMode="modelViewMatrix">
+      <!-- Bildgruppe 1 & 2 -->
+      <a-image id="markerImage1" src="#image1" width="5" height="3" position="0 -1 -1.5" rotation="-90 0 90" visible="true"></a-image>
+      <a-image id="markerImage2" src="#image2" width="5" height="3" position="0 -1 -1.5" rotation="-90 0 90" visible="false"></a-image>
+
+      <!-- Bildgruppe 3–7 -->
+      <a-image id="markerImage3" src="#image3" width="5" height="5" position="1.8 -1 -1.5" rotation="0 90 0" visible="true"></a-image>
+      <a-image id="markerImage4" src="#image4" width="5" height="5" position="1.6 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage5" src="#image5" width="5" height="5" position="1.4 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage6" src="#image6" width="5" height="5" position="1.2 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
+      <a-image id="markerImage7" src="#image7" width="5" height="5" position="1 -1 -1.5" rotation="0 90 0" visible="false"></a-image>
     </a-marker>
 
     <a-entity camera></a-entity>
   </a-scene>
 
-  <!-- Arrow Controls for Image 1 & 2 (Top Right ↑ ↓) -->
+  <!-- Steuerung für Bild 1 & 2 (oben rechts ↑ ↓) -->
   <div class="arrow-controls up-down">
-    <div class="arrow" onclick="showImage(1)">↑</div>
-    <div class="arrow" onclick="showImage(2)">↓</div>
+    <div class="arrow" onclick="showMainImage(1)">↑</div>
+    <div class="arrow" onclick="showMainImage(2)">↓</div>
   </div>
 
-  <!-- Arrow Controls for Images 3–7 (Bottom Left ← →) -->
+  <!-- Steuerung für Bilder 3–7 (unten links ← →) -->
   <div class="arrow-controls left-right">
-    <div class="arrow" onclick="prevImage()">←</div>
-    <div class="arrow" onclick="nextImage()">→</div>
+    <div class="arrow" onclick="prevSectionImage()">←</div>
+    <div class="arrow" onclick="nextSectionImage()">→</div>
   </div>
 
   <script>
-    let currentIndex = 3; // Start with image 3 for left-right controls
+    let currentSectionIndex = 3; // Startbild der unteren Gruppe
 
-    function showImage(index) {
-      for (let i = 1; i <= 7; i++) {
+    function showMainImage(index) {
+      console.log("Hauptbild anzeigen: Bild " + index);
+      for (let i = 1; i <= 2; i++) {
         const image = document.getElementById(`markerImage${i}`);
         image.setAttribute('visible', i === index);
       }
     }
 
-    function nextImage() {
-      currentIndex++;
-      if (currentIndex > 7) currentIndex = 3;
-      showImage(currentIndex);
+    function showSectionImage(index) {
+      console.log("Sektion anzeigen: Bild " + index);
+      for (let i = 3; i <= 7; i++) {
+        const image = document.getElementById(`markerImage${i}`);
+        image.setAttribute('visible', i === index);
+      }
     }
 
-    function prevImage() {
-      currentIndex--;
-      if (currentIndex < 3) currentIndex = 7;
-      showImage(currentIndex);
+    function nextSectionImage() {
+      currentSectionIndex++;
+      if (currentSectionIndex > 7) currentSectionIndex = 3;
+      showSectionImage(currentSectionIndex);
+    }
+
+    function prevSectionImage() {
+      currentSectionIndex--;
+      if (currentSectionIndex < 3) currentSectionIndex = 7;
+      showSectionImage(currentSectionIndex);
     }
   </script>
 </body>
