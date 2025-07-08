@@ -98,11 +98,7 @@
         const isVisible = (i === index);
         image.setAttribute('visible', isVisible);
         if (isVisible) {
-          image.setAttribute('rotation', {
-            x: currentRotation,
-            y: 0,
-            z: 0
-          });
+          image.setAttribute('rotation', `${currentRotation} 0 0`);
         }
       }
     }
@@ -125,11 +121,7 @@
       currentRotation = parseFloat(event.target.value);
       const activeImage = document.querySelector('.a-image[visible="true"]');
       if (activeImage) {
-        activeImage.setAttribute('rotation', {
-          x: currentRotation,
-          y: 0,
-          z: 0
-        });
+        activeImage.setAttribute('rotation', `${currentRotation} 0 0`);
       }
     });
   </script>
