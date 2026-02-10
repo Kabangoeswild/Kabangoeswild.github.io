@@ -1,268 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR.js Video on Hiro Marker</title>
-    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-    <script src="ar.js.02.07.js"></script>
-      <script>
-      // link to the learner url - 
-      ARjs.AnchorDebugUI.MarkersAreaLearnerURL = "learner.html"
-      // UNCOMMENT TO SEE THE LOCALSTORAGE FILE DATA
-       console.log(localStorage.getItem('ARjsMultiMarkerFile'))
-    </script>
-</head>
-<body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam; trackingMethod: best;' renderer="alpha: true">
-        <a-assets>
-            <video id="video1" src="xz-notencoded_DSQzQjVL.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video2" src="xz-rot-x-30-deg_Dqejoe8d.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video3" src="yz-x_rukE9moh.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video4" src="xz-rot-x-60-deg_LP2UAxuj.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video5" src="yz-x-035_bQDTO1Mq.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video6" src="yz-x0,35_ttixT4aA.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-            <video id="video7" src="xz-rot-z-30-deg_VQ1Otf3Z.mp4" crossorigin="anonymous" preload="auto" loop muted playsinline></video>
-        </a-assets>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="author"      content="Styliani" />
+        <meta name="description" content="Entdecke die überraschenden Vorteile von Unkraut - von Gesundheit über Umweltschutz bis hin zur Förderung der Artenvielfalt. Erfahre hier, warum Unkraut mehr ist als nur ein lästiges Grün!“" />
+        <meta name="keywords"    content="Unkraut, Nutzen" />
+        <title>JUNgKRAUT </title>
+        <link rel="stylesheet" href="CSS/style.CSS" />
+        <script type="text/javascript" src="javaScript.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js "></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body id="Startseite"> 
+        <div class="alles">
+            <header class="Seitenkopf">
+                <div id="logo">
+                    <img src="Images/Logo_WCAG.png" alt="Logo von JungKRAUT - Back to the Roots" />
+                </div>
 
-        <a-marker type="area">
-            <a-video id="markerVideo1" autoplay loop="true" src="#video1" width="3" height="0.75" position="0 -1 -1.5" rotation="-90 0 0"
-                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
-            <a-video id="markerVideo2" autoplay loop="true" src="#video2" width="3" height="0.75" position="0 -1 -1.5" rotation="-30 0 0"
-                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
-            <a-video id="markerVideo3" autoplay loop="true" src="#video3" width="3" height="0.75" position="0 -1 -1.5" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8;" visible="true"></a-video>
-            <a-video id="markerVideo4" autoplay loop="true" src="#video4" width="3" height="0.75" position="0 -1 -1.5" rotation="-60 0 0"
-                material="transparent: true;  depthTest: false; blending: normal;" visible="true"></a-video>
-            <a-video id="markerVideo5" autoplay loop="true" src="#video5" width="3" height="0.75" position="-0.5 -1 -1.5" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
-            <a-video id="markerVideo6" autoplay loop="true" src="#video6" width="3" height="0.75" position="0.5 -1 -1.5" rotation="0 90 0"
-                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
-            <a-video id="markerVideo7" autoplay loop="true" src="#video7" width="3" height="0.75" position="0 -1 -1.5" rotation="0 30 0"
-                material="transparent: true; opacity: 0.8;  depthTest: false; blending: normal;" visible="true"></a-video>
-        </a-marker>
-
-        <a-entity camera></a-entity>
-    </a-scene>
-        <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-        <script src="https://button.glitch.me/button.js"></script>
-    <script>
-        window.addEventListener('load', () => {
-            const marker = document.querySelector('a-marker');
-            const camera = document.querySelector('[camera]'); // Get the camera entity
-
-            const video1 = document.getElementById('video1');
-            const video2 = document.getElementById('video2');
-            const video3 = document.getElementById('video3');
-            const video4 = document.getElementById('video4');
-            const video5 = document.getElementById('video5');
-            const video6 = document.getElementById('video6');
-            const video7 = document.getElementById('video7');
-
-            const markerVideo1 = document.getElementById('markerVideo1');
-            const markerVideo2 = document.getElementById('markerVideo2');
-            const markerVideo3 = document.getElementById('markerVideo3');
-            const markerVideo4 = document.getElementById('markerVideo4');
-            const markerVideo5 = document.getElementById('markerVideo5');
-            const markerVideo6 = document.getElementById('markerVideo6');
-            const markerVideo7 = document.getElementById('markerVideo7');
-
-            function playVideo(video) {
-                if (video.readyState >= 3) {
-                    video.play();
-                } else {
-                    video.addEventListener('canplay', () => video.play(), { once: true });
+                <nav class="mainnav">
+                    <ul>
+                        <li><a class="linktoStella" href="HTML/Unkraut_als_Medizin.html">Medizin</a></li><!--
+                        --><li><a class="linktoEli" href="HTML/Perspektivwechsel.html">Perspektivwechsel</a></li><!--
+                        --><li><a class="linktoElisa" href="HTML/Alltagswunder.html">Alltagswunder</a></li><!--
+                        --><li><a class="linktoFridah" href="HTML/Weltblick.html">Weltblick</a></li><!--
+                        --><li><a class="linktoSarah" href="HTML/Umweltnutzen.html">Umweltnutzen</a></li>
+                    </ul>
+                </nav>
+            <h1>Reiß dich zusammen! </br> Reiß es nicht raus!</h1>
+            </header>
+            <article>
+                <h2>Ist Unkraut wirklich nur das, wofür du es hältst?</h2>
+                <p>Unser Blog jUNgKRAUT packt deine Vorurteile an der Wurzel und zeigt dir, dass hinter dem,
+                    was uns stört, oft mehr steckt als du denkst.
+                    Wir bieten dir die Möglichkeit, mit uns unter die Oberfläche zu schauen. </br>
+                    Egal, ob du dich nur informieren willst oder das Thema noch mal ganz neu denken möchtest –
+                    hier bist du richtig! </br>
+                    Du willst dein Wachstum boosten? Klicke dich durch unsere vielseitigen Themen und kontaktiere uns gerne bei Fragen oder Anmerkungen über das 
+                    <a href="HTML/kontakt.html">Kontaktformular</a>.
+                   
+                </p> 
+                <div id="Blumen">
+                     <img src="Images/Blumen.png" alt="Illustrierte Blumen mit Bienen" />
+                </div>    
+                
+            </article>
+           
+            <footer>
+                <ul>
+                    <li><a class="linktoImpressum" href="HTML/impressum.html"> Impressum</a></li>
+                    <li><a class ="linktoDatenschutzerklärung" href="HTML/Datenschutzerklärung.html"> Datenschutzerklärung</a></li>
+                    <li><a class="linktoKontaktformular" href="HTML/kontakt.html" > Kontaktformular</a></li>
+                </ul>
+            </footer>
+        
+        <div id="cookies" >
+            <p>Cookies</p>
+            <input type="checkbox" value="technisch notwendig" id="notwendig"/> Technisch notwendig <br/>
+            <input type="checkbox" value="nutzerfreundlich" id="zusatz"/> Nutzerfreundlichkeit <br/>
+        </div>
+        
+        <script>
+        jQuery( "#cookies" ).dialog(
+        {
+         modal: true,
+         dialogClass: "no-close no-title",
+         draggable: false,
+         buttons: 
+         [{
+                id: "button",
+                text: "Akzeptieren",
+                icon: "ui-icon-heart",
+                click: function() 
+                {
+                    jQuery( this ).dialog( "close" ); 
                 }
-            }
+         }]
+        }); 
+        </script> 
+        <script>
+            document.getElementById("button").addEventListener("click",cookies, false);
+            window.addEventListener("load", prüfung, false);
+        </script>
 
-            playVideo(video1);
-            playVideo(video2);
-            playVideo(video3);
-            playVideo(video4);
-            playVideo(video5);
-            playVideo(video6);
-            playVideo(video7);
+        </div>
 
-            marker.addEventListener('markerFound', () => {
-                const intervalId = setInterval(() => {
-                    const markerRotation = marker.object3D.rotation;
-                    const markerRotationX = markerRotation.x * 180 / Math.PI;
-                    const markerRotationY = markerRotation.y * 180 / Math.PI;
-
-                    // Calculate distance between the camera and the marker
-                    const markerPosition = marker.object3D.position;
-                    const cameraPosition = camera.object3D.position;
-
-                    const distance = markerPosition.distanceTo(cameraPosition);
-                    console.log(`Distance to Marker: ${distance.toFixed(2)} meters`);
-
-                    // Your existing logic for controlling video opacity and visibility
-                    console.log(`Marker Rotation X: ${markerRotationX.toFixed(2)}, Y: ${markerRotationY.toFixed(2)}`);
-
-                    // Logic for Videos in first plane (1,4,2)
-                    if (markerRotationX > 80 && markerRotationY > -20 && markerRotationY < 20) {
-                        markerVideo1.setAttribute('material', 'opacity', 0.8);
-                        markerVideo1.setAttribute('visible', 'true');
-                        markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo4.setAttribute('visible', 'false');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 80 && markerRotationX > 70 && markerRotationY > -20 && markerRotationY < 20) {
-                        let opacity1 = 0.8 * (markerRotationX - 70) / 10;
-                        let opacity4 = 0.8 * (80 - markerRotationX) /10;
-                        markerVideo1.setAttribute('visible', 'true');
-                        markerVideo4.setAttribute('visible', 'true');
-                        markerVideo1.setAttribute('material', 'opacity', opacity1);
-                        markerVideo4.setAttribute('material', 'opacity', opacity4);
-                        markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 70 && markerRotationX > 50 && markerRotationY > -20 && markerRotationY < 20) {
-                        markerVideo4.setAttribute('material', 'opacity', 0.8);
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo4.setAttribute('visible', 'true');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 50 && markerRotationX > 40 && markerRotationY > -20 && markerRotationY < 20) {
-                        let opacity4 = 0.8 * (markerRotationX - 40) / 10;
-                        let opacity2 = 0.8 * (50 - markerRotationX) /10;
-                        markerVideo2.setAttribute('material', 'opacity', opacity2);
-                        markerVideo4.setAttribute('material', 'opacity', opacity4);
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'true');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo4.setAttribute('visible', 'true');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 40 && markerRotationY > -20 && markerRotationY < 20) {
-                        markerVideo2.setAttribute('material', 'opacity', 0.8);
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'true');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo4.setAttribute('visible', 'false');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'false');
-                    } else if (markerRotationX <= 40 && markerRotationY > -20 && markerRotationY < 20) {
-                        markerVideo2.setAttribute('material', 'opacity', 0.8);
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'true');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo4.setAttribute('visible', 'false');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'false');
-                    
-                    } else if (markerRotationY < 40 && markerRotationY >=20 || markerRotationY > -40 && markerRotationY <=-20) {
-                        markerVideo1.setAttribute('visible', 'false');
-                        markerVideo2.setAttribute('visible', 'false');
-                        markerVideo3.setAttribute('visible', 'false');
-                        markerVideo4.setAttribute('visible', 'false');
-                        markerVideo5.setAttribute('visible', 'false');
-                        markerVideo6.setAttribute('visible', 'false');
-                        markerVideo7.setAttribute('visible', 'true');
-                        markerVideo7.setAttribute('material', 'opacity', 0.8);
-                    
-                     } else if (markerRotationY >= 40) {
-                    let opacity3 = 0.2;
-                    let opacity5 = 0.2;
-                    let opacity6 = 0.2;
-
-                // Video 3 logic (opacity fades between 0.4 and 0.8 as the distance approaches 2.5 meters)
-                if (distance > 2.5 && distance <= 3) {
-                opacity3 = 0.8 - ((distance - 2.5) * 0.8); // Opacity is 0.8 at distance 2.5, lower as distance increases
-                } else if (distance <= 2.5) {
-                    opacity3 = 0.8; // Opacity is 0.8 if distance is less than or equal to 2.5
-                }
-
-                // Video 5 logic (opacity fades between 0.4 and 0.8 as the distance approaches 2 meters)
-                if (distance < 2.5) {
-                    opacity6 = 0.2 + (Math.min(2.5 - distance, 1) * 0.6); // Max opacity 0.8 at distance <= 2, fades down till 2.5
-                 }
-
-                // Video 6 logic (opacity fades between 0.4 and 0.8 as the distance exceeds 3 meters)
-                if (distance > 3) {
-                opacity5 = 0.2 + ((distance - 3) * 0.8); // Max opacity 0.8 for distance > 3
-                }
-
-            
-
-    // Limit opacity to the range 0.2 - 0.8
-    opacity3 = Math.min(Math.max(opacity3, 0.2), 0.8);
-    opacity5 = Math.min(Math.max(opacity5, 0.2), 0.8);
-    opacity6 = Math.min(Math.max(opacity6, 0.2), 0.8);
-
-    // Set visibility and opacity for the videos
-    markerVideo1.setAttribute('visible', 'false');
-    markerVideo2.setAttribute('visible', 'false');
-    markerVideo3.setAttribute('visible', 'true');
-    markerVideo3.setAttribute('material', 'opacity', opacity3);
-    markerVideo4.setAttribute('visible', 'false');
-    markerVideo5.setAttribute('visible', 'true');
-    markerVideo5.setAttribute('material', 'opacity', opacity5);
-    markerVideo6.setAttribute('visible', 'true');
-    markerVideo6.setAttribute('material', 'opacity', opacity6);
-    markerVideo7.setAttribute('visible', 'false')
-
-    console.log(`Opacity - Video 3: ${opacity3}, Video 5: ${opacity5}, Video 6: ${opacity6}`);
-
-} else if (markerRotationY <= -40){
-                    let opacity3 = 0.2;
-                    let opacity5 = 0.2;
-                    let opacity6 = 0.2;
-
-                // Video 3 logic (opacity fades between 0.4 and 0.8 as the distance approaches 2.5 meters)
-                if (distance > 2.5 && distance <= 3) {
-                opacity3 = 0.8 - ((distance - 2.5) * 0.8); // Opacity is 0.8 at distance 2.5, lower as distance increases
-                } else if (distance <= 2.5) {
-                    opacity3 = 0.8; // Opacity is 0.8 if distance is less than or equal to 2.5
-                }
-
-                // Video 5 logic (opacity fades between 0.4 and 0.8 as the distance approaches 2 meters)
-                if (distance < 2.5) {
-                    opacity5 = 0.2 + (Math.min(2.5 - distance, 1) * 0.6); // Max opacity 0.8 at distance <= 2, fades down till 2.5
-                 }
-
-                // Video 6 logic (opacity fades between 0.4 and 0.8 as the distance exceeds 3 meters)
-                if (distance > 3) {
-                opacity6 = 0.2 + ((distance - 3) * 0.8); // Max opacity 0.8 for distance > 3
-                }
-  // Limit opacity to the range 0.2 - 0.8
-    opacity3 = Math.min(Math.max(opacity3, 0.2), 0.8);
-    opacity5 = Math.min(Math.max(opacity5, 0.2), 0.8);
-    opacity6 = Math.min(Math.max(opacity6, 0.2), 0.8);
-
-    // Set visibility and opacity for the videos
-    markerVideo1.setAttribute('visible', 'false');
-    markerVideo2.setAttribute('visible', 'false');
-    markerVideo3.setAttribute('visible', 'true');
-    markerVideo3.setAttribute('material', 'opacity', opacity3);
-    markerVideo4.setAttribute('visible', 'false');
-    markerVideo5.setAttribute('visible', 'true');
-    markerVideo5.setAttribute('material', 'opacity', opacity5);
-    markerVideo6.setAttribute('visible', 'true');
-    markerVideo6.setAttribute('material', 'opacity', opacity6);
-    markerVideo7.setAttribute('visible', 'false')
-
-    console.log(`Opacity - Video 3: ${opacity3}, Video 5: ${opacity5}, Video 6: ${opacity6}`);
-
-            }
-
-                }, 100);
-
-                marker.addEventListener('markerLost', () => {
-                    clearInterval(intervalId);
-                }, { once: true });
-            });
-        });
-    </script>
-</body>
+    </body>
 </html>

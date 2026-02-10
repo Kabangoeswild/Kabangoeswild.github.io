@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>JUNgKRAUT - Kontakt</title>
+        <link rel="stylesheet" href="../CSS/style.CSS" />
+        <script type="text/javascript" src="../javaScript.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js "></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body id="Kontakt">
+        <div class="alles">
+            <header class="Seitenkopf">                
+            
+                <a href="../index.html">
+                    <div id="logo">
+                        <img src="../Images/Logo_WCAG.png" alt="Logo von JungKRAUT - Back to the Roots" />
+                    </div>
+                </a>
+
+                <nav class="mainnav">
+                    <ul>
+                        <li><a class="linktoStella" href="Unkraut_als_Medizin.html">Medizin</a></li><!--
+                        --><li><a class="linktoEli" href="Perspektivwechsel.html">Perspektivwechsel</a></li><!--
+                        --><li><a class="linktoElisa" href="Alltagswunder.html">Alltagswunder</a></li><!--
+                        --><li><a class="linktoFridah" href="Weltblick.html">Weltblick</a></li><!--
+                        --><li><a class="linktoSarah" href="Umweltnutzen.html">Umweltnutzen</a></li>
+                    </ul>
+                </nav>  
+                <h1>Kontakt</h1>
+            </header>
+
+            <article>
+            
+                <form name="kontakt" action="mailto:sv064@hdm-stuttgart.de" method="post" enctype="text/plain" accept-charset="utf-8" onsubmit="return formcheck()">
+                
+                    <fieldset>
+                        <legend>Angaben zur Person</legend> 
+                        <label for="Anrede">Anrede:*</label>
+                        <select name="Anrede" size="1" id="Anrede"required="required">
+                            <option>Frau</option>
+                            <option>Herr</option>
+                            <option>Keine Angabe</option>
+                        </select> </br></br>
+                        
+                        <label style="margin-right: 12px;"for="Vorname" id="label_Vorname">Vorname:*</label>
+                        <input type="text" id="Vorname" name="Vorname" size="25" maxlength="30" ></br></br>
+
+                        <label for="Nachname">Nachname:*</label>
+                        <input type="text" id="Nachname" name="Nachname" size="25" maxlength="30"></br></br>
+
+                        <label style="margin-right: 22px;"for="Email">E-Mail:*</label>
+                        <input type="email" id="Email" name="Email" size="25"></br></br>
+
+                        <label for="Land">Land:</label>
+                        <input type="Land" id="Land" name="Land" list="Land_list">
+                            <datalist id="Land_list">
+                                    <option>Albanien</option>
+                                    <option>Andorra</option>
+                                    <option>Armenien</option>
+                                    <option>Aserbaidschan</option>
+                                    <option>Österreich</option>
+                                    <option>Belarus</option>
+                                    <option>Belgien</option>
+                                    <option>Bosnien und Herzegowina</option>
+                                    <option>Bulgarien</option>
+                                    <option>Dänemark</option>
+                                    <option>Deutschland</option>
+                                    <option>Estland</option>
+                                    <option>Finnland</option>
+                                    <option>Frankreich</option>
+                                    <option>Georgien</option>
+                                    <option>Griechenland</option>
+                                    <option>Irland</option>
+                                    <option>Island</option>
+                                    <option>Italien</option>
+                                    <option>Kasachstan</option>
+                                    <option>Kosovo</option>
+                                    <option>Kroatien</option>
+                                    <option>Lettland</option>
+                                    <option>Liechtenstein</option>
+                                    <option>Litauen</option>
+                                    <option>Luxemburg</option>
+                                    <option>Malta</option>
+                                    <option>Moldawien</option>
+                                    <option>Monaco</option>
+                                    <option>Montenegro</option>
+                                    <option>Niederlande</option>
+                                    <option>Nordmazedonien</option>
+                                    <option>Norwegen</option>
+                                    <option>Polen</option>
+                                    <option>Portugal</option>
+                                    <option>Rumänien</option>
+                                    <option>Russland</option>
+                                    <option>San Marino</option>
+                                    <option>Schweden</option>
+                                    <option>Schweiz</option>
+                                    <option>Serbien</option>
+                                    <option>Slowakei</option>
+                                    <option>Slowenien</option>
+                                    <option>Spanien</option>
+                                    <option>Tschechien</option>
+                                    <option>Türkei</option>
+                                    <option>Ukraine</option>
+                                    <option>Ungarn</option>
+                                    <option>Vereinigtes Königreich</option>
+                                    <option>Vatikanstadt</option>
+                                    <option>Zypern</option>
+                                
+                            </datalist></br></br>
+                    </fieldset> </br></br>
+                    
+                    <fieldset>
+                        <legend>Nachricht</legend>
+                            <label for="Thema">Thema:*</label>
+                            <select name="Thema" size="1" id="Thema" >
+                                <option>Kontaktaufnahme</option>
+                                <option>Feedback</option>
+                                <option>Beschwerde</optino>
+                                <option>Sonstiges</option>
+                            </select> </br></br>
+                        
+                        <label for="Nachricht" style="vertical-align: top;">Nachricht:*</label>
+                        <textarea name="Nachricht" id="Nachricht" rows="10" cols="40"></textarea>
+                    </fieldset></br></br>
+
+                    <label for="Bewertung">Bewertung</label></br>
+                    <input type="radio" name="Bewertung" value="★★★★★"checked="checked">★★★★★ </br>
+                    <input type="radio" name="Bewertung" value="★★★★">★★★★ </br>
+                    <input type="radio" name="Bewertung" value="★★★">★★★ </br>
+                    <input type="radio" name="Bewertung" value="★★">★★ </br>
+                    <input type="radio" name="Bewertung" value="★" >★</br></br>
+                    
+                    <input type="submit" value="Versenden" id="Versenden" class="Ende"/>
+                    <input type="reset" value="Zurücksetzen" id="Zurücksetzen" class="Ende"/>
+                </form></br></br>
+
+                
+
+                 <div id="Blumen">
+                     <img src="../Images/Blumen.png" alt="Illustrierte Blumen mit Bienen" />
+                </div>   
+
+            </article>
+            <footer>
+                <ul>
+                    <li><a class="linktoImpressum" href="impressum.html"> Impressum</a></li>
+                    <li><a class ="linktoDatenschutzerklärung" href="Datenschutzerklärung.html"> Datenschutzerklärung</a></li>
+                    <li><a class="linktoKontaktformular" href="#">Kontaktformular</a></li>
+                </ul>
+            </footer>
+            <div id="abbruch">
+                <p>Du bist dabei diese Seite zu verlassen, somit gehen deine eingegebenen Daten verloren.</p>
+            </div>
+            <script>
+                jQuery("#abbruch").dialog(
+                {
+                autoOpen: false,
+                modal: true,
+                dialogClass: "no-title",
+                draggable: false,
+                buttons: 
+                [{      id: "trotzdem verlassen",
+                        text: "trotzdem verlassen",
+                        icon: "ui-icon-heart",
+                        click: function() 
+                        {
+                            jQuery( this ).dialog( "close" ); 
+                        }
+                },
+                {
+                    id: "bleiben",
+                    text: "doch lieber bleiben",
+                    icon:"ui-icon-heart",
+                    click: function()
+                        {
+                            jQuery(this).dialog("close");
+                        }    
+                }]
+                }); 
+            </script>
+            <script>
+                document.body.addEventListener("beforeunload", abbruch, false);
+            </script>
+        </div>
+    </body>
+</html>
